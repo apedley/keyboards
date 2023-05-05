@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "src/qmk/keyboards"
+		},
+		{
+			"path": "src/qmk/users"
+		},
+		{
+			"path": "keychron-qmk/keyboards/keychron"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"secrets.h": "c",
+			"compare": "c",
+			"apedley.h": "c",
+			"select_word.h": "c",
+			"leader.h": "c"
+		}
+	}
+}

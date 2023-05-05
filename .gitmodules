@@ -1,0 +1,4 @@
+[submodule "keychron-qmk"]
+	path = keychron-qmk
+	url = https://github.com/Keychron/qmk_firmware
+	branch = bluetooth_playground
