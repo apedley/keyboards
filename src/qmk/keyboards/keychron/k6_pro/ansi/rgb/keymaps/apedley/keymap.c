@@ -27,9 +27,10 @@ enum layers{
   FN2
 };
 
-enum customs {
-    BRACES_TWO = NEWER_SAFE_RANGE
-};
+// enum customs {
+//     SOME_MACRO = NEWER_SAFE_RANGE,
+//     // Others...
+// };
 
 /*
 
@@ -79,21 +80,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [WIN_FN1] = LAYOUT_ansi_68(
      KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,  KC_DEL,  KC_TRNS,
      KC_MAKE,  UPDIR, KC_UP,   SELWORD,   SELLINE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  DM_RSTP,  DM_REC1,  DM_PLY1,  DM_REC2,  DM_PLY2,  M_XXX2,  KC_END,
-     RGB_TOG,  KC_LEFT, KC_DOWN, KC_RGHT, BRACES,  KC_TRNS,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN1,  KC_BTN2,  KC_TRNS,            KC_PGDN,
+     RGB_TOG,  KC_LEFT, KC_DOWN, KC_RGHT, BRACES,  BRACES_TWO,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN1,  KC_BTN2,  KC_TRNS,            KC_PGDN,
      KC_TRNS,  KC_VOLD, KC_VOLU,  KC_MUTE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_WH_D,  KC_WH_U,  KC_INSERT,  KC_DELETE,  KC_TRNS,  KC_TRNS,  KC_TRNS,
      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
 
-#ifdef MIDI_ADVANCED
-
-[FN2] = LAYOUT_ansi_68(
-     QK_BOOT,  BT_HST1,    BT_HST2,    BT_HST3,    BAT_LVL,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    RGB_HUD,    RGB_HUI ,   RGB_VAD,   RGB_VAI,  RGB_TOG,  RGB_MOD,
-     KC_TRNS,  KC_TRNS,  MI_Cs1,  MI_Ds1,  KC_TRNS,      MI_Fs1,     MI_Gs1,     MI_As1,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  RGB_RMOD,
-     KC_TRNS,  MI_C1,     MI_D1,     MI_E1,     MI_F1,    MI_G1,     MI_A1,  MI_B1,  MI_C2,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  RGB_SPI,
-     KC_TRNS,  MI_OCTD,  MI_OCTU,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_VOLU,  RGB_SPD,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_MPRV,  KC_VOLD,  KC_MNXT),
-
-
-#else
 
 
 [FN2] = LAYOUT_ansi_68(
@@ -103,6 +93,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_CAPS,  M_XXX1,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_VOLU,  KC_TRNS,
      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_MPRV,  KC_VOLD,  KC_MNXT),
 
-#endif
-
 };
+
+
+// bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+//     const uint8_t mods         = get_mods();
+//     const uint8_t oneshot_mods = get_oneshot_mods();
+
+//     switch (keycode) {
+//         case SOME_MACRO:
+//             if (record->event.pressed) {
+//                 clear_oneshot_mods(); // Temporarily disable mods.
+//                 unregister_mods(MOD_MASK_CSAG);
+
+//                 // DO THING HERE
+
+//                 set_mods(mods);
+//             }
+//             return false;
+//     }
+//     return true;
+// }
