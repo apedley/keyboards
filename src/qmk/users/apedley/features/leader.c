@@ -2,10 +2,13 @@
 
 #include "leader.h"
 #include "apedley.h"
+#include "print.h"
 leader_t leader = {.isLeading = false, .timedOut = false};
 
 void leader_start_user() {
     leader.isLeading = true;
+    leader.timedOut = false;
+    leader.success = false;
 }
 
 void leader_end_user() {
@@ -14,6 +17,7 @@ void leader_end_user() {
 }
 
 void process_leader_dictionary(void) {
+
     if (leader_sequence_two_keys(KC_BSPC, KC_BSPC)) {
         /*  Backward delete current word (on cursor) */
         SEND_STRING(SS_LCTL(SS_TAP(X_RGHT)) SS_LCTL(SS_LSFT(SS_TAP(X_LEFT))) SS_TAP(X_BSPC));
@@ -42,17 +46,21 @@ void process_leader_dictionary(void) {
     } else if (leader_sequence_two_keys(KC_G, KC_C)) {
         // Leader, g, c => git commit
         SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
-    // } else if (leader_sequence_one_key(KC_PGUP)) {
-    //     // Leader, pgup => home
-    //     // SEND_STRING(SS_TAP(X_HOME));     MAC
-    //     SEND_STRING(SS_LCTL(SS_TAP(X_HOME)));
-    // } else if (leader_sequence_one_key(KC_PGDN)) {
-    //     // Leader, pgdn => end
-    //     SEND_STRING(SS_LCTL(SS_TAP(X_END))); // SEND_STRING(SS_TAP(X_END));   MAC
-    } else if(leader_sequence_timed_out()) {
+    } else if (leader_sequence_two_keys(KC_S, KC_S)) {
+        // Leader, s, s => sudo systemctl
+        SEND_STRING("sudo systemctl ");
+    } else if (leader_sequence_two_keys(KC_D, KC_C)) {
+        // Leader, d, c => docker compose
+        SEND_STRING("docker compose ");
+    } else if (process_leader_dictionary_secret() && leader_sequence_timed_out()) {
         leader.timedOut = true;
         leader.timedOutTimer = timer_read();
+        return;
     }
 
-    process_leader_dictionary_secret();
+    leader.success = true;
+    leader.successTimer = timer_read();
+
+
+
 }

@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include "apedley.h"
+#include "print.h"
 
 // clang-format off
 enum layers{
@@ -49,6 +50,8 @@ enum customs {
 |___||___||___||_______________________||__||__||__||__||__||__|
 
 */
+
+
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -103,100 +106,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 };
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
-    return true;
-}
-
-
-
-// enum combos {
-//     JK_TAB,
-//     QW_SFT,
-//     SD_LAYER,
-//     EM_EMAIL,
-//     BSPC_LSFT_CLEAR,
-//     COMBO_ONEPW,
-//     COMBO_LENGTH,
-// };
-
-// uint16_t COMBO_LEN = COMBO_LENGTH;
-
-// const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-// const uint16_t PROGMEM qw_combo[] = {KC_Q, KC_W, COMBO_END};
-// const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
-// const uint16_t PROGMEM email_combo[] = {KC_E, KC_M, COMBO_END};
-// const uint16_t PROGMEM clear_line_combo[] = {KC_BSPC, KC_LSFT, COMBO_END};
-// const uint16_t PROGMEM one_password_combo[] = {KC_1, KC_P, KC_W, COMBO_END};
-
-// combo_t key_combos[] = {
-//   [JK_TAB] = COMBO(jk_combo, KC_TAB),
-//   [QW_SFT] = COMBO(qw_combo, KC_LSFT),
-//   [SD_LAYER] = COMBO(sd_combo, MO(FN2)),
-//   [EM_EMAIL] = COMBO_ACTION(email_combo),
-//   [BSPC_LSFT_CLEAR] = COMBO_ACTION(clear_line_combo),
-//   [COMBO_ONEPW] = COMBO(one_password_combo, ONEPWD),
-// };
-
-// void process_combo_event(uint16_t combo_index, bool pressed) {
-//   switch(combo_index) {
-//     case EM_EMAIL:
-//       if (pressed) {
-//         SEND_STRING("apedley@gmail.com");
-//       }
-//       break;
-//     case BSPC_LSFT_CLEAR:
-//       if (pressed) {
-//         tap_code16(KC_END);
-//         tap_code16(S(KC_HOME));
-//         tap_code16(KC_BSPC);
-//       }
-//       break;
-//   }
-// }
-extern leader_t leader;
-uint16_t leaderTimeoutWarningTimerMax = 500;
-
-extern dynamic_macro_t dynamic_macro;
-
-
-void dynamic_macro_record_start_user(void) {
-    dynamic_macro.recording = true;
-}
-
-void dynamic_macro_record_end_user(int8_t direction) {
-    dynamic_macro.recording = false;
-}
-
-
-bool isCapsWord = false;
-
-void caps_word_set_user(bool active) {
-    isCapsWord = active;
-}
-
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-
-    if (leader.isLeading) {
-        for (uint8_t i = led_min; i < led_max; i++) {
-            rgb_matrix_set_color(i, RGB_BLUE);
-        }
-    } else if (leader.timedOut) {
-        if (timer_elapsed(leader.timedOutTimer) < leaderTimeoutWarningTimerMax) {
-            for (uint8_t i = led_min; i < led_max; i++) {
-                rgb_matrix_set_color(i, RGB_RED);
-            }
-        } else {
-            leader.timedOut = false;
-        }
-    } else if (dynamic_macro.recording) {
-        for (uint8_t i = led_min; i < led_max; i++) {
-            rgb_matrix_set_color(i, RGB_RED);
-        }
-    } else if (isCapsWord) {
-        for (uint8_t i = led_min; i < led_max; i++) {
-            rgb_matrix_set_color(i, RGB_YELLOW);
-        }
-    }
-    return false;
-}

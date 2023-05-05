@@ -15,6 +15,13 @@ bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void dynamic_macro_record_start_user(void) {
+    dynamic_macro.recording = true;
+}
+
+void dynamic_macro_record_end_user(int8_t direction) {
+    dynamic_macro.recording = false;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #ifdef CONSOLE_ENABLE

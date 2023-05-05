@@ -16,7 +16,9 @@
 			"compare": "c",
 			"apedley.h": "c",
 			"select_word.h": "c",
-			"leader.h": "c"
+			"leader.h": "c",
+			"cstdint": "c",
+			"rgb.h": "c"
 		}
 	}
 }

@@ -1,4 +1,5 @@
 SRC += apedley.c
+SRC += rgb.c
 SRC += features/select_word.c
 SRC += features/leader.c
 
