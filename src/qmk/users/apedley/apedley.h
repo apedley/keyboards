@@ -6,7 +6,11 @@
 #include "features/leader.h"
 
 enum user_custom_keycodes {
+#ifdef NEW_SAFE_RANGE
   KC_MAKE = NEW_SAFE_RANGE,
+#else
+  KC_MAKE = SAFE_RANGE,
+#endif
   SELWORD,
   SELLINE,
   UPDIR,

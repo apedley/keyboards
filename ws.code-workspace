@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "keychron-qmk/keyboards/keychron"
+		},
+		{
+			"path": "qmk_mk47/keyboards/inland"
 		}
 	],
 	"settings": {
