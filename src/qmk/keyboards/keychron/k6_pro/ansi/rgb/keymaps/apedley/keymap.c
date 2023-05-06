@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include "apedley.h"
+#include "qmk_rc.h"
 #include "print.h"
 #include "raw_hid.h"
 
@@ -113,14 +114,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //         chnWrite(&drivers.raw_driver.driver, buffer, RAW_EPSIZE);
 //     }
 // }
-void raw_hid_receive(uint8_t *data, uint8_t length) {
-    dprintf("Recieved RAWHID DATA\n");
-    for (int i = 0; i < length; i++) {
-        dprintf("%.2x", data[i]);
-    }
-    uprintf("\n");
-    raw_hid_send(data, length);
-}
 
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
@@ -134,3 +127,21 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+// void raw_hid_receive(uint8_t *data, uint8_t length) {
+//     dprintf("Recieved RAWHID DATA\n");
+//     for (int i = 0; i < length; i++) {
+//         dprintf("%.2x", data[i]);
+//     }
+//     uprintf("\n");
+//     raw_hid_send(data, length);
+// }
+
+#ifdef RAW_ENABLE
+#define QMK_RC_BUFFER_MAX 64
+uint8_t qmk_rc_buffer[QMK_RC_BUFFER_MAX] = {};
+
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+  qmk_rc_receive(qmk_rc_buffer, QMK_RC_BUFFER_MAX, data, length);
+}
+#endif

@@ -7,9 +7,8 @@
 #define LEADER_ALERT_TIMER_MAX 500
 
 extern leader_t leader;
-
-
 extern dynamic_macro_t dynamic_macro;
+extern my_rgb_range_t my_rgb_range;
 
 __attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     return true;
@@ -52,6 +51,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (is_caps_word_on()) {
         for (uint8_t i = led_min; i < led_max; i++) {
             rgb_matrix_set_color(i, RGB_YELLOW);
+        }
+        return false;
+    }
+
+    if (my_rgb_range.is_set) {
+        for (int i = my_rgb_range.led_min; i <= my_rgb_range.led_max; i++) {
+            rgb_matrix_set_color(i, my_rgb_range.red, my_rgb_range.green, my_rgb_range.blue);
         }
         return false;
     }

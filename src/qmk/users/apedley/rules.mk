@@ -1,4 +1,5 @@
 SRC += apedley.c
+SRC += qmk_rc.c
 SRC += rgb.c
 SRC += features/select_word.c
 SRC += features/leader.c
@@ -17,5 +18,5 @@ DYNAMIC_MACRO_ENABLE = yes
 LEADER_ENABLE = yes
 COMBO_ENABLE = no
 CAPS_WORD_ENABLE = yes
-
+RAW_ENABLE = yes
 CONSOLE_ENABLE = yes

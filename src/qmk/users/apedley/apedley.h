@@ -4,6 +4,7 @@
 #include "action.h"
 #include "version.h"
 #include "features/leader.h"
+#include "qmk_rc.h"
 
 enum user_custom_keycodes {
 #ifdef NEW_SAFE_RANGE
