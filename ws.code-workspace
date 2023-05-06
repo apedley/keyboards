@@ -18,7 +18,11 @@
 			"select_word.h": "c",
 			"leader.h": "c",
 			"cstdint": "c",
-			"rgb.h": "c"
+			"rgb.h": "c",
+			"string_view": "c",
+			"array": "c",
+			"string": "c",
+			"span": "c"
 		}
 	}
 }

@@ -17,6 +17,8 @@
 #include QMK_KEYBOARD_H
 #include "apedley.h"
 #include "print.h"
+#include "raw_hid.h"
+
 
 // clang-format off
 enum layers{
@@ -27,10 +29,10 @@ enum layers{
   FN2
 };
 
-// enum customs {
-//     SOME_MACRO = NEWER_SAFE_RANGE,
-//     // Others...
-// };
+enum customs {
+    SEND_RAW = NEWER_SAFE_RANGE,
+    // Others...
+};
 
 /*
 
@@ -80,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [WIN_FN1] = LAYOUT_ansi_68(
      KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,  KC_DEL,  KC_TRNS,
      KC_MAKE,  UPDIR, KC_UP,   SELWORD,   SELLINE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  DM_RSTP,  DM_REC1,  DM_PLY1,  DM_REC2,  DM_PLY2,  M_XXX2,  KC_END,
-     RGB_TOG,  KC_LEFT, KC_DOWN, KC_RGHT, BRACES,  BRACES_TWO,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN1,  KC_BTN2,  KC_TRNS,            KC_PGDN,
+     RGB_TOG,  KC_LEFT, KC_DOWN, KC_RGHT, BRACES,  KC_TRNS,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN1,  KC_BTN2,  KC_TRNS,            KC_PGDN,
      KC_TRNS,  KC_VOLD, KC_VOLU,  KC_MUTE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_WH_D,  KC_WH_U,  KC_INSERT,  KC_DELETE,  KC_TRNS,  KC_TRNS,  KC_TRNS,
      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
 
@@ -90,27 +92,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      QK_BOOT,  BT_HST1,    BT_HST2,    BT_HST3,    BAT_LVL,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    RGB_SAI,    RGB_HUI ,   RGB_VAI, RGB_SPI,  RGB_TOG,  RGB_MOD,
      KC_MAKE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
      QK_RBT,  KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,  KC_TRNS,
-     KC_CAPS,  M_XXX1,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_VOLU,  KC_TRNS,
+     KC_CAPS,  M_XXX1,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  SEND_RAW,  KC_TRNS,            KC_VOLU,  KC_TRNS,
      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_MPRV,  KC_VOLD,  KC_MNXT),
 
 };
 
 
-// bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-//     const uint8_t mods         = get_mods();
-//     const uint8_t oneshot_mods = get_oneshot_mods();
-
-//     switch (keycode) {
-//         case SOME_MACRO:
-//             if (record->event.pressed) {
-//                 clear_oneshot_mods(); // Temporarily disable mods.
-//                 unregister_mods(MOD_MASK_CSAG);
-
-//                 // DO THING HERE
-
-//                 set_mods(mods);
-//             }
-//             return false;
+// void raw_hid_send(uint8_t *data, size_t length) {
+//     uint8_t buffer[RAW_EPSIZE] = {0};
+//     uint8_t packets = length / RAW_EPSIZE;
+//     uint8_t remaining_packets = length % RAW_EPSIZE;
+//     for (int i = 0; i < packets; i++) {
+//         memcpy(buffer, data + (i * RAW_EPSIZE), RAW_EPSIZE);
+//         chnWrite(&drivers.raw_driver.driver, buffer, RAW_EPSIZE);
 //     }
-//     return true;
+//     if (remaining_packets > 0) {
+//         // Clear the buffer
+//         memset(buffer, '\0', RAW_EPSIZE);
+//         memcpy(buffer, data + (packets * RAW_EPSIZE), remaining_packets);
+//         chnWrite(&drivers.raw_driver.driver, buffer, RAW_EPSIZE);
+//     }
 // }
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    dprintf("Recieved RAWHID DATA\n");
+    for (int i = 0; i < length; i++) {
+        dprintf("%.2x", data[i]);
+    }
+    uprintf("\n");
+    raw_hid_send(data, length);
+}
+
+
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+
+    switch (keycode) {
+        case SEND_RAW:
+            if (record->event.pressed) {
+                dprintf("Debug: %d\n", true);
+            }
+            return false;
+    }
+    return true;
+}
