@@ -54,9 +54,9 @@ enum qmk_rc_commands_quantum {
 
 #define MY_RGB_MATRIX_SETRGB_RANGE 128
 #define MY_RGB_MATRIX_CLEAR 129
+#define MY_RGB_MATRIX_SETRGB_ALL 130
 
 my_rgb_range_t my_rgb_range;
-
 #endif
 
 #ifndef QMK_RC_DISABLE_DEFAULT_COMMANDS
@@ -109,6 +109,15 @@ void qmk_rc_process_command_quantum(qmk_rc_command_t* command) {
         my_rgb_range.led_max = 0;
         my_rgb_range.is_set  = false;
         break;
+    case MY_RGB_MATRIX_SETRGB_ALL:
+        my_rgb_range.red     = command->data[0];
+        my_rgb_range.green   = command->data[1];
+        my_rgb_range.blue    = command->data[2];
+        my_rgb_range.led_min = 1;
+        my_rgb_range.led_max = 0;
+        my_rgb_range.is_set = true;
+        break;
+
 #endif
 
     case LAYER_ON: layer_on(command->data[0]); break;

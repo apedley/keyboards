@@ -16,15 +16,11 @@ __attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (leader.isLeading) {
-        for (uint8_t i = led_min; i < led_max; i++) {
-            rgb_matrix_set_color(i, RGB_BLUE);
-        }
+        rgb_matrix_set_color_all(RGB_BLUE);
         return false;
     } else if (leader.timedOut) {
         if (timer_elapsed(leader.timedOutTimer) < LEADER_ALERT_TIMER_MAX) {
-            for (uint8_t i = led_min; i < led_max; i++) {
-                rgb_matrix_set_color(i, RGB_RED);
-            }
+            rgb_matrix_set_color_all(RGB_RED);
             return false;
         } else {
             leader.timedOut = false;
@@ -32,9 +28,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         return false;
     } else if (leader.success) {
         if (timer_elapsed(leader.successTimer) < LEADER_ALERT_TIMER_MAX) {
-            for (uint8_t i = led_min; i < led_max; i++) {
-                rgb_matrix_set_color(i, RGB_GREEN);
-            }
+            rgb_matrix_set_color_all(RGB_GREEN);
             return false;
         } else {
             leader.success = false;
@@ -42,25 +36,44 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
 
     if (dynamic_macro.recording) {
-        for (uint8_t i = led_min; i < led_max; i++) {
-            rgb_matrix_set_color(i, RGB_RED);
-        }
+        rgb_matrix_set_color_all(RGB_RED);
         return false;
     }
 
     if (is_caps_word_on()) {
-        for (uint8_t i = led_min; i < led_max; i++) {
-            rgb_matrix_set_color(i, RGB_YELLOW);
-        }
+        rgb_matrix_set_color_all(RGB_YELLOW);
         return false;
     }
 
+    #ifdef RGB_MATRIX_LAYER_INDICATORS
+    if (get_highest_layer(layer_state) > 0) {
+        uint8_t layer = get_highest_layer(layer_state);
+
+        for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+            for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+                uint8_t index = g_led_config.matrix_co[row][col];
+
+                if (index >= led_min && index < led_max && index != NO_LED &&
+                keymap_key_to_keycode(layer, (keypos_t){col,row}) > KC_TRNS) {
+                    rgb_matrix_set_color(index, 192, 0, 255);
+                }
+            }
+        }
+        return false;
+    }
+    #endif
+
     if (my_rgb_range.is_set) {
+        if (my_rgb_range.led_min > my_rgb_range.led_max) {
+            rgb_matrix_set_color_all(my_rgb_range.red, my_rgb_range.green, my_rgb_range.blue);
+            return false;
+        }
         for (int i = my_rgb_range.led_min; i <= my_rgb_range.led_max; i++) {
             rgb_matrix_set_color(i, my_rgb_range.red, my_rgb_range.green, my_rgb_range.blue);
         }
         return false;
     }
+
     return rgb_matrix_indicators_advanced_keymap(led_min, led_max);
 }
 

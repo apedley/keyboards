@@ -48,4 +48,5 @@ typedef struct {
   bool is_set;
 } my_rgb_range_t;
 
+
 void qmk_rc_receive(uint8_t *buffer, uint16_t max_buffer_length, uint8_t* data, uint8_t data_length);
