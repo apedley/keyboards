@@ -3,17 +3,35 @@
 
 ## Compile and Flash
 
-```
+***TODO: Add scripts for this***
+
+### Keychron K6 Pro
+```sh
+cd keychron-qmk
 qmk compile -kb keychron/k6_pro/ansi/rgb -km apedley
-qmk flash keychron-qmk/keychron_k6_pro_ansi_rgb_apedley.bin
+qmk flash keychron_k6_pro_ansi_rgb_apedley.bin
 ```
 
 All at once:
 
 ```bash
+cd keychron-qmk
 qmk flash -kb keychron/k6_pro/ansi/rgb -km apedley
 ```
 
+### Inland MK47
+
+```sh
+cd qmk_master
+qmk compile -kb inland/mk47 -km apedley
+qmk flash keychron-qmk/inland_mk47_apedley.bin
+```
+All at once:
+
+```bash
+cd qmk_master
+qmk flash -kb inland/mk47 -km apedley
+```
 
 ## Structure
 
@@ -24,11 +42,3 @@ ln -s ../../../../../../../src/qmk/keyboards/keychron/k6_pro/ansi/rgb/keymaps/ap
 ln -s ../../src/qmk/users/apedley ./keychron-qmk/users/apedley
 ```
 
-### Keychron K6 Pro
-
-in `keychron-qmk` (branch bluetooth-playground)
-
-```bash
-qmk compile -kb keychron/k6_pro/ansi/rgb -km apedley
-qmk flash keychron_k6_pro_ansi_rgb_apedley.bin
-```
