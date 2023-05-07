@@ -7,4 +7,3 @@
 	path = qmk_mk47
 	url = https://github.com/jonylee1986/qmk_firmware_master
 	branch = hfdkb
-    ignore = dirty
