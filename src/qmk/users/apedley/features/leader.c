@@ -5,6 +5,11 @@
 #include "print.h"
 leader_t leader = {.isLeading = false, .timedOut = false};
 
+__attribute__((weak))
+bool process_leader_dictionary_secret() {
+    return true;
+}
+
 void leader_start_user() {
     leader.isLeading = true;
     leader.timedOut = false;

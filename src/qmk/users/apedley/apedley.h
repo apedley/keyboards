@@ -4,6 +4,7 @@
 #include "action.h"
 #include "version.h"
 #include "features/leader.h"
+#include "secrets.h"
 #include "qmk_rc.h"
 
 enum user_custom_keycodes {
@@ -25,7 +26,3 @@ enum user_custom_keycodes {
 typedef struct {
     bool recording;
 } dynamic_macro_t;
-
-bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
-bool process_leader_dictionary_secret(void);
