@@ -22,15 +22,15 @@ qmk flash -kb keychron/k6_pro/ansi/rgb -km apedley
 ### Inland MK47
 
 ```sh
-cd qmk_master
+cd qmk_mk47
 qmk compile -kb inland/mk47 -km apedley
-qmk flash keychron-qmk/inland_mk47_apedley.bin
+qmk flash qmk_mk47/inland_mk47_apedley.bin
 ```
 All at once:
 
 ```bash
-cd qmk_master
-qmk flash -kb inland/mk47 -km apedley
+cd qmk_mk47
+qmk flash -kb qmk_mk47/mk47 -km apedley
 ```
 
 ## Structure
