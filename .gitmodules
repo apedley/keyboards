@@ -2,7 +2,9 @@
 	path = keychron-qmk
 	url = https://github.com/Keychron/qmk_firmware
 	branch = bluetooth_playground
+    ignore = dirty
 [submodule "qmk_mk47"]
 	path = qmk_mk47
 	url = https://github.com/jonylee1986/qmk_firmware_master
 	branch = hfdkb
+    ignore = dirty
