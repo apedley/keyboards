@@ -27,7 +27,10 @@
 			"string": "c",
 			"span": "c",
 			"qmk_rc.h": "c",
-			"types.h": "c"
+			"types.h": "c",
+			"random": "c",
+			"chrono": "c",
+			"variant": "c"
 		}
 	}
 }

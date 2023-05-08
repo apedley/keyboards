@@ -3,13 +3,13 @@
 #include "rgb.h"
 #include "apedley.h"
 #include "print.h"
+#include "lib/lib8tion/lib8tion.h"
 
 #define LEADER_ALERT_TIMER_MAX 500
 
 extern leader_t leader;
 extern dynamic_macro_t dynamic_macro;
 extern my_rgb_range_t my_rgb_range;
-
 __attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     return true;
 }
@@ -85,3 +85,51 @@ __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) {
 bool rgb_matrix_indicators_user(void) {
     return rgb_matrix_indicators_keymap();
 }
+// void rgb_matrix_layer_helper(uint8_t r, uint8_t g, uint8_t b, uint8_t led_type, uint8_t led_min, uint8_t led_max) {
+//     // for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+//     //     // if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+//     //         RGB_MATRIX_INDICATOR_SET_COLOR(i, r, b, g);
+//     //     // }
+//     // }
+//     uint8_t layer = get_highest_layer(currentLayerState);
+//     for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+//         for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+//             uint8_t index = g_led_config.matrix_co[row][col];
+
+//             if (index >= led_min && index < led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col, row}) > KC_TRNS) {
+//                 rgb_matrix_set_color(index, r, g, b);
+//             }
+//         }
+//     }
+// }
+// void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type, uint8_t led_min, uint8_t led_max) {
+//     HSV hsv = {hue, sat, val};
+//     if (hsv.v > rgb_matrix_get_val()) {
+//         hsv.v = rgb_matrix_get_val();
+//     }
+
+//     switch (mode) {
+//         case 1: // breathing
+//         {
+//             uint16_t time = scale16by8(g_rgb_timer, speed / 8);
+//             hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+//             RGB rgb       = hsv_to_rgb(hsv);
+//             for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+//                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+//                     RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
+//                 }
+//             }
+//             break;
+//         }
+//         default: // Solid Color
+//         {
+//             RGB rgb = hsv_to_rgb(hsv);
+//             for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+//                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+//                     RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
+//                 }
+//             }
+//             break;
+//         }
+//     }
+// }

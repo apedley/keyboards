@@ -5,6 +5,7 @@
 #include "version.h"
 #include "features/leader.h"
 #include "secrets.h"
+#include "rgb.h"
 #include "qmk_rc.h"
 
 enum user_custom_keycodes {
