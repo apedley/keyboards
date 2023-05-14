@@ -51,12 +51,15 @@ void process_leader_dictionary(void) {
     } else if (leader_sequence_two_keys(KC_G, KC_C)) {
         // Leader, g, c => git commit
         SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
-    } else if (leader_sequence_two_keys(KC_S, KC_S)) {
-        // Leader, s, s => sudo systemctl
+    } else if (leader_sequence_one_key(KC_S)) {
+        // Leader, s => sudo systemctl
         SEND_STRING("sudo systemctl ");
     } else if (leader_sequence_two_keys(KC_D, KC_C)) {
         // Leader, d, c => docker compose
         SEND_STRING("docker compose ");
+    } else if (leader_sequence_two_keys(KC_Q, KC_H)) {
+        // Leader, q, h => export QMK_HOME=`pwd`
+        SEND_STRING("export QMK_HOME=`pwd`");
     } else if (process_leader_dictionary_secret() && leader_sequence_timed_out()) {
         leader.timedOut = true;
         leader.timedOutTimer = timer_read();

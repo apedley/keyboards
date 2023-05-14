@@ -21,17 +21,18 @@
 #include "raw_hid.h"
 
 enum mk47_layers { _BASE, _LOWER, _RAISE, _ADJUST };
-enum mk47_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  PLOVER,
-  BACKLIT,
-  EXT_PLV
-};
-#define LOWER LT(_LOWER, KC_TAB)
-#define RAISE LT(_RAISE, KC_ENT)
-
+// enum mk47_keycodes {
+//   QWERTY = SAFE_RANGE,
+//   COLEMAK,
+//   DVORAK,
+//   PLOVER,
+//   BACKLIT,
+//   EXT_PLV
+// };
+// #define LOWER LT(_LOWER, KC_TAB)
+// #define RAISE LT(_RAISE, KC_ENT)
+#define LOWER TT(_LOWER)
+#define RAISE TT(_RAISE)
 
 	// 	KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
 	// 	KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_ENT,
@@ -74,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /* Lower
     * ,-----------------------------------------------------------------------------------.
-    * |   ~  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Del  |
+    * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Del  |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
     * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   {  |   }  |  |   |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -84,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_LOWER] = LAYOUT( /* LOWER */
-		KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_DEL,
+		KC_GRV, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_DEL,
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS,    KC_EQL,     KC_LCBR, KC_RCBR, KC_PIPE,
         _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_UNDS,    KC_PLUS,    KC_HOME, KC_END,  _______,
         _______, _______, _______, _______, _______,      _______,     _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY
@@ -92,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Raise
     * ,-----------------------------------------------------------------------------------.
-    * |   `  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
+    * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
     * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   [  |   ]  |  \   |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -102,29 +103,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_RAISE] = LAYOUT( /* RAISE */
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-        KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS,
-        _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_MS_BTN1, KC_PGUP, KC_PGDN, KC_MS_BTN2,
-        _______, _______, _______, _______, _______,      _______,     _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R
+        KC_TILD,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+        KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LBRC, KC_RBRC, KC_BSLS,
+        _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_MS_BTN1, KC_MS_BTN2, KC_PGUP, KC_PGDN, _______,
+        _______, _______, _______, _______, _______,      _______,     _______,    KC_MS_L,    KC_MS_D, KC_MS_U, KC_MS_R
     ),
 
 
     /* Adjust (Lower + Raise)
     *                      v------------------------RGB CONTROL--------------------v
     * ,-----------------------------------------------------------------------------------.
-    * |      | Reset|Debug | RGB  |RGBMOD| HUE+ | HUE- | SAT+ | SAT- |BRGTH+|BRGTH-| SEC1 |
+    * |      | Reset|      | RGB  |RGBMOD| RGBSp| Hue  | Mac1R| Mac1P| Mac2R| Mac2P| SEC1 |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      | Make |      |      |      |             | Mac1R| Mac1P| Mac2R| Mac2P| SEC2 |
+    * |      | Make |      | SAT  | HUE  | SpdD | ValD |      |      |      |      | SEC2 |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |             |      |      |      |      | SEC3 |
+    * |      |      |      |      |      |      |      |      |      |      |      | SEC3 |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
     * |      |      |      |      |      |             |      |      |      |      |      |
     * `-----------------------------------------------------------------------------------'
     */
     [_ADJUST] = LAYOUT(
-		_______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, M_XXX1,
-        _______, KC_MAKE, _______, _______, _______, _______, _______, _______, _______, _______, _______, M_XXX2,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, M_XXX3,
+		KC_ESC,  QK_BOOT, _______, RGB_TOG, RGB_MOD, RGB_SPI, RGB_VAI, DM_REC1, DM_PLY1, DM_REC2, DM_PLY2, M_XXX1,
+        _______, KC_MAKE, _______, RGB_SAI, RGB_HUI, RGB_SPD, RGB_VAD, _______, _______, _______, _______, M_XXX2,
+        _______, DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, M_XXX3,
         _______, _______, _______, _______, _______,      _______    , _______, _______, _______, _______, _______
     )
 };
@@ -174,13 +175,33 @@ void rgb_matrix_layer_helper(uint8_t r, uint8_t g, uint8_t b, uint8_t led_type, 
 bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     switch (get_highest_layer(layer_state)) {
         case _LOWER:
-            rgb_matrix_layer_helper(RGB_ORANGE, LED_FLAG_MODIFIER, led_min, led_max);
+            // rgb_matrix_layer_helper(RGB_ORANGE, LED_FLAG_MODIFIER, led_min, led_max);
+
+            for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+                uint8_t index = g_led_config.matrix_co[row][0];
+                uint8_t index_last = g_led_config.matrix_co[row][MATRIX_COLS-1];
+                rgb_matrix_set_color(index, RGB_WHITE);
+                rgb_matrix_set_color(index_last, RGB_WHITE);
+            }
             break;
         case _RAISE:
-            rgb_matrix_layer_helper(RGB_PURPLE, LED_FLAG_MODIFIER, led_min, led_max);
+            // rgb_matrix_layer_helper(RGB_PURPLE, LED_FLAG_MODIFIER, led_min, led_max);
+            // uint8_t index = g_led_config.matrix_co[0][1];
+            // uint8_t index_second = g_led_config.matrix_co[0][2];
+
+            // uint8_t index_last = g_led_config.matrix_co[0][MATRIX_COLS-2];
+            // uint8_t index_second_last = g_led_config.matrix_co[0][MATRIX_COLS-3];
+            // rgb_matrix_set_color(index, RGB_WHITE);
+            // rgb_matrix_set_color(index_last, RGB_WHITE);
+            // rgb_matrix_set_color(index_second, RGB_WHITE);
+            // rgb_matrix_set_color(index_second_last, RGB_WHITE);
+            for (uint8_t col = 1; col < MATRIX_COLS-1; ++col) {
+                uint8_t index = g_led_config.matrix_co[0][col];
+                rgb_matrix_set_color(index, RGB_WHITE);
+            }
             break;
         case _ADJUST:
-            rgb_matrix_layer_helper(RGB_TEAL, LED_FLAG_MODIFIER, led_min, led_max);
+            rgb_matrix_layer_helper(RGB_WHITE, LED_FLAG_MODIFIER, led_min, led_max);
             break;
     }
     return true;

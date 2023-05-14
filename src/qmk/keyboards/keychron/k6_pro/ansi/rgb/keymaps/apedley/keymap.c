@@ -56,6 +56,10 @@ enum customs {
 */
 
 
+// enum td_keycodes {
+//   TD_ESC_CAPS
+// };
+
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -98,6 +102,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+// // Tap Dance definitions
+// tap_dance_action_t tap_dance_actions[] = {
+//     // Tap once for Escape, twice for Caps Lock
+//     [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+// };
 
 // void raw_hid_send(uint8_t *data, size_t length) {
 //     uint8_t buffer[RAW_EPSIZE] = {0};
@@ -145,3 +154,8 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
   qmk_rc_receive(qmk_rc_buffer, QMK_RC_BUFFER_MAX, data, length);
 }
 #endif
+bool dip_switch_update_keymap(uint8_t index, bool active) {
+
+    printf("DIP switch %d: %s\n", index, active ? "ON" : "OFF");
+    return true;
+}
