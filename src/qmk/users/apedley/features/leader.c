@@ -14,11 +14,17 @@ void leader_start_user() {
     leader.isLeading = true;
     leader.timedOut = false;
     leader.success = false;
+#ifdef COMBO_ENABLE
+    combo_disable();
+#endif
 }
 
 void leader_end_user() {
     leader.isLeading = false;
     process_leader_dictionary();
+#ifdef COMBO_ENABLE
+    combo_enable();
+#endif
 }
 
 void process_leader_dictionary(void) {

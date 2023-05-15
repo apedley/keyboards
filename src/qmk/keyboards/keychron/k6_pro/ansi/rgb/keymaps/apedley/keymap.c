@@ -130,7 +130,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SEND_RAW:
             if (record->event.pressed) {
-                dprintf("Debug: %d\n", true);
+
+                dprintf("RGB Matrix mode: %d\n", rgb_matrix_get_mode());
+                // rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);
             }
             return false;
     }

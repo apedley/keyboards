@@ -30,7 +30,9 @@
 			"types.h": "c",
 			"random": "c",
 			"chrono": "c",
-			"variant": "c"
+			"variant": "c",
+			"combo.h": "c",
+			"tapdance.h": "c"
 		}
 	}
 }
