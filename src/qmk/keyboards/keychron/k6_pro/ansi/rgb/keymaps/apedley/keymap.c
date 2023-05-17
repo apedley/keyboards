@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// KeymapCEditor: YD68 USKeyboard ANSI 104
+
 #include QMK_KEYBOARD_H
 #include "apedley.h"
 #include "qmk_rc.h"
@@ -27,11 +29,14 @@ enum layers{
   WIN_BASE,
   MAC_FN1,
   WIN_FN1,
-  FN2
+  FN2,
+  NUMPAD,
 };
 
 enum customs {
     SEND_RAW = NEWER_SAFE_RANGE,
+    NUMPAD_OFF,
+    NUMPAD_ON,
     // Others...
 };
 
@@ -94,11 +99,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 [FN2] = LAYOUT_ansi_68(
-     QK_BOOT,  BT_HST1,    BT_HST2,    BT_HST3,    BAT_LVL,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    RGB_SAI,    RGB_HUI ,   RGB_VAI, RGB_SPI,  RGB_TOG,  RGB_MOD,
+     QK_BOOT,  BT_HST1,    BT_HST2,    BT_HST3,    BAT_LVL,    KC_TRNS,    KC_TRNS,    KC_TRNS,    TG(NUMPAD),    RGB_SAI,    RGB_HUI ,   RGB_VAI, RGB_SPI,  RGB_TOG,  RGB_MOD,
      KC_MAKE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
      QK_RBT,  KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,  KC_TRNS,
      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  SEND_RAW,  KC_TRNS,            KC_VOLU,  KC_TRNS,
      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_MPRV,  KC_VOLD,  KC_MNXT),
+
+[NUMPAD] = LAYOUT_ansi_68(
+     KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    TG(NUMPAD),    KC_KP_SLASH,    KC_KP_ASTERISK ,   KC_KP_MINUS, KC_TRNS,  KC_TRNS,  KC_TRNS,
+     KC_TRNS,  KC_TRNS,  KC_TRNS,       KC_TRNS,      KC_TRNS,   KC_TRNS,  KC_TRNS,     KC_TRNS,    KC_KP_7,     KC_KP_8,  KC_KP_9,  KC_KP_PLUS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+     KC_TRNS,  KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,  KC_TRNS,    KC_TRNS,     KC_KP_4,   KC_KP_5,    KC_KP_6,  KC_KP_PLUS,    KC_TRNS,          KC_TRNS,
+     KC_TRNS,  KC_TRNS,  KC_TRNS,       KC_TRNS,        KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_P1,      KC_P2,   KC_P3,  KC_KP_ENTER,       KC_TRNS,    KC_TRNS,
+     KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                           KC_KP_0,        KC_KP_0,  KC_KP_DOT,  KC_TRNS,  KC_TRNS,  KC_TRNS),
 
 };
 
@@ -135,11 +147,37 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 // rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);
             }
             return false;
+
     }
     return true;
 }
+bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
+    if (get_highest_layer(layer_state) == NUMPAD) {
+        uint8_t layer = get_highest_layer(layer_state);
 
-// void raw_hid_receive(uint8_t *data, uint8_t length) {
+        for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+            for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+                uint8_t index = g_led_config.matrix_co[row][col];
+
+                if (index >= led_min && index < led_max && index != NO_LED &&
+                keymap_key_to_keycode(layer, (keypos_t){col,row}) > KC_TRNS) {
+                    rgb_matrix_set_color(index, RGB_WHITE);
+                }
+            }
+        }
+    }
+    return false;
+}
+// bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
+//     switch (get_highest_layer(layer_state)) {
+//         case NUMPAD:
+
+//             rgb_matrix_set_color(0, 0xFF, 0xFF, 0xFF);
+//             break;
+//     }
+//     return true;
+// }
+// // void raw_hid_receive(uint8_t *data, uint8_t length) {
 //     dprintf("Recieved RAWHID DATA\n");
 //     for (int i = 0; i < length; i++) {
 //         dprintf("%.2x", data[i]);

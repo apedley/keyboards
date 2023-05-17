@@ -13,19 +13,28 @@
 
 The leader key is set to the upper right button.
 
+### Delete Text
 
-### OS and Keyboard Macros
-
-| Sequence | Output | Description
+| Sequence | Output | Notes
 | :--- | :--- | :--- |
 | `LDR BKSP` | Backwards delete rest of characters in word on cursor | n/a |
-| `LDR DEL` | Forward delete rest of characters in word on cursor | n/a |
+| `LDR \` | Forward delete rest of characters in word on cursor | n/a |
 | `LDR BKSP BKSP` | Backward Delete whole word on cursor | n/a |
-| `LDR DEL DEL` | Forward Delete whole word on cursor | n/a |
-| `LDR  ESC  ESC  ESC` | \`\`\` ¶ \n \`\`\` | n/a |
-| `LDR ESC` | \` | n/a |
+| `LDR \ \` | Forward Delete whole word on cursor | n/a |
+
+### Text Expansion
+
+| Sequence | Output | Notes
+| :--- | :--- | :--- |
+| `LDR ESC` | `` ` `` | n/a |
+| `LDR  ESC  ESC  ESC` | ```` ``` ¶ \n ``` ```` | n/a |
 | `LDR G A` | `git add . && git commit -m "¶"` | n/a |
 | `LDR G C` | `git commit -m "¶"` | n/a |
+| `LDR S` | `sudo systemctl ¶` | n/a |
+| `LDR D C` | `docker compose ¶` | n/a |
+| `LDR D U` | `docker compose up -d` | n/a |
+| `LDR Q H` | ``export QMK_HOME=`pwd` `` | n/a |
+| `LDR I P` | `10.0.0.¶` | n/a |
 
 ## Caps Word
 

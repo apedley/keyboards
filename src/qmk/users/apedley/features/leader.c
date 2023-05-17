@@ -35,10 +35,10 @@ void process_leader_dictionary(void) {
     } else if (leader_sequence_one_key(KC_BSPC)) {
         /*  Previous word delete */
         SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_LEFT))) SS_TAP(X_BSPC));
-    } else if (leader_sequence_two_keys(KC_DEL, KC_DEL)) {
+    } else if (leader_sequence_two_keys(KC_BSLS, KC_BSLS)) {
         /*  Forward delete current word (on cursor) */
         SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) SS_LCTL(SS_LSFT(SS_TAP(X_RGHT))) SS_TAP(X_DEL));
-    } else if (leader_sequence_one_key(KC_DEL)) {
+    } else if (leader_sequence_one_key(KC_BSLS)) {
         /*  Next word delete */
         SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_RGHT))) SS_TAP(X_DEL));
     } else if (leader_sequence_one_key(KC_LSFT)) {
@@ -63,9 +63,15 @@ void process_leader_dictionary(void) {
     } else if (leader_sequence_two_keys(KC_D, KC_C)) {
         // Leader, d, c => docker compose
         SEND_STRING("docker compose ");
+    } else if (leader_sequence_two_keys(KC_D, KC_U)) {
+        // Leader, d, u => docker compose up -d
+        SEND_STRING("docker compose up -d");
     } else if (leader_sequence_two_keys(KC_Q, KC_H)) {
         // Leader, q, h => export QMK_HOME=`pwd`
         SEND_STRING("export QMK_HOME=`pwd`");
+    } else if (leader_sequence_two_keys(KC_I, KC_P)) {
+        // Leader, i, p => 10.0.0.
+        SEND_STRING("10.0.0.");
     } else if (process_leader_dictionary_secret() && leader_sequence_timed_out()) {
         leader.timedOut = true;
         leader.timedOutTimer = timer_read();
