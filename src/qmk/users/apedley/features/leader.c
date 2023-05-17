@@ -27,8 +27,56 @@ void leader_end_user() {
 #endif
 }
 
+/* (|) */
+void ldrkey_send_paranthesis_wrap_ini(void) {
+    SEND_STRING("()" SS_TAP(X_LEFT));
+}
+
+/* (X) */
+void ldrkey_send_paranthesis_wrap_word(void) {
+    SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) "(" SS_LCTL(SS_TAP(X_RIGHT)) ")");
+}
+
+/* (selection) */
+void ldrkey_send_paranthesis_wrap_selection(void) {
+    SEND_STRING(SS_LCTL(SS_TAP(X_X)) "()" SS_TAP(X_LEFT) SS_LCTL(SS_TAP(X_V)) SS_TAP(X_RIGHT));
+}
+
+/* [|] */
+void ldrkey_send_bracket_wrap_ini(void) {
+    SEND_STRING("[]" SS_TAP(X_LEFT));
+}
+
+/* [X] */
+void ldrkey_send_bracket_wrap_word(void) {
+    SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) "[" SS_LCTL(SS_TAP(X_RIGHT)) "]");
+}
+
+/* [selection] */
+void ldrkey_send_bracket_wrap_selection(void) {
+    SEND_STRING(SS_LCTL(SS_TAP(X_X)) "[]" SS_TAP(X_LEFT) SS_LCTL(SS_TAP(X_V)) SS_TAP(X_RIGHT));
+}
+
+/* {|} */
+void ldrkey_send_curlybrace_wrap_ini(void) {
+    SEND_STRING("{}" SS_TAP(X_LEFT));
+}
+
+/* {X} */
+void ldrkey_send_curlybrace_wrap_word(void) {
+    SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) "{" SS_LCTL(SS_TAP(X_RIGHT)) "}");
+}
+
+/* {selection} */
+void ldrkey_send_curlybrace_wrap_selection(void) {
+    SEND_STRING(SS_LCTL(SS_TAP(X_X)) "{}" SS_TAP(X_LEFT) SS_LCTL(SS_TAP(X_V)) SS_TAP(X_RIGHT));
+}
+
 void process_leader_dictionary(void) {
 
+    /*
+        Delete Text
+    */
     if (leader_sequence_two_keys(KC_BSPC, KC_BSPC)) {
         /*  Backward delete current word (on cursor) */
         SEND_STRING(SS_LCTL(SS_TAP(X_RGHT)) SS_LCTL(SS_LSFT(SS_TAP(X_LEFT))) SS_TAP(X_BSPC));
@@ -41,9 +89,46 @@ void process_leader_dictionary(void) {
     } else if (leader_sequence_one_key(KC_BSLS)) {
         /*  Next word delete */
         SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_RGHT))) SS_TAP(X_DEL));
+    /*
+        Select Text
+    */
+    } else if (leader_sequence_one_key(KC_LEFT) || leader_sequence_one_key(KC_A)) {
+        // Leader, left =>  Select everything on this line before cursor
+        SEND_STRING(SS_LSFT(SS_TAP(X_HOME)));
+    } else if (leader_sequence_two_keys(KC_LEFT, KC_LEFT) || leader_sequence_two_keys(KC_A, KC_A)) {
+        // Leader, left, left =>  Select everything on this line before cursor up to end of previous line
+        SEND_STRING(SS_LSFT(SS_TAP(X_UP) SS_TAP(X_END)));
+    } else if (leader_sequence_one_key(KC_RIGHT) || leader_sequence_one_key(KC_D)) {
+        // Leader, right =>  Select everything on this line after cursor
+        SEND_STRING(SS_LSFT(SS_TAP(X_END)));
+    } else if (leader_sequence_two_keys(KC_RIGHT, KC_LEFT) || leader_sequence_two_keys(KC_D, KC_A)) {
+        // Leader, right, left => Select everything on this line
+        SEND_STRING(SS_TAP(X_END) SS_LSFT(SS_TAP(X_HOME)));
+    } else if (leader_sequence_two_keys(KC_UP, KC_UP) || leader_sequence_two_keys(KC_W, KC_W)) {
+        // Leader, up, up => Select everything on the page before the cursor
+        SEND_STRING(SS_LSFT(SS_LCTL(SS_TAP(X_HOME))));
+    } else if (leader_sequence_two_keys(KC_DOWN, KC_DOWN) || leader_sequence_two_keys(KC_S, KC_S)) {
+        // Leader, down, down => Select everything on the page after the cursor
+        SEND_STRING(SS_LSFT(SS_LCTL(SS_TAP(X_END))));
+    /*
+        Space Cadet Like Macros
+    */
+
+    } else if (leader_sequence_one_key(KC_QUOT)) {
+        // Leader, ' => Will wrap word on cursor between two single quotes
+        SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) "'" SS_LCTL(SS_TAP(X_RIGHT)) "'");
+    } else if (leader_sequence_two_keys(KC_QUOT, KC_QUOT)) {
+        // Leader, ', ' => Will wrap word on cursor between two double quotes
+        SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) "\"" SS_LCTL(SS_TAP(X_RIGHT)) "\"");
+    /*
+        Misc
+    */
     } else if (leader_sequence_one_key(KC_LSFT)) {
         // Leader, shift =>  caps word on
         caps_word_on();
+    /*
+        Text Expansion
+    */
     } else if (leader_sequence_three_keys(QK_GESC, QK_GESC, QK_GESC)) {
         // Leader, esc esc esc => code block
         // SEND_STRING("```" SS_TAP(X_ENT) "```" SS_TAP(X_UP) SS_TAP(X_ENT));

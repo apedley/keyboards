@@ -11,7 +11,18 @@
 
 ## Leader
 
-The leader key is set to the upper right button.
+The leader key is set to the upper right button and also as a combo on `,` and `.`.
+
+### Select Text
+
+| Sequence | Output | Alternate Sequence
+| :--- | :--- | :--- |
+| `LDR LEFT-ARROW` | Select everything on this line before cursor | `LDR A` |
+| `LDR LEFT-ARROW LEFT-ARROW` | Select everything on this line before cursor up to end of previous line | `LDR A A` |
+| `LDR RIGHT-ARROW` | Select everything on this line after cursor | `LDR D` |
+| `LDR RIGHT-ARROW LEFT-ARROW` | Select everything on this line | `LDR D A` |
+| `LDR UP-ARROW  UP-ARROW` | Select everything on the page before the cursor | `LDR W W` |
+| `LDR DOWN-ARROW  DOWN-ARROW` | Select everything on the page after the cursor | `LDR S S` |
 
 ### Delete Text
 
@@ -21,6 +32,16 @@ The leader key is set to the upper right button.
 | `LDR \` | Forward delete rest of characters in word on cursor | n/a |
 | `LDR BKSP BKSP` | Backward Delete whole word on cursor | n/a |
 | `LDR \ \` | Forward Delete whole word on cursor | n/a |
+
+### Space Cadet Like Macros
+
+| Sequence | Output | Notes
+| :--- | :--- | :--- |
+| `LDR  '` | `'WORD'`¶ | Will wrap word on cursor between two single quotes |
+| `LDR  '  '` | `"WORD"`¶ | Will wrap word on cursor between two double quotes |
+| `LDR  SHFT` | `(WORD)`¶ | Will wrap word on cursor between two parenthesis **(NYI)** |
+| `LDR  CTRL` | `{WORD}`¶ | Will wrap word on cursor between two curly braces **(NYI)** |
+| `LDR  ALT` | `[WORD]`¶ | Will wrap word on cursor between two brackets **(NYI)** |
 
 ### Text Expansion
 
@@ -35,6 +56,12 @@ The leader key is set to the upper right button.
 | `LDR D U` | `docker compose up -d` | n/a |
 | `LDR Q H` | ``export QMK_HOME=`pwd` `` | n/a |
 | `LDR I P` | `10.0.0.¶` | n/a |
+
+### Misc
+
+| Sequence | Output | Notes
+| :--- | :--- | :--- |
+| `LDR SHIFT` | Caps Word On | n/a |
 
 ## Caps Word
 
