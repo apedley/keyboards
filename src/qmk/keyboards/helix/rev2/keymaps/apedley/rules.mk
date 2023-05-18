@@ -7,7 +7,8 @@ LTO_ENABLE = yes  # if firmware size over limit, try this option
 #  jp: 以下の7つの変数を必要に応じて編集し、コメントアウトをはずします。
 HELIX_ROWS = 5              # Helix Rows is 4 or 5
 OLED_ENABLE = yes            # OLED_ENABLE
-# LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
+LOCAL_GLCDFONT = yes         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
+RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.
 LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
 LED_UNDERGLOW_ENABLE = yes   # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
@@ -24,4 +25,3 @@ OLED_SELECT = core
 ifeq ($(strip $(OLED_ENABLE)), yes)
     SRC += oled_display.c
 endif
-
