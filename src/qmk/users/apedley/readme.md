@@ -1,4 +1,4 @@
-# My Keymap
+# Userspace Configuration
 
 ## Macros
 
@@ -57,7 +57,7 @@ The leader key is set to the upper right button and also as a combo on `,` and `
 | `LDR Q H` | ``export QMK_HOME=`pwd` `` | n/a |
 | `LDR I P` | `10.0.0.¶` | n/a |
 
-### Misc
+### Key Access and Misc
 
 | Sequence | Output | Notes
 | :--- | :--- | :--- |

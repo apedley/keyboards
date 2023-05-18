@@ -1,7 +1,6 @@
 /* Copyright (C) 2022 jonylee@hfd
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
  *
@@ -14,13 +13,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+// KeymapCEditor: kbd4x
+
 #include QMK_KEYBOARD_H
 #include "apedley.h"
 #include "print.h"
 #include "qmk_rc.h"
 #include "raw_hid.h"
 
-enum mk47_layers { _BASE, _LOWER, _RAISE, _ADJUST };
+enum customs {
+    SEND_RAW = NEWER_SAFE_RANGE,
+    NUMPAD_OFF,
+    NUMPAD_ON,
+    // Others...
+};
+
+enum mk47_layers {
+    _BASE,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+    _NUMPAD
+};
 // enum mk47_keycodes {
 //   QWERTY = SAFE_RANGE,
 //   COLEMAK,
@@ -68,8 +83,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_BASE] = LAYOUT( /* Base */
-        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-        KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+        QK_GESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+        LT(_NUMPAD, KC_TAB),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
         KC_LCTL, KC_LGUI, KC_LALT, QK_LEAD, LOWER,      KC_SPC,        RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
@@ -85,10 +100,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_LOWER] = LAYOUT( /* LOWER */
-		KC_GRV, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_DEL,
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS,    KC_EQL,     KC_LCBR, KC_RCBR, KC_PIPE,
-        _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_UNDS,    KC_PLUS,    KC_HOME, KC_END,  _______,
-        _______, _______, _______, _______, _______,      _______,     _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY
+		KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_DEL,
+        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,     KC_LCBR, KC_RCBR, KC_PIPE,
+        _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PGUP,    KC_PGDN,    KC_HOME, KC_END,  _______,
+        _______, _______, _______, TG(_NUMPAD), _______,      _______,     _______,    _______,    KC_VOLD, KC_VOLU, _______
     ),
 
     /* Raise
@@ -103,10 +118,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_RAISE] = LAYOUT( /* RAISE */
-        KC_TILD,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-        KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LBRC, KC_RBRC, KC_BSLS,
-        _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_MS_BTN1, KC_MS_BTN2, KC_PGUP, KC_PGDN, _______,
-        _______, _______, _______, _______, _______,      _______,     _______,    KC_MS_L,    KC_MS_D, KC_MS_U, KC_MS_R
+        KC_GRAVE,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+        _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINUS,    KC_EQUAL,    KC_LBRC, KC_RBRC, KC_BSLS,
+        _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PGUP, KC_PGDN, KC_HOME, KC_END, _______,
+        _______, _______, _______, TG(_NUMPAD), _______,      _______,     _______,    _______,    _______, _______, _______
     ),
 
 
@@ -123,10 +138,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_ADJUST] = LAYOUT(
-		KC_ESC,  QK_BOOT, _______, RGB_TOG, RGB_MOD, RGB_SPI, RGB_VAI, DM_REC1, DM_PLY1, DM_REC2, DM_PLY2, M_XXX1,
-        _______, KC_MAKE, _______, RGB_SAI, RGB_HUI, RGB_SPD, RGB_VAD, _______, _______, _______, _______, M_XXX2,
-        _______, DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, M_XXX3,
-        _______, _______, _______, _______, _______,      _______    , _______, _______, _______, _______, _______
+		KC_ESC,  QK_BOOT, _______, RGB_TOG, RGB_MOD, RGB_SPI, RGB_VAI,    DM_REC1, DM_PLY1, DM_REC2, DM_PLY2, M_XXX1,
+        _______, KC_MAKE, _______, RGB_SAI, RGB_HUI, RGB_SPD, RGB_VAD,    _______, _______, _______, _______, M_XXX2,
+        _______, DB_TOGG, _______, _______, _______, _______, TG(_NUMPAD), _______, _______, _______, _______, M_XXX3,
+        _______, _______, _______, TG(_NUMPAD), _______,      _______    ,    _______, _______, _______, _______, _______
+    ),
+
+
+    /* Numpad
+    * ,-----------------------------------------------------------------------------------.
+    * |      |      |      |      |      |      |      |      |      |      |      |      |
+    * |------+------+------+------+------+------+------+------+------+------+------+------|
+    * |      |      |      |      |      |      |      |      |      |      |      |      |
+    * |------+------+------+------+------+------+------+------+------+------+------+------|
+    * |      |      |      |      |      |      |      |      |      |      |      |      |
+    * |------+------+------+------+------+------+------+------+------+------+------+------|
+    * |      |      |      |      |      |             |      |      |      |      |      |
+    * `-----------------------------------------------------------------------------------'
+    */
+    [_NUMPAD] = LAYOUT(
+        _______, UPDIR,   KC_UP,   SELWORD,     _______, _______, _______, KC_KP_7, KC_KP_8,  KC_KP_9,     _______, _______,
+        _______, KC_LEFT, KC_DOWN, KC_RGHT,     _______, _______, _______, KC_KP_4, KC_KP_5,  KC_KP_6,     _______, _______,
+        _______, KC_VOLD, KC_VOLU, KC_MUTE,     _______, _______, _______, KC_KP_1, KC_KP_2,  KC_KP_3,     _______, _______,
+        _______, _______, _______, TG(_NUMPAD),     _______,      _______, KC_KP_0,KC_KP_DOT, KC_KP_ENTER, _______, _______
     )
 };
 // clang-format on
@@ -147,7 +181,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-void rgb_matrix_layer_helper(uint8_t r, uint8_t g, uint8_t b, uint8_t led_type, uint8_t led_min, uint8_t led_max) {
+void rgb_matrix_layer_highlight_changed(uint8_t r, uint8_t g, uint8_t b, uint8_t led_min, uint8_t led_max) {
+    uint8_t layer = get_highest_layer(currentLayerState);
+    for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+        for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+            uint8_t index = g_led_config.matrix_co[row][col];
+
+            if (index >= led_min && index < led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col, row}) > KC_TRNS) {
+                rgb_matrix_set_color(index, r, g, b);
+            }
+        }
+    }
+}
+void rgb_matrix_highlight_border(uint8_t r, uint8_t g, uint8_t b, uint8_t led_min, uint8_t led_max) {
     for (uint8_t first_row_col = 0; first_row_col < MATRIX_COLS; ++first_row_col) {
         uint8_t index = g_led_config.matrix_co[0][first_row_col];
         rgb_matrix_set_color(index, r, g, b);
@@ -160,16 +206,6 @@ void rgb_matrix_layer_helper(uint8_t r, uint8_t g, uint8_t b, uint8_t led_type, 
         rgb_matrix_set_color(zero_index, r, g, b);
         rgb_matrix_set_color(last_index, r, g, b);
     }
-    // uint8_t layer = get_highest_layer(currentLayerState);
-    // for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
-    //     for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
-    //         uint8_t index = g_led_config.matrix_co[row][col];
-
-    //         if (index >= led_min && index < led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col, row}) > KC_TRNS) {
-    //             rgb_matrix_set_color(index, r, g, b);
-    //         }
-    //     }
-    // }
 }
 
 bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
@@ -177,12 +213,13 @@ bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
         case _LOWER:
             // rgb_matrix_layer_helper(RGB_ORANGE, LED_FLAG_MODIFIER, led_min, led_max);
 
-            for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
-                uint8_t index = g_led_config.matrix_co[row][0];
-                uint8_t index_last = g_led_config.matrix_co[row][MATRIX_COLS-1];
-                rgb_matrix_set_color(index, RGB_WHITE);
-                rgb_matrix_set_color(index_last, RGB_WHITE);
-            }
+            // for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+            //     uint8_t index = g_led_config.matrix_co[row][0];
+            //     uint8_t index_last = g_led_config.matrix_co[row][MATRIX_COLS-1];
+            //     rgb_matrix_set_color(index, RGB_WHITE);
+            //     rgb_matrix_set_color(index_last, RGB_WHITE);
+            // }
+            rgb_matrix_highlight_border(RGB_CYAN, led_min, led_max);
             break;
         case _RAISE:
             // rgb_matrix_layer_helper(RGB_PURPLE, LED_FLAG_MODIFIER, led_min, led_max);
@@ -195,13 +232,19 @@ bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
             // rgb_matrix_set_color(index_last, RGB_WHITE);
             // rgb_matrix_set_color(index_second, RGB_WHITE);
             // rgb_matrix_set_color(index_second_last, RGB_WHITE);
-            for (uint8_t col = 1; col < MATRIX_COLS-1; ++col) {
-                uint8_t index = g_led_config.matrix_co[0][col];
-                rgb_matrix_set_color(index, RGB_WHITE);
-            }
+
+
+            // for (uint8_t col = 1; col < MATRIX_COLS-1; ++col) {
+            //     uint8_t index = g_led_config.matrix_co[0][col];
+            //     rgb_matrix_set_color(index, RGB_WHITE);
+            // }
+            rgb_matrix_highlight_border(RGB_MAGENTA, led_min, led_max);
             break;
         case _ADJUST:
-            rgb_matrix_layer_helper(RGB_WHITE, LED_FLAG_MODIFIER, led_min, led_max);
+            rgb_matrix_highlight_border(RGB_WHITE, led_min, led_max);
+            break;
+        case _NUMPAD:
+            rgb_matrix_layer_highlight_changed(RGB_YELLOW, led_min, led_max);
             break;
     }
     return true;

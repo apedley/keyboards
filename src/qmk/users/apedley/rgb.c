@@ -10,6 +10,8 @@
 extern leader_t leader;
 extern dynamic_macro_t dynamic_macro;
 extern my_rgb_range_t my_rgb_range;
+
+#ifdef RGB_MATRIX_ENABLE
 __attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     return true;
 }
@@ -133,3 +135,5 @@ bool rgb_matrix_indicators_user(void) {
 //         }
 //     }
 // }
+
+#endif
