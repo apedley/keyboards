@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_ADJUST] = LAYOUT(
-		KC_ESC,  QK_BOOT, _______, RGB_TOG, RGB_MOD, RGB_SPI, RGB_VAI,    DM_REC1, DM_PLY1, DM_REC2, DM_PLY2, M_XXX1,
+		KC_ESC,  QK_BOOT, _______, RGB_TOG, RGB_MOD, RGB_SPI, RGB_VAI,    _______, _______, _______, _______, M_XXX1,
         _______, KC_MAKE, _______, RGB_SAI, RGB_HUI, RGB_SPD, RGB_VAD,    _______, _______, _______, _______, M_XXX2,
         _______, DB_TOGG, _______, _______, _______, _______, TG(_NUMPAD), _______, _______, _______, _______, M_XXX3,
         _______, _______, _______, TG(_NUMPAD), _______,      _______    ,    _______, _______, _______, _______, _______
@@ -157,8 +157,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_NUMPAD] = LAYOUT(
-        _______, UPDIR,   KC_UP,   SELWORD,     _______, _______, _______, KC_KP_7, KC_KP_8,  KC_KP_9,     _______, _______,
-        _______, KC_LEFT, KC_DOWN, KC_RGHT,     _______, _______, _______, KC_KP_4, KC_KP_5,  KC_KP_6,     _______, _______,
+        _______, UPDIR,   KC_UP,   SELWORD,     _______, _______, _______, KC_KP_7, KC_KP_8,  KC_KP_9,     DM_REC1, DM_PLY1,
+        _______, KC_LEFT, KC_DOWN, KC_RGHT,     _______, _______, _______, KC_KP_4, KC_KP_5,  KC_KP_6,     DM_REC2, DM_PLY2,
         _______, KC_VOLD, KC_VOLU, KC_MUTE,     _______, _______, _______, KC_KP_1, KC_KP_2,  KC_KP_3,     _______, _______,
         _______, _______, _______, TG(_NUMPAD),     _______,      _______, KC_KP_0,KC_KP_DOT, KC_KP_ENTER, _______, _______
     )
@@ -172,12 +172,39 @@ uint8_t qmk_rc_buffer[QMK_RC_BUFFER_MAX] = {};
 void raw_hid_receive(uint8_t *data, uint8_t length) {
   qmk_rc_receive(qmk_rc_buffer, QMK_RC_BUFFER_MAX, data, length);
 }
+
+
+// void raw_hid_send(uint8_t *data, size_t length) {
+//     uint8_t buffer[RAW_EPSIZE] = {0};
+//     uint8_t packets = length / RAW_EPSIZE;
+//     uint8_t remaining_packets = length % RAW_EPSIZE;
+//     for (int i = 0; i < packets; i++) {
+//         memcpy(buffer, data + (i * RAW_EPSIZE), RAW_EPSIZE);
+//         chnWrite(&drivers.raw_driver.driver, buffer, RAW_EPSIZE);
+//     }
+//     if (remaining_packets > 0) {
+//         // Clear the buffer
+//         memset(buffer, '\0', RAW_EPSIZE);
+//         memcpy(buffer, data + (packets * RAW_EPSIZE), remaining_packets);
+//         chnWrite(&drivers.raw_driver.driver, buffer, RAW_EPSIZE);
+//     }
+// }
 #endif
 
 layer_state_t currentLayerState;
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_keymap(layer_state_t state) {
   currentLayerState = state;
+
+
+#ifdef RAW_ENABLE
+//   uint8_t highest_layer = get_highest_layer(currentLayerState);
+  uint8_t qmk_rc_layer_buffer[QMK_RC_BUFFER_MAX] = {};
+  qmk_rc_layer_buffer[0] = get_highest_layer(currentLayerState);
+
+  raw_hid_send(qmk_rc_layer_buffer, QMK_RC_BUFFER_MAX);
+#endif
+
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 

@@ -14,6 +14,11 @@ bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+__attribute__((weak))
+layer_state_t layer_state_set_keymap(layer_state_t state) {
+    return state;
+}
+
 void dynamic_macro_record_start_user(void) {
     dynamic_macro.recording = true;
 }
@@ -88,6 +93,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
     return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return layer_state_set_keymap(state);
 }
 
 void keyboard_post_init_user() {

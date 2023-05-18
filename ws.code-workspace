@@ -38,7 +38,9 @@
 			"chrono": "c",
 			"variant": "c",
 			"combo.h": "c",
-			"tapdance.h": "c"
+			"tapdance.h": "c",
+			"*.tcc": "c",
+			"bitset": "c"
 		}
 	}
 }
