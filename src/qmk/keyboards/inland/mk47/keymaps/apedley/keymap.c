@@ -170,6 +170,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint8_t qmk_rc_buffer[QMK_RC_BUFFER_MAX] = {};
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
+    if (debug_enable) {
+        dprint("Received USB data from host system:\n");
+        // dprintf("%d\n", data);
+        for (int i = 0; i < length; i++) {
+            dprintf("%d ", data[i]);
+        }
+        dprintf("\n");
+        raw_hid_send(data, length);
+    }
   qmk_rc_receive(qmk_rc_buffer, QMK_RC_BUFFER_MAX, data, length);
 }
 
@@ -199,10 +208,12 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 
 #ifdef RAW_ENABLE
 //   uint8_t highest_layer = get_highest_layer(currentLayerState);
-  uint8_t qmk_rc_layer_buffer[QMK_RC_BUFFER_MAX] = {};
-  qmk_rc_layer_buffer[0] = get_highest_layer(currentLayerState);
+//   uint8_t qmk_rc_layer_buffer[QMK_RC_BUFFER_MAX] = {0, 1, 0, 0, 0, 0, highest_layer, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0};
 
-  raw_hid_send(qmk_rc_layer_buffer, QMK_RC_BUFFER_MAX);
+//   if (debug_enable) {
+//     print("raw_hid_send layer\n");
+//   }
+//   raw_hid_send(qmk_rc_layer_buffer, QMK_RC_BUFFER_MAX);
 #endif
 
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);

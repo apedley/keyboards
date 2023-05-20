@@ -13,6 +13,8 @@ ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
     OPT_DEFS += -DFLASH_BOOTLOADER
 endif
 
+EXTRAKEY_ENABLE = yes
+
 
 DEFERRED_EXEC_ENABLE = no
 LEADER_ENABLE = yes

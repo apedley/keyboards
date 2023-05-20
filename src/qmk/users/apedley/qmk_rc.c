@@ -61,6 +61,12 @@ my_rgb_range_t my_rgb_range;
 
 #ifndef QMK_RC_DISABLE_DEFAULT_COMMANDS
 void qmk_rc_process_command_quantum(qmk_rc_command_t* command) {
+
+    // if (debug_enable) {
+    //     print("qmk_rc_process_command_quantum: ");
+    //     print_hex8(command->id);
+    //     print("\n");
+    // }
   switch (command->id) {
 #ifdef OLED_DRIVER_ENABLE
     case OLED_OFF: oled_off(); break;

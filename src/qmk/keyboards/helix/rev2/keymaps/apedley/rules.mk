@@ -25,3 +25,19 @@ OLED_SELECT = core
 ifeq ($(strip $(OLED_ENABLE)), yes)
     SRC += oled_display.c
 endif
+
+BOOTLOADER = rp2040
+CONVERT_TO = promicro_rp2040
+
+
+CONSOLE_ENABLE = yes
+COMMAND_ENABLE = yes
+
+
+RAW_ENABLE = yes
+COMBO_ENABLE = no
+DYNAMIC_MACRO_ENABLE = yes
+
+CAPS_WORD_ENABLE = yes
+
+MOUSEKEY_ENABLE = yes

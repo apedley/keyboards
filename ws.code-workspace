@@ -13,10 +13,7 @@
 			"path": "qmk_mk47/keyboards/inland"
 		},
 		{
-			"path": "qmk_mk47/keyboards/helix"
-		},
-		{
-			"path": "qmk_mk47/keyboards/heli"
+			"path": "qmk_mk47/keyboards/helix/rev2"
 		}
 	],
 	"settings": {
