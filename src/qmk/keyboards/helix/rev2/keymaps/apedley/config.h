@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // If you need more program area, try select and reduce rgblight modes to use.
 
 // #define MASTER_LEFT
-#define MASTER_RIGHT
-// #define EE_HANDS
+// #define MASTER_RIGHT
+#define EE_HANDS
 
 
 // Selection of RGBLIGHT MODE to use.
@@ -33,12 +33,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_EFFECT_BREATHING
    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-   #define RGBLIGHT_EFFECT_SNAKE
+//    #define RGBLIGHT_EFFECT_SNAKE
    #define RGBLIGHT_EFFECT_KNIGHT
    #define RGBLIGHT_EFFECT_CHRISTMAS
-   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
    #define RGBLIGHT_EFFECT_RGB_TEST
    #define RGBLIGHT_EFFECT_ALTERNATING
+//    #define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
 #undef RGBLIGHT_HUE_STEP
@@ -61,5 +62,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define MOUSEKEY_DELAY 0
 #endif
 
+#if defined(COMMAND_ENABLE)
+    #define IS_COMMAND() ( \
+    get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LGUI)) \
+    )
+#endif
+
+
+#undef QUICK_TAP_TERM
+#undef TAPPING_TERM
+#define TAPPING_TERM 200
+
 // #define TAPPING_TOGGLE 2
-#define COMBO_ONLY_FROM_LAYER 0
+
+#if defined(COMBO_ENABLE)
+    #define COMBO_ONLY_FROM_LAYER 0
+    #define COMBO_STRICT_TIMER
+    // #define COMBO_NO_TIMER
+#endif
+
+
+#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+
+
