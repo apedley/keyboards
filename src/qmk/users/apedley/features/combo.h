@@ -4,7 +4,7 @@
 enum combos {
   QW_ESC,
   DF_TAB,
-  OP_BSPC,
+  PBSLS_BSPC,
   COMMA_DOT,
   COMBO_LENGTH
 };

@@ -8,6 +8,7 @@
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
+#define PERMISSIVE_HOLD
 
 // Remove defaults
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS

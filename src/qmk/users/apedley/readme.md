@@ -37,11 +37,14 @@ The leader key is set to the upper right button and also as a combo on `,` and `
 
 | Sequence | Output | Notes
 | :--- | :--- | :--- |
-| `LDR  '` | `'WORD'`¶ | Will wrap word on cursor between two single quotes |
-| `LDR  '  '` | `"WORD"`¶ | Will wrap word on cursor between two double quotes |
-| `LDR  SHFT` | `(WORD)`¶ | Will wrap word on cursor between two parenthesis **(NYI)** |
-| `LDR  CTRL` | `{WORD}`¶ | Will wrap word on cursor between two curly braces **(NYI)** |
-| `LDR  ALT` | `[WORD]`¶ | Will wrap word on cursor between two brackets **(NYI)** |
+| `LDR '` | `'WORD'`¶ | Will wrap word on cursor 'between two single quotes |
+| `LDR '  '` | `"WORD"`¶ | Will wrap word on cursor between two double quotes |
+| `LDR GUI` | `(WORD)`¶ | Will wrap word on cursor between two parenthesis  |
+| `LDR GUI GUI` | `(SELECTION)`¶ | Will wrap selection between two parenthesis  |
+| `LDR CTRL` | `{WORD}`¶ | Will wrap word on cursor between two curly braces  |
+| `LDR CTRL CTRL` | `{SELECTION}`¶ | Will wrap selection between two curly braces  |
+| `LDR ALT` | `[WORD]`¶ | Will wrap word on cursor between two brackets  |
+| `LDR ALT ALT` | `[SELECTION]`¶ | Will wrap selection between two brackets  |
 
 ### Text Expansion
 
@@ -56,12 +59,16 @@ The leader key is set to the upper right button and also as a combo on `,` and `
 | `LDR D U` | `docker compose up -d` | n/a |
 | `LDR Q H` | ``export QMK_HOME=`pwd` `` | n/a |
 | `LDR I P` | `10.0.0.¶` | n/a |
+| `LDR K /` | [QMK Keycode List](https://docs.qmk.fm/#/keycodes) URL | n/a |
 
 ### Key Access and Misc
 
 | Sequence | Output | Notes
 | :--- | :--- | :--- |
 | `LDR SHIFT` | Caps Word On | n/a |
+| `LDR W` | OS: Close current file/tab | n/a |
+| `LDR Q` | OS: Close current application | n/a |
+| `LDR LDR` | Printscreen | n/a |
 
 ## Caps Word
 

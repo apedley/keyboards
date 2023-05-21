@@ -120,12 +120,41 @@ void process_leader_dictionary(void) {
     } else if (leader_sequence_two_keys(KC_QUOT, KC_QUOT)) {
         // Leader, ', ' => Will wrap word on cursor between two double quotes
         SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) "\"" SS_LCTL(SS_TAP(X_RIGHT)) "\"");
+    } else if (leader_sequence_one_key(KC_LGUI)) {
+        // Leader, LGUI => Will wrap word on cursor between two parenthesis
+        ldrkey_send_paranthesis_wrap_word();
+    } else if (leader_sequence_two_keys(KC_LGUI, KC_LGUI)) {
+        // Leader, LGUI, LGUI => Will wrap selection between two parenthesis
+        ldrkey_send_paranthesis_wrap_selection();
+    } else if (leader_sequence_one_key(KC_LCTL)) {
+        // Leader, LCTL => Will wrap word on cursor between two curly braces
+        ldrkey_send_curlybrace_wrap_word();
+    } else if (leader_sequence_two_keys(KC_LCTL, KC_LCTL)) {
+        // Leader, LCTL, LCTL => Will wrap selection between two curly braces
+        ldrkey_send_curlybrace_wrap_selection();
+    } else if (leader_sequence_one_key(KC_LALT)) {
+        // Leader, LALT => Will wrap word on cursor between two brackets
+        ldrkey_send_bracket_wrap_word();
+    } else if (leader_sequence_two_keys(KC_LALT, KC_LALT)) {
+        // Leader, LALT, LALT => Will wrap selection between two brackets
+        ldrkey_send_bracket_wrap_selection();
+
     /*
         Misc
     */
     } else if (leader_sequence_one_key(KC_LSFT)) {
         // Leader, shift =>  caps word on
         caps_word_on();
+    } else if (leader_sequence_one_key(KC_W)) {
+        // Leader, W =>  OS: Close current file/tab
+        SEND_STRING(SS_LCTL(SS_TAP(X_W)));
+    } else if (leader_sequence_one_key(KC_Q)) {
+        // Leader, Q =>  OS: Close current application
+        SEND_STRING(SS_LALT(SS_TAP(X_F4)));
+    } else if (leader_sequence_one_key(QK_LEAD)) {
+        // Leader, \ =>  Printscreen
+        SEND_STRING(SS_TAP(X_PSCR));
+
     /*
         Text Expansion
     */
@@ -157,6 +186,9 @@ void process_leader_dictionary(void) {
     } else if (leader_sequence_two_keys(KC_I, KC_P)) {
         // Leader, i, p => 10.0.0.
         SEND_STRING("10.0.0.");
+    } else if (leader_sequence_two_keys(KC_K, KC_SLSH)) {
+        // Leader, K, / => QMK keycodes
+        SEND_STRING("https://docs.qmk.fm/#/keycodes");
     } else if (process_leader_dictionary_secret() && leader_sequence_timed_out()) {
         leader.timedOut = true;
         leader.timedOutTimer = timer_read();
