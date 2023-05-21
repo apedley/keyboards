@@ -9,7 +9,7 @@ HELIX_ROWS = 5              # Helix Rows is 4 or 5
 OLED_ENABLE = yes            # OLED_ENABLE
 LOCAL_GLCDFONT = yes         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
 RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.
-LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
+LED_BACK_ENABLE = yes        # LED backlight (Enable WS2812 RGB underlight.)
 LED_UNDERGLOW_ENABLE = yes   # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
 # IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
@@ -35,7 +35,6 @@ COMMAND_ENABLE = yes
 
 
 RAW_ENABLE = yes
-# COMBO_ENABLE = no
 DYNAMIC_MACRO_ENABLE = yes
 
 CAPS_WORD_ENABLE = yes
