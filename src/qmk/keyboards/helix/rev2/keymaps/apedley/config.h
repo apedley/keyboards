@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // If you need more program area, try select and reduce rgblight modes to use.
 
 // #define MASTER_LEFT
-#define MASTER_RIGHT
-// #define EE_HANDS
+// #define MASTER_RIGHT
+#define EE_HANDS
 
 
 // Selection of RGBLIGHT MODE to use.
@@ -37,10 +37,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_EFFECT_KNIGHT
    #define RGBLIGHT_EFFECT_CHRISTMAS
 //    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-   #define RGBLIGHT_EFFECT_RGB_TEST
-   #define RGBLIGHT_EFFECT_ALTERNATING
+//    #define RGBLIGHT_EFFECT_RGB_TEST
+//    #define RGBLIGHT_EFFECT_ALTERNATING
 //    #define RGBLIGHT_EFFECT_TWINKLE
 #endif
+
+
+#undef RGBLED_NUM
+
+#ifdef RGBLED_BACK
+  #define RGBLED_NUM 32
+#else
+  #define RGBLED_NUM 7
+#endif
+
+#if RGBLED_NUM <= 7
+  #define RGBLIGHT_LIMIT_VAL 255
+#else
+    #define RGBLIGHT_LIMIT_VAL 120
+#endif
+
+#undef RGBLIGHT_VAL_STEP
+#define RGBLIGHT_VAL_STEP 17
+
 
 #undef RGBLIGHT_HUE_STEP
 #define RGBLIGHT_HUE_STEP 4

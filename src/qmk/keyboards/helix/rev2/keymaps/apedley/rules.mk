@@ -8,10 +8,10 @@ LTO_ENABLE = yes  # if firmware size over limit, try this option
 HELIX_ROWS = 5              # Helix Rows is 4 or 5
 OLED_ENABLE = yes            # OLED_ENABLE
 LOCAL_GLCDFONT = yes         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
-LED_BACK_ENABLE = yes        # LED backlight (Enable WS2812 RGB underlight.)
-LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
-LED_ANIMATIONS = no        # LED animations
+RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.
+LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
+LED_UNDERGLOW_ENABLE = yes   # LED underglow (Enable WS2812 RGB underlight.)
+LED_ANIMATIONS = yes         # LED animations
 # IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 
 # OLED_ENABLE が yes のとき
@@ -40,3 +40,4 @@ DYNAMIC_MACRO_ENABLE = yes
 CAPS_WORD_ENABLE = yes
 
 MOUSEKEY_ENABLE = yes
+
