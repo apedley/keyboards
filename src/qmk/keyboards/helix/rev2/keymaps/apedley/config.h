@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // If you need more program area, try select and reduce rgblight modes to use.
 
 // #define MASTER_LEFT
-// #define MASTER_RIGHT
-#define EE_HANDS
+#define MASTER_RIGHT
+// #define EE_HANDS
 
 
 // Selection of RGBLIGHT MODE to use.
@@ -84,4 +84,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
-
+#undef RGBLED_NUM
+#define RGBLED_NUM 64
