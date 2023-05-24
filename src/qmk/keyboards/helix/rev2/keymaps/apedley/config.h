@@ -94,7 +94,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef QUICK_TAP_TERM
 #undef TAPPING_TERM
-#define TAPPING_TERM 200
+#define TAPPING_TERM 175
+
+#define PERMISSIVE_HOLD
 
 // #define TAPPING_TOGGLE 2
 

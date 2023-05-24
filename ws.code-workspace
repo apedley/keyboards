@@ -13,10 +13,10 @@
       "path": "qmk_mk47/keyboards/inland"
     },
     {
-      "path": "qmk_mk47/keyboards/helix/rev2"
+      "path": "qmk_mk47/keyboards/nullbitsco/tidbit"
     },
     {
-      "path": "qmk_mk47/keyboards/nullbitsco/tidbit"
+      "path": "qmk_mk47/keyboards/helix"
     }
   ],
 	"settings": {

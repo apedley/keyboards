@@ -4,6 +4,8 @@
 
 dynamic_macro_t dynamic_macro = {.recording = false};
 
+
+
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode,
                                                  keyrecord_t *record) {
   return true;
@@ -17,6 +19,9 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode,
 __attribute__((weak)) layer_state_t
 layer_state_set_keymap(layer_state_t state) {
   return state;
+}
+__attribute__((weak)) void keyboard_post_init_keymap(void) {
+  return;
 }
 
 void dynamic_macro_record_start_user(void) { dynamic_macro.recording = true; }
@@ -100,6 +105,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return layer_state_set_keymap(state);
 }
 
+
+
 void keyboard_post_init_user() {
 
 #ifdef CONSOLE_ENABLE
@@ -107,6 +114,8 @@ void keyboard_post_init_user() {
   // debug_config.keyboard = true;
   // debug_config.matrix = true;
 #endif
+
+  keyboard_post_init_keymap();
 }
 
 void matrix_scan_user(void) { select_word_task(); }

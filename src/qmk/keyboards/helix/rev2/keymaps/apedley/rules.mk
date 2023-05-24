@@ -30,15 +30,11 @@ endif
 BONGO_ENABLE = yes
 WPM_ENABLE = yes
 
-
-
 BOOTLOADER = rp2040
 CONVERT_TO = promicro_rp2040
 
-
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = yes
-
 
 RAW_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = yes
