@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+#include "bongo.h"
 #include <stdio.h>
 #include <string.h>
 #include QMK_KEYBOARD_H
@@ -38,7 +40,6 @@ enum layer_number {
 
 //OLED update loop
 #ifdef OLED_ENABLE
-
 
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
     // if (!is_keyboard_master()) {
@@ -124,11 +125,12 @@ void render_status(void) {
 }
 
 bool oled_task_keymap(void) {
-        render_layer_status();
     if (is_keyboard_left()) {
+        render_layer_status();
         render_rgbled_status(true);
-    } else {
         render_status();
+    } else {
+      render_bongo(false);
     }
     return false;
 }

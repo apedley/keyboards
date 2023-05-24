@@ -1,44 +1,50 @@
 {
 	"folders": [
-		{
-			"path": "src/qmk/keyboards"
-		},
-		{
-			"path": "src/qmk/users"
-		},
-		{
-			"path": "keychron-qmk/keyboards/keychron"
-		},
-		{
-			"path": "qmk_mk47/keyboards/inland"
-		},
-		{
-			"path": "qmk_mk47/keyboards/helix/rev2"
-		}
-	],
+    {
+      "path": "src/qmk/keyboards"
+    },
+    {
+      "path": "src/qmk/users"
+    },
+    {
+      "path": "keychron-qmk/keyboards/keychron"
+    },
+    {
+      "path": "qmk_mk47/keyboards/inland"
+    },
+    {
+      "path": "qmk_mk47/keyboards/helix/rev2"
+    },
+    {
+      "path": "qmk_mk47/keyboards/nullbitsco/tidbit"
+    }
+  ],
 	"settings": {
 		"files.associations": {
-			"secrets.h": "c",
-			"compare": "c",
-			"apedley.h": "c",
-			"select_word.h": "c",
-			"leader.h": "c",
-			"cstdint": "c",
-			"rgb.h": "c",
-			"string_view": "c",
-			"array": "c",
-			"string": "c",
-			"span": "c",
-			"qmk_rc.h": "c",
-			"types.h": "c",
-			"random": "c",
-			"chrono": "c",
-			"variant": "c",
-			"combo.h": "c",
-			"tapdance.h": "c",
-			"*.tcc": "c",
-			"bitset": "c"
-		},
+      "secrets.h": "c",
+      "compare": "c",
+      "apedley.h": "c",
+      "select_word.h": "c",
+      "leader.h": "c",
+      "cstdint": "c",
+      "rgb.h": "c",
+      "string_view": "c",
+      "array": "c",
+      "string": "c",
+      "span": "c",
+      "qmk_rc.h": "c",
+      "types.h": "c",
+      "random": "c",
+      "chrono": "c",
+      "variant": "c",
+      "combo.h": "c",
+      "tapdance.h": "c",
+      "*.tcc": "c",
+      "bitset": "c",
+      "stdio.h": "c",
+      "bongo.h": "c",
+      "string.h": "c"
+    },
     "editor.tabSize": 2,
     "editor.detectIndentation": false
 	}

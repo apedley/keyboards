@@ -22,9 +22,15 @@ LED_ANIMATIONS = yes         # LED animations
 #   If OLED_SELECT is other than 'core', use helix/local_drivers/ssd1306.c.
 OLED_SELECT = core
 
+
 ifeq ($(strip $(OLED_ENABLE)), yes)
   SRC += oled_display.c
 endif
+
+BONGO_ENABLE = yes
+WPM_ENABLE = yes
+
+
 
 BOOTLOADER = rp2040
 CONVERT_TO = promicro_rp2040
@@ -40,4 +46,3 @@ DYNAMIC_MACRO_ENABLE = yes
 CAPS_WORD_ENABLE = yes
 
 MOUSEKEY_ENABLE = yes
-
