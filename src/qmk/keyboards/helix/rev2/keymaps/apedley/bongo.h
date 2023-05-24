@@ -8,6 +8,7 @@
 #define ANIM_SIZE 636 // number of bytes in array, minimize for adequate firmware size, max is 1024
 #define IDLE_FRAMES 5
 #define IDLE_TIMEOUT 750 // the amount of time it takes to return to idle
+#define IDLE_OLED_TIMEOUT 90000
 #define TAP_FRAMES 2
 #define KEYS_SIZE 100 // the number of keys stored in the array that tracks keypresses; how many keys are on the board?
 
@@ -462,6 +463,9 @@ static void render_bongo(bool minimal)
 {
     eval_anim_state();
 
+if (timer_elapsed32(idle_timeout_timer) >= IDLE_OLED_TIMEOUT) {
+  return;
+}
     oled_set_cursor(0, 0);
 
     switch (anim_state)
@@ -497,24 +501,24 @@ static void render_bongo(bool minimal)
             break;
     }
 
-    if (!minimal)
-    {
-        // print wpm
-        oled_set_cursor(0, 0);
-        sprintf(wpm, "WPM:%03d", get_current_wpm());
-        oled_write(wpm, false);
+    // if (!minimal)
+    // {
+    //     // print wpm
+    //     oled_set_cursor(0, 0);
+    //     sprintf(wpm, "WPM:%03d", get_current_wpm());
+    //     oled_write(wpm, false);
 
-        // calculate && print clock
-        oled_set_cursor(0, 2);
-        // uint8_t  hour = last_minute / 60;
-        // uint16_t minute = last_minute % 60;
-        // bool is_pm = (hour / 12) > 0;
-        // hour = hour % 12;
-        // if (hour == 0) {
-        //     hour = 12;
-        // }
-        static char time_str[8] = "TIMEHERE";
-        // sprintf(time_str, "%02d:%02d%s", hour, minute, is_pm ? "pm" : "am");
-        oled_write(time_str, false);
-    }
+    //     // calculate && print clock
+    //     oled_set_cursor(0, 2);
+    //     // uint8_t  hour = last_minute / 60;
+    //     // uint16_t minute = last_minute % 60;
+    //     // bool is_pm = (hour / 12) > 0;
+    //     // hour = hour % 12;
+    //     // if (hour == 0) {
+    //     //     hour = 12;
+    //     // }
+    //     static char time_str[8] = "TIMEHERE";
+    //     // sprintf(time_str, "%02d:%02d%s", hour, minute, is_pm ? "pm" : "am");
+    //     oled_write(time_str, false);
+    // }
 }

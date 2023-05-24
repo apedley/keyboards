@@ -40,6 +40,8 @@ enum layer_number {
 
 //OLED update loop
 #ifdef OLED_ENABLE
+char wpm[42];
+
 
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
     // if (!is_keyboard_master()) {
@@ -73,10 +75,14 @@ static void render_rgbled_status(bool full) {
 
 //     oled_write_P(qmk_logo, false);
 // }
-static void render_layer_status(void) {
-  // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
+static void render_layer_status(bool full_display) {
+    if (full_display) {
+      oled_write_P(PSTR("Layer: "), false);
+    }
+
     char buf[10];
-    oled_write_P(PSTR("Layer: "), false);
+
+  // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
     switch (layer_state) {
     case L_BASE:
         oled_write_P(PSTR("Default"), false);
@@ -96,7 +102,9 @@ static void render_layer_status(void) {
         snprintf(buf,sizeof(buf), "%u", layer_state);
         oled_write(buf, false);
     }
-    oled_advance_page(true);
+    if (full_display) {
+      oled_advance_page(true);
+    }
 }
 void render_status(void) {
   // Render to mode icon
@@ -126,11 +134,21 @@ void render_status(void) {
 
 bool oled_task_keymap(void) {
     if (is_keyboard_left()) {
-        render_layer_status();
+        render_layer_status(true);
         render_rgbled_status(true);
         render_status();
     } else {
+
       render_bongo(false);
+
+      oled_set_cursor(0, 1);
+      sprintf(wpm, "WPM:%03d", get_current_wpm());
+      oled_write(wpm, false);
+
+      oled_set_cursor(0, 0);
+      render_layer_status(false);
+      // bongo_render(0, 0);
+
     }
     return false;
 }
