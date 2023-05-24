@@ -23,7 +23,7 @@ LED_ANIMATIONS = yes         # LED animations
 OLED_SELECT = core
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
-    SRC += oled_display.c
+  SRC += oled_display.c
 endif
 
 BOOTLOADER = rp2040

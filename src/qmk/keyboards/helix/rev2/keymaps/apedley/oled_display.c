@@ -40,7 +40,7 @@ enum layer_number {
 #ifdef OLED_ENABLE
 
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
     // if (!is_keyboard_master()) {
     return is_keyboard_left() ? rotation : rotation ^ OLED_ROTATION_180;
 
@@ -123,7 +123,7 @@ void render_status(void) {
     oled_advance_page(true);
 }
 
-bool oled_task_user(void) {
+bool oled_task_keymap(void) {
         render_layer_status();
     if (is_keyboard_left()) {
         render_rgbled_status(true);

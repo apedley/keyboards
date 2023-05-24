@@ -38,6 +38,8 @@
 			"tapdance.h": "c",
 			"*.tcc": "c",
 			"bitset": "c"
-		}
+		},
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false
 	}
 }

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <sys/types.h>
 
 typedef uint8_t qmk_rc_command_id_t;
@@ -36,7 +36,7 @@ typedef struct {
 typedef struct {
   qmk_rc_command_id_t id;
   uint32_t data_length;
-  uint8_t* data;
+  uint8_t *data;
 } qmk_rc_command_t;
 
 typedef struct {
@@ -48,5 +48,5 @@ typedef struct {
   bool is_set;
 } my_rgb_range_t;
 
-
-void qmk_rc_receive(uint8_t *buffer, uint16_t max_buffer_length, uint8_t* data, uint8_t data_length);
+void qmk_rc_receive(uint8_t *buffer, uint16_t max_buffer_length, uint8_t *data,
+                    uint8_t data_length);

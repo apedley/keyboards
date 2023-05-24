@@ -33,13 +33,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_EFFECT_BREATHING
    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//    #define RGBLIGHT_EFFECT_SNAKE
+   #define RGBLIGHT_EFFECT_SNAKE
    #define RGBLIGHT_EFFECT_KNIGHT
    #define RGBLIGHT_EFFECT_CHRISTMAS
-//    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+  //  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //    #define RGBLIGHT_EFFECT_RGB_TEST
-//    #define RGBLIGHT_EFFECT_ALTERNATING
-//    #define RGBLIGHT_EFFECT_TWINKLE
+   #define RGBLIGHT_EFFECT_ALTERNATING
+   #define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
 
@@ -48,13 +48,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLED_BACK
   #define RGBLED_NUM 32
 #else
-  #define RGBLED_NUM 7
+  #define RGBLED_NUM 6
 #endif
 
-#if RGBLED_NUM <= 7
-  #define RGBLIGHT_LIMIT_VAL 255
+#undef RGBLIGHT_LIMIT_VAL
+
+#if RGBLED_NUM <= 6
+  #define RGBLIGHT_LIMIT_VAL 175
 #else
-    #define RGBLIGHT_LIMIT_VAL 120
+  #define RGBLIGHT_LIMIT_VAL 100
 #endif
 
 #undef RGBLIGHT_VAL_STEP
@@ -81,6 +83,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define MOUSEKEY_DELAY 0
 #endif
 
+#define MOUSE_EXTENDED_REPORT
+
 #if defined(COMMAND_ENABLE)
     #define IS_COMMAND() ( \
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LGUI)) \
@@ -102,6 +106,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
-
-#undef RGBLED_NUM
-#define RGBLED_NUM 64
