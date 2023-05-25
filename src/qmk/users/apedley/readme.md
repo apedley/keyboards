@@ -80,7 +80,7 @@ Activated by double tapping shift.
 
 ## License
 
-Copyright 2023 Andrew Pedley apedley@gmail.com @apedley
+Copyright 2023 Andrew Pedley <apedley@gmail.com> @apedley
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
