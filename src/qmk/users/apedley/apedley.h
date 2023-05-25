@@ -2,6 +2,10 @@
 
 #include "features/leader.h"
 #include "rgb.h"
+
+#if defined(OLED_ENABLE)
+  #include "oled.h"
+#endif
 #include "qmk_rc.h"
 #include "secrets.h"
 #include "action.h"

@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
+#define SPLIT_WPM_ENABLE
 
 // Selection of RGBLIGHT MODE to use.
 #if defined(LED_ANIMATIONS)
@@ -35,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
    #define RGBLIGHT_EFFECT_SNAKE
    #define RGBLIGHT_EFFECT_KNIGHT
-   #define RGBLIGHT_EFFECT_CHRISTMAS
+  //  #define RGBLIGHT_EFFECT_CHRISTMAS
   //  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //    #define RGBLIGHT_EFFECT_RGB_TEST
    #define RGBLIGHT_EFFECT_ALTERNATING
@@ -46,17 +47,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLED_NUM
 
 #ifdef RGBLED_BACK
-  #define RGBLED_NUM 32
+  #define RGBLED_NUM 76
+  #define RGBLED_SPLIT { 38, 38 }
 #else
-  #define RGBLED_NUM 6
+  #define RGBLED_NUM 12
+  #define RGBLED_SPLIT { 6, 6}
 #endif
 
 #undef RGBLIGHT_LIMIT_VAL
 
-#if RGBLED_NUM <= 6
-  #define RGBLIGHT_LIMIT_VAL 175
+#if RGBLED_NUM <= 12
+  #define RGBLIGHT_LIMIT_VAL 225
 #else
-  #define RGBLIGHT_LIMIT_VAL 100
+  #define RGBLIGHT_LIMIT_VAL 175
 #endif
 
 #undef RGBLIGHT_VAL_STEP
@@ -65,7 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef RGBLIGHT_HUE_STEP
 #define RGBLIGHT_HUE_STEP 4
-
+#define RGBLIGHT_SPLIT
 #ifdef MOUSEKEY_ENABLE
    #undef MOUSEKEY_INTERVAL
    #define MOUSEKEY_INTERVAL 20

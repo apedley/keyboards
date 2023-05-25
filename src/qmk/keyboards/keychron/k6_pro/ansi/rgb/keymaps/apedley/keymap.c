@@ -61,6 +61,7 @@ enum customs {
 */
 
 
+#define TOGNP TG(NUMPAD)
 // enum td_keycodes {
 //   TD_ESC_CAPS
 // };
@@ -83,34 +84,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LCTL,  KC_LGUI,  KC_LALT,                                KC_SPC,                       KC_RALT, MO(WIN_FN1),MO(FN2), KC_LEFT,  KC_DOWN, KC_RGHT),
 
 [MAC_FN1] = LAYOUT_ansi_68(
-     KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,  KC_DEL,  KC_TRNS,
-     KC_TRNS,  UPDIR, KC_UP,   SELWORD,   SELLINE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  DM_RSTP,  DM_REC1,  DM_PLY1,  DM_REC2,  DM_PLY2,  M_XXX2,  KC_END,
-     RGB_TOG,  KC_LEFT, KC_DOWN, KC_RGHT, BRACES,  KC_TRNS,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN1,  KC_BTN2,            KC_TRNS,  KC_PGDN,
-     KC_TRNS,  KC_VOLD, KC_VOLU,  KC_MUTE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_WH_D,  KC_WH_U,  KC_INSERT,  KC_DELETE,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
+     KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,  KC_DEL,  _______,
+     _______,  UPDIR, KC_UP,   SELWORD,   SELLINE,  _______,  _______,  _______,  DM_RSTP,  DM_REC1,  DM_PLY1,  DM_REC2,  DM_PLY2,  M_XXX2,  KC_END,
+     RGB_TOG,  KC_LEFT, KC_DOWN, KC_RGHT, BRACES,  _______,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN1,  KC_BTN2,            _______,  KC_PGDN,
+     _______,  KC_VOLD, KC_VOLU,  KC_MUTE,  _______,  _______,  _______,  KC_WH_D,  KC_WH_U,  KC_INSERT,  KC_DELETE,  _______,  _______,  _______,
+     _______,  _______,  _______,                                _______,                      _______,  _______,  _______,  _______,  _______,  _______),
 
 [WIN_FN1] = LAYOUT_ansi_68(
-     KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,  KC_DEL,  KC_TRNS,
-     KC_MAKE,  UPDIR, KC_UP,   SELWORD,   SELLINE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  DM_RSTP,  DM_REC1,  DM_PLY1,  DM_REC2,  DM_PLY2,  M_XXX2,  KC_END,
-     RGB_TOG,  KC_LEFT, KC_DOWN, KC_RGHT, BRACES,  KC_TRNS,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN1,  KC_BTN2,  KC_TRNS,            KC_PGDN,
-     KC_TRNS,  KC_VOLD, KC_VOLU,  KC_MUTE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_WH_D,  KC_WH_U,  KC_INSERT,  KC_DELETE,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
+     KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,  KC_DEL,  _______,
+     KC_MAKE,  UPDIR, KC_UP,   SELWORD,   SELLINE,  _______,  _______,  _______,  DM_RSTP,  DM_REC1,  DM_PLY1,  DM_REC2,  DM_PLY2,  M_XXX2,  KC_END,
+     RGB_TOG,  KC_LEFT, KC_DOWN, KC_RGHT, BRACES,  _______,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN1,  KC_BTN2,  _______,            KC_PGDN,
+     _______,  KC_VOLD, KC_VOLU,  KC_MUTE,  _______,  _______,  _______,  KC_WH_D,  KC_WH_U,  KC_INSERT,  KC_DELETE,  _______,  _______,  _______,
+     _______,  _______,  _______,                                _______,                      _______,  _______,  _______,  _______,  _______,  _______),
 
 
 
 [FN2] = LAYOUT_ansi_68(
-     QK_BOOT,  BT_HST1,    BT_HST2,    BT_HST3,    BAT_LVL,    KC_TRNS,    KC_TRNS,    KC_TRNS,    TG(NUMPAD),    RGB_SAI,    RGB_HUI ,   RGB_VAI, RGB_SPI,  RGB_TOG,  RGB_MOD,
-     KC_MAKE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-     QK_RBT,  KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  SEND_RAW,  KC_TRNS,            KC_VOLU,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_MPRV,  KC_VOLD,  KC_MNXT),
+     QK_BOOT,  BT_HST1,    BT_HST2,    BT_HST3,    BAT_LVL,    _______,    _______,    _______,    TOGNP,    RGB_SAI,    RGB_HUI ,   RGB_VAI, RGB_SPI,  RGB_TOG,  RGB_MOD,
+     KC_MAKE,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+     QK_RBT,  _______,     _______,     _______,     _______,    _______,     _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,
+     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  SEND_RAW,  _______,            KC_VOLU,  _______,
+     _______,  _______,  _______,                                _______,                      _______,  _______,  _______,  KC_MPRV,  KC_VOLD,  KC_MNXT),
 
 [NUMPAD] = LAYOUT_ansi_68(
-     KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    TG(NUMPAD),    KC_KP_SLASH,    KC_KP_ASTERISK ,   KC_KP_MINUS, KC_TRNS,  KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,       KC_TRNS,      KC_TRNS,   KC_TRNS,  KC_TRNS,     KC_TRNS,    KC_KP_7,     KC_KP_8,  KC_KP_9,  KC_KP_PLUS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,  KC_TRNS,    KC_TRNS,     KC_KP_4,   KC_KP_5,    KC_KP_6,  KC_KP_PLUS,    KC_TRNS,          KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,       KC_TRNS,        KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_P1,      KC_P2,   KC_P3,  KC_KP_ENTER,       KC_TRNS,    KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                           KC_KP_0,        KC_KP_0,  KC_KP_DOT,  KC_TRNS,  KC_TRNS,  KC_TRNS),
+     _______,  _______,    _______,    _______,    _______,    _______,    _______,    _______,    TOGNP,    KC_KP_SLASH,    KC_KP_ASTERISK ,   KC_KP_MINUS, _______,  _______,  _______,
+     _______,  _______,  _______,       _______,      _______,   _______,  _______,     _______,    KC_KP_7,     KC_KP_8,  KC_KP_9,  KC_KP_PLUS,  _______,  _______,  _______,
+     _______,  _______,     _______,     _______,     _______,    _______,  _______,    _______,     KC_KP_4,   KC_KP_5,    KC_KP_6,  KC_KP_PLUS,    _______,          _______,
+     _______,  _______,  _______,       _______,        _______,  _______,  _______,    _______,    KC_P1,      KC_P2,   KC_P3,  KC_KP_ENTER,       _______,    _______,
+     _______,  _______,  _______,                                _______,                           KC_KP_0,        KC_KP_0,  KC_KP_DOT,  _______,  _______,  _______),
 
 };
 

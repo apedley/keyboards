@@ -66,9 +66,13 @@ The leader key is set to the upper right button and also as a combo on `,` and `
 | Sequence | Output | Notes
 | :--- | :--- | :--- |
 | `LDR SHIFT` | Caps Word On | n/a |
+| `LDR SHIFT SHIFT` | Caps Lock On | n/a |
+| `LDR T` | Ctrl+T | n/a |
+| `LDR T T` | Ctrl+Shift+Space | n/a |
+| `LDR LDR LDR` | Printscreen | n/a |
+| `LDR SPACE` | Shift+Space | n/a |
 | `LDR W` | OS: Close current file/tab | n/a |
 | `LDR Q` | OS: Close current application | n/a |
-| `LDR LDR` | Printscreen | n/a |
 
 ## Caps Word
 

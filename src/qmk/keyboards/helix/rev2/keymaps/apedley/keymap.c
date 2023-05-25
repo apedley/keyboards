@@ -30,10 +30,12 @@ enum layer_number {
 enum custom_keycodes {
   SEND_RAW = NEWER_SAFE_RANGE,
   ADJUST,
-  RGBRST
+  RGBRST,
+  UPSPC,
+  NEWTAB
 };
 
-#define LOWER LT(_LOWER, KC_ENT)
+#define LOWER LT(_LOWER, KC_BSPC)
 #define RAISE LT(_RAISE, KC_ESC)
 
 #define LT_LO_SP LT(_LOWER, KC_SPC)
@@ -53,29 +55,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Lower
    */
   [_LOWER] = LAYOUT(
-      KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-      _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______,                   KC_MINUS,KC_EQUAL,_______, DM_REC1, DM_PLY1, _______,
-      _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______,                   KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, KC_BTN2,
-      _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_LPRN, KC_RPRN, _______, _______, _______, _______, KC_DEL, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
+      KC_F12,  KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, NEWTAB,                    KC_MINUS,KC_EQUAL,_______, DM_REC1, DM_PLY1, KC_F11,
+      _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, KC_PGUP,                   KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, KC_BTN2,
+      _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_HOME, KC_END,  KC_LPRN, KC_RPRN, KC_HOME, KC_END,  _______, _______, KC_DEL,  _______,
+      _______, _______, _______, _______, _______, _______, KC_ENT,   UPSPC,  _______, _______, _______, _______, _______, _______
       ),
 
   /* Raise
    */
   [_RAISE] = LAYOUT(
-      KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-      _______, UPDIR,   KC_UP,   SELWORD, _______, _______,                   KC_UNDS, KC_PLUS, _______, _______, _______, _______,
-      _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,_______, _______,
-      _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______, KC_LPRN, KC_RPRN, _______, _______, _______, _______, KC_DEL, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_DEL,
+      KC_F12,  UPDIR,   KC_UP,   SELWORD, KC_PGUP, NEWTAB,                    KC_UNDS, KC_PLUS, _______, _______,  _______, KC_F11,
+      _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_HOME,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
+      _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_PGUP, KC_PGDN, KC_LPRN, KC_RPRN, KC_PGUP, KC_PGDN, _______,  KC_INSERT,KC_DEL, _______,
+      _______, _______, _______, _______, _______, _______, KC_ENT,   UPSPC,  _______, _______, _______, _______,  _______, _______
       ),
 
   /* Adjust (Lower + Raise)
    */
   [_ADJUST] =  LAYOUT(
-      KC_GRV,  _______, _______, _______, _______, _______,                   _______, _______, DM_REC1, DM_PLY1, DM_REC2, DM_PLY2,
-      _______, QK_BOOT, _______, _______, _______, AG_NORM,                   RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______,
-      KC_CAPS, KC_MAKE, _______, _______, _______, AG_SWAP,                   RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______,
+      KC_GRV,  _______, _______, _______, _______, _______,                   _______, _______, KC_NUM,  _______, _______, KC_DEL,
+      _______, QK_BOOT, _______, _______, _______, _______,                   RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______,
+      KC_CAPS, KC_MAKE, _______, _______, _______, _______,                   RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______,
       _______, DB_TOGG, _______, _______, _______, _______, _______, _______, RGBRST,  _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
       )
@@ -150,6 +152,18 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
           RGB_current_mode = rgblight_get_mode();
         }
       #endif
+      break;
+    case UPSPC:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_SPC)));
+      }
+      return false;
+      break;
+    case NEWTAB:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_T)));
+      }
+      return false;
       break;
   }
   return true;

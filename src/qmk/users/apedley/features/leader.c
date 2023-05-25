@@ -150,6 +150,12 @@ void process_leader_dictionary(void) {
   } else if (leader_sequence_one_key(KC_LSFT)) {
     // Leader, shift =>  caps word on
     caps_word_on();
+  } else if (leader_sequence_two_keys(KC_LSFT, KC_LSFT)) {
+    // Leader, shift, shift =>  caps lock
+    SEND_STRING(SS_TAP(X_CAPS));
+  } else if (leader_sequence_one_key(KC_SPC)) {
+    // Leader, space =>  shift space
+    SEND_STRING(SS_LSFT(SS_TAP(X_SPC)));
   } else if (leader_sequence_one_key(KC_W)) {
     // Leader, W =>  OS: Close current file/tab
     SEND_STRING(SS_LCTL(SS_TAP(X_W)));
@@ -157,11 +163,13 @@ void process_leader_dictionary(void) {
     // Leader, Q =>  OS: Close current application
     SEND_STRING(SS_LALT(SS_TAP(X_F4)));
   } else if (leader_sequence_one_key(KC_T)) {
+    // Leader, T =>  Ctrl T
     SEND_STRING(SS_LCTL(SS_TAP(X_T)));
   } else if (leader_sequence_two_keys(KC_T, KC_T)) {
+    // Leader, T, T =>  Ctrl Shift T
     SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_T))));
-  } else if (leader_sequence_one_key(QK_LEAD)) {
-    // Leader, \ =>  Printscreen
+  } else if (leader_sequence_two_keys(QK_LEAD, QK_LEAD)) {
+    // Leader, Leader, Leader =>  Printscreen
     SEND_STRING(SS_TAP(X_PSCR));
 
     /*

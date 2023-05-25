@@ -43,7 +43,9 @@
       "bitset": "c",
       "stdio.h": "c",
       "bongo.h": "c",
-      "string.h": "c"
+      "string.h": "c",
+      "oled.h": "c",
+      "*.ipp": "cpp"
     },
     "editor.tabSize": 2,
     "editor.detectIndentation": false
