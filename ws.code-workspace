@@ -10,13 +10,10 @@
       "path": "keychron-qmk/keyboards/keychron"
     },
     {
-      "path": "qmk_mk47/keyboards/inland"
+      "path": "qmk/keyboards/helix"
     },
     {
-      "path": "qmk_mk47/keyboards/nullbitsco/tidbit"
-    },
-    {
-      "path": "qmk_mk47/keyboards/helix"
+      "path": "qmk/keyboards/inland/mk47"
     }
   ],
 	"settings": {
