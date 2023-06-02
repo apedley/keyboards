@@ -46,13 +46,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef RGBLED_NUM
 
-#ifdef RGBLED_BACK
-  #define RGBLED_NUM 76
-  #define RGBLED_SPLIT { 38, 38 }
-#else
-  #define RGBLED_NUM 12
-  #define RGBLED_SPLIT { 6, 6}
-#endif
+#define RGBLIGHT_SPLIT
+
+// #ifdef RGBLED_BACK
+  #define RGBLED_NUM 90
+  #define RGBLED_SPLIT { 45, 45 }
+// #else
+//   #define RGBLED_NUM 12
+//   #define RGBLED_SPLIT { 6, 6 }
+// #endif
 
 #undef RGBLIGHT_LIMIT_VAL
 
@@ -68,7 +70,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef RGBLIGHT_HUE_STEP
 #define RGBLIGHT_HUE_STEP 4
-#define RGBLIGHT_SPLIT
 #ifdef MOUSEKEY_ENABLE
    #undef MOUSEKEY_INTERVAL
    #define MOUSEKEY_INTERVAL 20
