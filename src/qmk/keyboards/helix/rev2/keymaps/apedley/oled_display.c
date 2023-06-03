@@ -124,6 +124,8 @@ bool oled_task_keymap(void) {
 
       oled_set_cursor(0, 0);
       render_layer_status(false);
+      oled_set_cursor(0, 2);
+      render_leader();
       // bongo_render(0, 0);
 
     }

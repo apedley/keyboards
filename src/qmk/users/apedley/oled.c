@@ -47,7 +47,7 @@ void render_leader(void) {
   } else {
     return;
   }
-  oled_advance_page(true);
+  // oled_advance_page(true);
 }
 
 void render_status(void) {

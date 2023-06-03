@@ -1,11 +1,12 @@
 #include "qmk_rc.h"
+#include "raw_hid.h"
 #include "print.h"
 #include <stdlib.h>
 
 #ifndef QMK_RC_DISABLE_DEFAULT_COMMANDS
 #include "quantum.h"
 #include <string.h>
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #include "oled_driver.h"
 #endif
 #ifdef RGBLIGHT_ENABLE
@@ -55,6 +56,7 @@ enum qmk_rc_commands_quantum {
 #define MY_RGB_MATRIX_SETRGB_RANGE 128
 #define MY_RGB_MATRIX_CLEAR 129
 #define MY_RGB_MATRIX_SETRGB_ALL 130
+#define MY_RGB_MATRIX_GET_MODE 131
 
 my_rgb_range_t my_rgb_range;
 #endif
@@ -68,7 +70,7 @@ void qmk_rc_process_command_quantum(qmk_rc_command_t *command) {
   //     print("\n");
   // }
   switch (command->id) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
   case OLED_OFF:
     oled_off();
     break;
@@ -91,6 +93,9 @@ void qmk_rc_process_command_quantum(qmk_rc_command_t *command) {
     rgblight_enable_noeeprom();
     break;
   case RGBLIGHT_SETRGB_RANGE:
+    dprintf("RGB_SETRGB_RANGE: %d %d %d %d %d\n", command->data[0],
+            command->data[1], command->data[2], command->data[3],
+            command->data[4]);
     rgblight_setrgb_range(command->data[0], // R
                           command->data[1], // G
                           command->data[2], // B
@@ -139,7 +144,12 @@ void qmk_rc_process_command_quantum(qmk_rc_command_t *command) {
     my_rgb_range.led_max = 0;
     my_rgb_range.is_set = true;
     break;
-
+  case MY_RGB_MATRIX_GET_MODE:
+    dprintf("MY_RGB_MATRIX_GET_MODE: %d\n", rgb_matrix_get_mode());
+    uint8_t data[32];
+    data[2] = rgb_matrix_get_mode();
+    raw_hid_send(data, 32);
+    break;
 #endif
 
   case LAYER_ON:

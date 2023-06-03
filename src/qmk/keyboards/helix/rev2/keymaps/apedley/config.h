@@ -49,11 +49,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SPLIT
 
 // #ifdef RGBLED_BACK
-  #define RGBLED_NUM 90
-  #define RGBLED_SPLIT { 45, 45 }
+  #define RGBLED_NUM 64
+  #define RGBLED_SPLIT { 32, 32 }
 // #else
-//   #define RGBLED_NUM 12
-//   #define RGBLED_SPLIT { 6, 6 }
+  // #define RGBLED_NUM 6
+  // #define RGBLED_SPLIT { 3, 3 }
 // #endif
 
 #undef RGBLIGHT_LIMIT_VAL

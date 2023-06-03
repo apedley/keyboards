@@ -40,6 +40,9 @@ enum custom_keycodes {
 
 #define LT_LO_SP LT(_LOWER, KC_SPC)
 #define LT_RA_SP LT(_RAISE, KC_SPC)
+
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty
@@ -72,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______, KC_ENT,   UPSPC,  _______, _______, _______, _______,  _______, _______
       ),
 
-  /* Adjust (Lower + Raise)
+  /* Adjust
    */
   [_ADJUST] =  LAYOUT(
       KC_GRV,  _______, _______, _______, _______, _______,                   _______, _______, KC_NUM,  _______, _______, KC_DEL,
