@@ -36,9 +36,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
    #define RGBLIGHT_EFFECT_SNAKE
    #define RGBLIGHT_EFFECT_KNIGHT
-  //  #define RGBLIGHT_EFFECT_CHRISTMAS
-  //  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//    #define RGBLIGHT_EFFECT_RGB_TEST
+   #define RGBLIGHT_EFFECT_CHRISTMAS
+   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+   #define RGBLIGHT_EFFECT_RGB_TEST
    #define RGBLIGHT_EFFECT_ALTERNATING
    #define RGBLIGHT_EFFECT_TWINKLE
 #endif
@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if RGBLED_NUM <= 12
   #define RGBLIGHT_LIMIT_VAL 225
 #else
-  #define RGBLIGHT_LIMIT_VAL 175
+  #define RGBLIGHT_LIMIT_VAL 204
 #endif
 
 #undef RGBLIGHT_VAL_STEP

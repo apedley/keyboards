@@ -31,3 +31,4 @@ enum user_custom_keycodes {
 typedef struct {
   bool recording;
 } dynamic_macro_t;
+
