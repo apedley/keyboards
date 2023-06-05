@@ -10,9 +10,6 @@ SRC += features/select_word.c
 LEADER_ENABLE = yes
 SRC += features/leader.c
 
-COMBO_ENABLE = yes
-SRC += features/combo.c
-
 ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
 	SRC += secrets.c
 endif
