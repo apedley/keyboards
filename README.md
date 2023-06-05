@@ -1,5 +1,14 @@
 # Keyboards
 
+## Example Setup
+
+```sh
+git clone https://github.com/apedley/keyboards apkb
+cd apkb
+git submodule update --init qmk
+cd qmk
+make git-submodule
+```
 
 ## Compile and Flash
 
