@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-#include "rgb.h"
+#include "rgb_matrix_user.h"
 #include "apedley.h"
 #include "print.h"
 // #include "lib/lib8tion/lib8tion.h"

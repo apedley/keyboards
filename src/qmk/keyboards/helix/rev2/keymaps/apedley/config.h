@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 
 #define SPLIT_WPM_ENABLE
+#define SPLIT_MODS_ENABLE
 
 // Selection of RGBLIGHT MODE to use.
 #if defined(LED_ANIMATIONS)
@@ -37,8 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_EFFECT_SNAKE
    #define RGBLIGHT_EFFECT_KNIGHT
    #define RGBLIGHT_EFFECT_CHRISTMAS
-   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-   #define RGBLIGHT_EFFECT_RGB_TEST
+  //  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+  //  #define RGBLIGHT_EFFECT_RGB_TEST
    #define RGBLIGHT_EFFECT_ALTERNATING
    #define RGBLIGHT_EFFECT_TWINKLE
 #endif
@@ -70,6 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef RGBLIGHT_HUE_STEP
 #define RGBLIGHT_HUE_STEP 4
+
 #ifdef MOUSEKEY_ENABLE
    #undef MOUSEKEY_INTERVAL
    #define MOUSEKEY_INTERVAL 20

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "features/leader.h"
-#include "rgb.h"
+#include "rgb_matrix_user.h"
 
 #if defined(OLED_ENABLE)
   #include "oled.h"
