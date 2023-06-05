@@ -36,17 +36,19 @@ enum custom_keycodes {
 };
 
 enum tap_dance_codes {
-  TD_SEMI_COLON
+  TD_SEMI_COLON,
+  TD_SLASH_BSLS,
+  TD_MINUS_EQUAL
 };
 
 #define LOWER LT(_LOWER, KC_BSPC)
 #define RAISE LT(_RAISE, KC_ESC)
 
-#define LT_LO_SP LT(_LOWER, KC_SPC)
-#define LT_RA_SP LT(_RAISE, KC_SPC)
 
 tap_dance_action_t tap_dance_actions[] = {
-  [TD_SEMI_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLN)
+  [TD_SEMI_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLN),
+  [TD_SLASH_BSLS] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_BSLS),
+  [TD_MINUS_EQUAL] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -58,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
       RAISE,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_LBRC, KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-      KC_LCTL, KC_LCTL, KC_LGUI, KC_LALT, QK_LEAD, LOWER,  LT_LO_SP, LT_RA_SP,RAISE,   KC_RSFT, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+      KC_LCTL, KC_LCTL, KC_LGUI, KC_LALT, QK_LEAD, LOWER,  KC_SPC,  KC_SPC,   RAISE,   KC_RSFT, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
       ),
 
   /* Lower
