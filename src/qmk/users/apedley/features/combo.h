@@ -8,6 +8,7 @@ enum combos {
   IO_MINUS,
   OP_EQUAL,
   COMMA_DOT,
+  XC_LDR,
   COMBO_LENGTH
 };
 

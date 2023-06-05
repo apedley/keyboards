@@ -60,3 +60,16 @@
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255 /* The maximum brightness level */
+
+
+#ifdef MOUSEKEY_ENABLE
+#   define MOUSEKEY_DELAY        0 // Delay between pressing a key and cursor movement
+#   define MOUSEKEY_INTERVAL    15 // Time between cursor movements in milliseconds
+#   define MOUSEKEY_MOVE_DELTA  10 // Step size for acceleration
+#   define MOUSEKEY_MAX_SPEED    9
+#   define MOUSEKEY_TIME_TO_MAX 80
+#   define MOUSEKEY_WHEEL_DELAY       16
+#   define MOUSEKEY_WHEEL_INTERVAL    30
+#   define MOUSEKEY_WHEEL_MAX_SPEED   10
+#   define MOUSEKEY_WHEEL_TIME_TO_MAX 95
+#endif
