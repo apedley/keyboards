@@ -79,4 +79,10 @@
 #    define OLED_DISPLAY_128X32
 #    define OLED_FONT_H "customglcdfont.c"
 #endif
+
+#undef QUICK_TAP_TERM
+#undef TAPPING_TERM
+#define TAPPING_TERM 175
+
+#define PERMISSIVE_HOLD
 #define TAPPING_TOGGLE 2
