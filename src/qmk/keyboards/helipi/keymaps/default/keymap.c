@@ -6,24 +6,57 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Default layer
-   *        ,-----------------------------------------.
-   *        |   6  |   7  |   8  |   9  |   0  | Bksp |
-   *        |------+------+------+------+------+------|
-   *        |   Y  |   U  |   I  |   O  |   P  |  \   |
-   *        |------+------+------+------+------+------|
-   *        |   H  |   J  |   K  |   L  |   ;  |  '   |
-   * ,------+------+------+------+------+------+------|
-   * |   ]  |   N  |   M  |   ,  |   .  |   /  |Enter |
-   * /------+------+------+------+------+------+------|
-   * |  SPC |  ALT |  CTL | Left | Down |  Up  |Right |
-   * -------------------------------------------------'
-   */
+   *   ,--------------
+   *   |   A  |   B  |
+   *   |------+------+------+------+------.
+   *   |   C  |   C  |   C  |   C  |   C  |
+   *   |------+---- -+---- -+------+------|
+   *   |   H  |   H  |   H  |   H  |   H  |
+   *   |------+---- -+---- -+------+------|
+   *   |   M  |   M  |   M  |   M  |   M  |
+   *   |------+---- -+---- -+------+------|
+   *   |   R  |   R  |   R  |   R  |   R  |
+   *   |------+---- -+---- -+------+------|
+   *   |   W  |   W  |   W  |   W  |   W  |
+   *   |------+---- -+---- -+------+------|
+   *   |   2  |   2  |   2  |   2  |   2  |
+   *   `----------------------------------'
+  //  */
 
-    [0] = LAYOUT(
-                KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      RGB_MOD,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-      RGB_TOG,  RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_M_B, RGB_M_R
-    )
+
+  [0] = LAYOUT(
+    KC_A,   KC_B,
+    KC_C,   KC_D,   KC_E,   KC_F,   KC_G,
+    KC_H,   KC_I,   KC_J,   KC_K,   KC_L,
+    KC_M,   KC_N,   KC_O,   KC_P,   KC_Q,
+    KC_R,   KC_S,   KC_T,   KC_U,   KC_V,
+    KC_W,   KC_X,   KC_Y,   KC_Z,   KC_1,
+    KC_2,   KC_3,   KC_4,   KC_5,   KC_6
+  )
 };
+
+#ifdef OLED_ENABLE
+
+static void render_logo(void) {
+
+  static const char helix_logo[][3][8] PROGMEM = {
+    {
+      {0x80,0x81,0x82,0x83,0x84,0x85,0x86,0},
+      {0xA0,0xA1,0xA2,0xA3,0xA4,0xA5,0xA6,0},
+      {0xC0,0xC1,0xC2,0xC3,0xC4,0xC5,0xC6,0},
+    }
+  };
+
+  oled_write_P(PSTR("\n"), false);
+  oled_write_P(helix_logo[0][0], false);
+  oled_write_P(PSTR("\n"), false);
+  oled_write_P(helix_logo[0][1], false);
+  oled_write_P(PSTR("\n"), false);
+  oled_write_P(helix_logo[0][2], false);
+}
+
+bool oled_task_user(void) {
+  render_logo();
+  return false;
+}
+#endif

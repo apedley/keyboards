@@ -59,3 +59,24 @@ void render_status(void) {
   // oled_write_P(leader.isLeading ? PSTR("LDR") : PSTR("  "), false);
   oled_advance_page(true);
 }
+
+void render_rgblight(bool simple) {
+#ifdef RGBLIGHT_ENABLE
+  char buf[30];
+  if (rgblight_is_enabled()) {
+
+    if (simple) {
+      snprintf(buf, sizeof(buf), "[%2d] ", rgblight_get_mode());
+    } else {
+      snprintf(buf, sizeof(buf), "LED %2d: %d,%d,%d ",
+                      rgblight_get_mode(),
+                      rgblight_get_hue()/RGBLIGHT_HUE_STEP,
+                      rgblight_get_sat()/RGBLIGHT_SAT_STEP,
+                      rgblight_get_val()/RGBLIGHT_VAL_STEP);
+      oled_write(buf, false);
+    }
+  }
+
+  oled_advance_page(true);
+#endif
+}
