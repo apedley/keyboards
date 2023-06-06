@@ -7,6 +7,11 @@ endif
 
 SRC += features/select_word.c
 
+COMBO_ENABLE = yes
+ifeq ($(strip $(COMBO_ENABLE)), yes)
+		INTROSPECTION_KEYMAP_C = combos.c
+endif
+
 LEADER_ENABLE = yes
 SRC += features/leader.c
 
