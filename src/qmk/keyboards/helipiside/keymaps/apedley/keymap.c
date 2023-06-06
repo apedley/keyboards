@@ -31,25 +31,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TT(_FN),  KC_RCTL,  KC_P0,    KC_PDOT,  KC_RALT,  KC_RGUI, TT(_FN2)
   ),
   [_FN] = LAYOUT(
-              RGB_MOD, RGB_TOG, RGB_VAI, RGB_HUI, _______, _______,
+              KC_CAPS, _______, _______, _______, _______, _______,
               _______, _______, _______, _______, _______, _______,
               _______, _______, _______, _______, _______, _______,
     _______,  _______, _______, _______, _______, _______, _______,
-    _______,  QK_BOOT, _______, _______, _______, _______, _______
+    _______,  _______, _______, _______, _______, _______, _______
   ),
   [_FN2] = LAYOUT(
-              RGB_MOD, RGB_TOG, RGB_VAI, RGB_HUI, _______, _______,
+              RGB_MOD, RGB_TOG, RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPD,
               _______, _______, _______, _______, _______, _______,
               _______, _______, _______, _______, _______, _______,
-    _______,  _______, _______, _______, _______, _______, _______,
+    _______,  QK_BOOT, _______, _______, _______, _______, _______,
     _______,  QK_BOOT, _______, _______, _______, _______, _______
   )
 };
 
 #ifdef OLED_ENABLE
 void render_layer(void) {
+77
 
-    char buf[10];
+0.
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
     switch (get_highest_layer(layer_state)) {
