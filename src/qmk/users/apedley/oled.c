@@ -53,8 +53,8 @@ void render_leader(void) {
 void render_status(void) {
   // Host Keyboard LED Status
   led_t led_state = host_keyboard_led_state();
-  oled_write_P(led_state.num_lock ? PSTR("NUM") : PSTR("   "), false);
-  oled_write_P(led_state.caps_lock ? PSTR("CAP") : PSTR("   "), false);
+  oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+  oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
   oled_write_P(led_state.scroll_lock ? PSTR("SCR") : PSTR("   "), false);
   // oled_write_P(leader.isLeading ? PSTR("LDR") : PSTR("  "), false);
   oled_advance_page(true);
@@ -73,6 +73,29 @@ void render_rgblight(bool simple) {
                       rgblight_get_hue()/RGBLIGHT_HUE_STEP,
                       rgblight_get_sat()/RGBLIGHT_SAT_STEP,
                       rgblight_get_val()/RGBLIGHT_VAL_STEP);
+      oled_write(buf, false);
+    }
+  }
+
+  oled_advance_page(true);
+#endif
+}
+
+
+void render_rgbmatrix(bool simple) {
+#ifdef RGB_MATRIX_ENABLE
+  char buf[30];
+  if (rgb_matrix_is_enabled()) {
+
+    if (simple) {
+      snprintf(buf, sizeof(buf), "[%2d] ", rgb_matrix_get_mode());
+    } else {
+      snprintf(buf, sizeof(buf), "LED %2d: %d,%d,%d %d",
+                      rgb_matrix_get_mode(),
+                      rgb_matrix_get_hue()/8,
+                      rgb_matrix_get_sat()/16,
+                      rgb_matrix_get_val()/16,
+                      rgb_matrix_get_speed()/26);
       oled_write(buf, false);
     }
   }

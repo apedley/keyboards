@@ -38,8 +38,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, _______, _______, _______, _______, _______
   ),
   [_FN2] = LAYOUT(
-              RGB_MOD, RGB_TOG, RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPD,
-              _______, _______, _______, _______, _______, _______,
+              RGB_MOD, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,
+              RGB_RMOD,RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,
               _______, _______, _______, _______, _______, _______,
     _______,  QK_BOOT, _______, _______, _______, _______, _______,
     _______,  QK_BOOT, _______, _______, _______, _______, _______
@@ -48,9 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_ENABLE
 void render_layer(void) {
-77
 
-0.
+    char buf[10];
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
     switch (get_highest_layer(layer_state)) {
@@ -74,6 +73,7 @@ void render_layer(void) {
 bool oled_task_keymap(void) {
   render_layer();
   render_rgblight(false);
+  render_rgbmatrix(false);
   render_status();
   return false;
 }

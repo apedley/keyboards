@@ -10,3 +10,4 @@ bool oled_task_keymap(void);
 void render_leader(void);
 void render_status(void);
 void render_rgblight(bool simple);
+void render_rgbmatrix(bool simple);
