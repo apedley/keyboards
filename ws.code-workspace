@@ -49,5 +49,20 @@
     "editor.tabSize": 2,
     "editor.detectIndentation": false,
     "C_Cpp.default.compilerPath": ""
-	}
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "qmk console",
+        "type": "shell",
+        "command": "/usr/bin/qmk",
+        "args": [
+          "console",
+          "-t"
+        ],
+        "problemMatcher": []
+      }
+    ]
+  }
 }
