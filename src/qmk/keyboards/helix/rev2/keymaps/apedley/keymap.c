@@ -43,6 +43,8 @@ enum tap_dance_codes {
   TD_MINUS_EQUAL
 };
 
+// clang-format off
+
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 

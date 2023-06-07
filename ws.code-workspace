@@ -47,6 +47,7 @@
       "rgb_matrix_user.h": "c"
     },
     "editor.tabSize": 2,
-    "editor.detectIndentation": false
+    "editor.detectIndentation": false,
+    "C_Cpp.default.compilerPath": ""
 	}
 }

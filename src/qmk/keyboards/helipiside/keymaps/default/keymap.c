@@ -3,6 +3,8 @@
 
 #include QMK_KEYBOARD_H
 
+// clang-format off
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Default layer
@@ -27,3 +29,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       RGB_TOG,  RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_M_B, RGB_M_R
     )
 };
+
+// clang-format on

@@ -1,69 +1,10 @@
 
 #include "quantum.h"
-// #ifdef RGB_MATRIX_ENABLE
-
-// // led_config_t g_led_config = {
-// //   // Key Matrix to LED Index
-// //     {
-// //         {  NO_LED,  0,  1,  2,  3,  4,  5 },
-// //         {  NO_LED, 11, 10,  9,  8,  7,  6 },
-// //         {  NO_LED, 12, 13, 14, 15, 16, 17 },
-// //         {  24,     23, 22, 21, 20, 19, 18 },
-// //         {  25,     26, 27, 28, 29, 30, 31 }
-// //     },
-// //   // LED Index to Physical Position
-// //   {
-// //               { 37,  0}, { 75,  0}, { 150,  0}, { 187,  0}, { 224,  0},
-// //               { 37, 16}, { 75, 16}, { 150, 16}, { 187, 16}, { 224, 16},
-// //               { 37, 32}, { 75, 32}, { 150, 32}, { 187, 32}, { 224, 32},
-// //     { 0, 48}, { 37, 48}, { 75, 48}, { 150, 48}, { 187, 48}, { 224, 48},
-// //     { 0, 64}, { 37, 64}, { 75, 64}, { 150, 64}, { 187, 64}, { 224, 64},
-// //   },
-
-// //   // LED Index to Flag
-// //   {
-// //       4, 4, 4, 4, 4, 4,
-// //       4, 4, 4, 4, 4, 4,
-// //       4, 4, 4, 4, 4, 4,
-// //    4, 4, 4, 4, 4, 4, 4,
-// //    4, 4, 4, 4, 4, 4, 4
-// //   }
-// // };
-
-
-// led_config_t g_led_config = {
-//   // Key Matrix to LED Index
-//   {
-//     {  0,  1,  2,  NO_LED,  4,  5 }
-//   },
-//   // LED Index to Physical Position
-//   {
-//     { 37,  0}, { 75,  0}, { 150,  0}, { 187,  0}, { 224,  0}
-//   },
-
-//   // LED Index to Flag
-//   {
-//     4, 4, 4, 4, 4, 4
-//   }
-// };
-
-
-// #endif
-
-// #ifdef RGB_MATRIX_ENABLE
-// led_config_t g_led_config = { {
-//   //Key Matrix to LED Indexccxxz
-//   { 0, 1, 2, 3, 4, 5, NO_LED }
-// }, {
-//   //LED Index to Physical Positon
-//    { 32,  0}, { 75,  0}, { 128,  0}, { 160,  0}, { 192,  0}, { 224,   0}
-// }, {
-//   4, 4, 4, 4, 4, 4
-// } };
-// #endif
-
 
 #ifdef RGB_MATRIX_ENABLE
+
+// clang-format off
+
 led_config_t g_led_config = { {
   //Key Matrix to LED Index
   { 5,  4,  3,  2,  1,  0, NO_LED },
@@ -88,4 +29,7 @@ led_config_t g_led_config = { {
   1, 1, 4, 4, 1, 1, 1
 
 } };
-#endif
+
+// clang-format on
+
+#endif //RGB_MATRIX_ENABLE

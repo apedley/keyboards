@@ -1,12 +1,16 @@
-// Copyright 2023 QMK
-// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "apedley.h"
 #include QMK_KEYBOARD_H
+
 enum layer_number {
   _BASE,
   _FN,
   _FN2
 };
+
+// clang-format off
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Default layer
@@ -46,6 +50,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+// clang-format on
+
 #ifdef OLED_ENABLE
 void render_layer(void) {
 
@@ -79,3 +85,4 @@ bool oled_task_keymap(void) {
 }
 
 #endif
+
