@@ -34,3 +34,16 @@
 // clang-format on
 
 #endif //RGB_MATRIX_ENABLE
+
+
+
+void keyboard_post_init_kb() {
+
+#ifdef CONSOLE_ENABLE
+  debug_config.enable = true;
+  // debug_config.keyboard = true;
+  // debug_config.matrix = true;
+#endif
+
+  keyboard_post_init_user();
+}
