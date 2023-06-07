@@ -1,6 +1,6 @@
 {
     "manufacturer": "Andrew Pedley",
-    "keyboard_name": "helipiside",
+    "keyboard_name": "helixpad",
     "maintainer": "apedley",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
@@ -17,7 +17,7 @@
       "rows": ["GP4", "GP5", "GP6", "GP7", "GP8"]
     },
     "processor": "RP2040",
-    "url": "https://github.com/apedley/helipiside",
+    "url": "https://github.com/apedley/helixpad",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x71D1",
