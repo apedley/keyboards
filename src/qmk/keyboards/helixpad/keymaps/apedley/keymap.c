@@ -10,35 +10,39 @@ enum layer_number {
 
 // clang-format off
 
+#define KC_COPY LCTL(KC_C)
+#define KC_PASTE LCTL(KC_V)
 
+#define FN1 TT(_FN)
+#define FN2 TT(_FN2)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Default layer
    *        ,-----------------------------------------.
-   *        | Num  |   /  |   *  |   -  | Home | Del  |
+   *        | Num  |   /  |   *  |   -  | Paus | Copy |
    *        |------+------+------+------+------+------|
-   *        |   7  |   8  |   9  |   +  | End  |VolUp |
+   *        |   7  |   8  |   9  |   +  | VolU |Paste |
    *        |------+------+------+------+------+------|
-   *        |   4  |   5  |   6  | Enter| PgUp | Mute |
+   *        |   4  |   5  |   6  | Enter| Mute |AltRpt|
    * ,------+------+------+------+------+------+------|
-   * |  FN2 |   1  |   2  |   3  | Shift| PgDn |VolDn |
+   * |  Fn2 |   1  |   2  |   3  | Shift| VolD | Rpt  |
    * /------+------+------+------+------+------+------|
-   * |  FN  | Ctrl |   0  |   .  |  Alt |  Gui | FN2  |
+   * |  Fn1 | Ctrl |   0  |   .  | Alt  | Fn1  | Fn2  |
    * -------------------------------------------------'
    */
 
   [_BASE] = LAYOUT(
-              KC_NUM,   KC_PSLS,  KC_PAST,  KC_PMNS,  KC_HOME, KC_DEL,
-              KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_END,  KC_VOLU,
-              KC_P4,    KC_P5,    KC_P6,    KC_PENT,  KC_PGUP, KC_MUTE,
-    TT(_FN2), KC_P1,    KC_P2,    KC_P3,    KC_RSFT,  KC_PGDN, KC_VOLD,
-    TT(_FN),  KC_RCTL,  KC_P0,    KC_PDOT,  KC_RALT,  KC_RGUI, TT(_FN2)
+              KC_NUM,   KC_PSLS,  KC_PAST,  KC_PMNS,  KC_PAUS, KC_COPY,
+              KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_VOLU, KC_PASTE,
+              KC_P4,    KC_P5,    KC_P6,    KC_PENT,  KC_MUTE, QK_AREP,
+    FN2,      KC_P1,    KC_P2,    KC_P3,    KC_RSFT,  KC_VOLD, QK_REP,
+    FN1,      KC_RCTL, KC_P0,     KC_PDOT,  KC_RALT,  FN1,     FN2
   ),
   [_FN] = LAYOUT(
               KC_CAPS, _______, _______, _______, _______, _______,
-              _______, _______, _______, _______, _______, _______,
-              _______, _______, _______, _______, _______, _______,
-    _______,  _______, _______, _______, _______, _______, _______,
+              KC_BTN2, KC_MS_U, KC_BTN3, KC_WH_U, _______, _______,
+              KC_MS_L, KC_BTN1, KC_MS_R, KC_WH_D, _______, _______,
+    _______,  KC_BTN4, KC_MS_D, KC_BTN5, _______, _______, _______,
     _______,  _______, _______, _______, _______, _______, _______
   ),
   [_FN2] = LAYOUT(
@@ -46,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               RGB_RMOD,RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,
               _______, _______, _______, _______, _______, _______,
     _______,  QK_BOOT, _______, _______, _______, _______, _______,
-    _______,  QK_BOOT, _______, _______, _______, _______, _______
+    _______,  KC_MAKE, _______, _______, _______, _______, _______
   )
 };
 
@@ -60,13 +64,13 @@ void render_layer(void) {
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
     switch (get_highest_layer(layer_state)) {
     case _BASE:
-        oled_write_P(PSTR("Base"), false);
+        oled_write_P(PSTR("Default"), false);
         break;
     case _FN:
-        oled_write_P(PSTR("FN1"), false);
+        oled_write_P(PSTR("Fn1"), false);
         break;
     case _FN2:
-        oled_write_P(PSTR("FN2"), false);
+        oled_write_P(PSTR("Fn2"), false);
         break;
     default:
         oled_write_P(PSTR("Undef-"), false);

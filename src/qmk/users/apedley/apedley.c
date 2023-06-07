@@ -84,9 +84,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       clear_oneshot_mods();
 
       if ((temp_mod | temp_osm) & MOD_MASK_SHIFT) {
-        SEND_STRING("qmk flash -kb " QMK_KEYBOARD " -km " QMK_KEYMAP);
-      } else {
         SEND_STRING("qmk compile -kb " QMK_KEYBOARD " -km " QMK_KEYMAP);
+      } else {
+        SEND_STRING("qmk flash -kb " QMK_KEYBOARD " -km " QMK_KEYMAP SS_TAP(X_ENTER));
+        reset_keyboard();
       }
 
       if ((temp_mod | temp_osm) & MOD_MASK_CTRL) {
