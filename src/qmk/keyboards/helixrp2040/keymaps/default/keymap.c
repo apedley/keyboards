@@ -8,13 +8,13 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  ADJUST = SAFE_RANGE,
-  RGB_MODB
+  TEST_MACRO_KB = SAFE_RANGE,
 };
 
 // clang-format off
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+#define ADJUST MO(_ADJUST)
 #define ADJ_SPC LT(_ADJUST, KC_SPC)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Adjust
    */
   [_ADJUST] =  LAYOUT(
-      QK_BOOT,  _______, _______, _______, _______, _______,                  RGB_MODB, _______, KC_NUM,  _______, _______, KC_DEL,
+      QK_BOOT,  _______, _______, _______, _______, _______,                  _______, _______, KC_NUM,  KC_CAPS, _______, KC_DEL,
       _______, _______, _______, _______, _______, _______,                   RGB_MOD, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,
       KC_CAPS, _______, _______, _______, _______, _______,                   RGB_RMOD,RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,
       DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -60,37 +60,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // clang-format on
 
-int RGB_current_mode;
-layer_state_t currentLayerState;
-
-layer_state_t layer_state_set_keymap(layer_state_t state) {
-  currentLayerState = state;
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
-    case RGB_MODB:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
-          rgblight_mode(RGB_current_mode);
-          rgblight_step();
-          RGB_current_mode = rgblight_get_mode();
-        }
-      #endif
-      return false;
-      break;
-  }
-  return true;
-}
 
 
