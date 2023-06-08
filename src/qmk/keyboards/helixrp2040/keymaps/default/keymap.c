@@ -93,37 +93,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-#ifdef OLED_ENABLE
-void render_layer(void) {
-
-    char buf[10];
-
-  // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-    switch (get_highest_layer(layer_state)) {
-    case _BASE:
-        oled_write_P(PSTR("Base"), false);
-        break;
-    case _LOWER:
-        oled_write_P(PSTR("Lower"), false);
-        break;
-    case _RAISE:
-        oled_write_P(PSTR("Raise"), false);
-        break;
-    case _ADJUST:
-        oled_write_P(PSTR("Adjust"), false);
-        break;
-    default:
-        oled_write_P(PSTR("Undef-"), false);
-        snprintf(buf,sizeof(buf), "%u", layer_state);
-        oled_write(buf, false);
-    }
-    oled_advance_page(true);
-}
-
-bool oled_task_user(void) {
-  render_layer();
-  return false;
-}
-
-#endif
 

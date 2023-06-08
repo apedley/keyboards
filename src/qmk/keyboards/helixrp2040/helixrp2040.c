@@ -2,6 +2,98 @@
 #include "quantum.h"
 
 
+
+// Each layer gets a name for readability, which is then used in the keymap matrix below.
+// The underscores don't mean anything - you can have a layer called STUFF or any other name.
+// Layer names don't all need to be of the same length, obviously, and you can also skip them
+// // entirely and just use numbers.
+// enum layer_number {
+//     _QWERTY = 0,
+//     _LOWER,
+//     _RAISE,
+//     _ADJUST
+// };
+
+// //assign the right code to your layers for OLED display
+// #define L_BASE 0
+// #define L_LOWER (1<<_LOWER)
+// #define L_RAISE (1<<_RAISE)
+// #define L_ADJUST (1<<_ADJUST)
+// #define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
+
+#ifdef OLED_ENABLE
+
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return is_keyboard_left() ? rotation : OLED_ROTATION_90 ^ OLED_ROTATION_270;
+}
+
+
+void render_layer(void) {
+
+    char buf[10];
+
+  // // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
+  //   switch (get_highest_layer(layer_state)) {
+  //   case L_BASE:
+  //       oled_write_P(PSTR("Base"), false);
+  //       break;
+  //   case L_LOWER:
+  //       oled_write_P(PSTR("Lower"), false);
+  //       break;
+  //   case L_RAISE:
+  //       oled_write_P(PSTR("Raise"), false);
+  //       break;
+  //   case L_ADJUST:
+  //       oled_write_P(PSTR("Adjust"), false);
+  //       break;
+  //   default:
+  //       oled_write_P(PSTR("Undef-"), false);
+  //       snprintf(buf,sizeof(buf), "%u", layer_state);
+  //       oled_write(buf, false);
+  //   }
+  //   oled_advance_page(true);
+
+    oled_write_P(PSTR("Layer: "), false);
+    snprintf(buf,sizeof(buf), "%u", layer_state);
+    oled_write(buf, false);
+    oled_advance_page(true);
+
+}
+void render_status(void) {
+
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUML") : PSTR("    "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("    "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCRL") : PSTR("    "), false);
+    oled_advance_page(true);
+}
+
+bool oled_task_kb(void) {
+    if (oled_task_user()) {
+      /* keymap/user level oled_task_user() dose not exist */
+      if (is_keyboard_left()) {
+        render_layer();
+      } else {
+        render_layer();
+        render_status();
+      }
+      return false;
+    }
+    return false;
+}
+#endif // OLED_ENABLE
+
+void keyboard_post_init_kb() {
+
+#ifdef CONSOLE_ENABLE
+  debug_config.enable = true;
+  // debug_config.keyboard = true;
+  // debug_config.matrix = true;
+#endif // CONSOLE_ENABLE
+
+  keyboard_post_init_user();
+}
+
 #ifdef RGB_MATRIX_ENABLE
 
 // clang-format off
@@ -34,16 +126,3 @@
 // clang-format on
 
 #endif //RGB_MATRIX_ENABLE
-
-
-
-void keyboard_post_init_kb() {
-
-#ifdef CONSOLE_ENABLE
-  debug_config.enable = true;
-  // debug_config.keyboard = true;
-  // debug_config.matrix = true;
-#endif
-
-  keyboard_post_init_user();
-}
