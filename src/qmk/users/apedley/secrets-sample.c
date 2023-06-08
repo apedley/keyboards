@@ -37,6 +37,18 @@ bool process_leader_dictionary_secret(void) {
     // Leader, p, t => sends pw2
     SEND_STRING("sctpt");
     return false;
+  } else if (leader_sequence_two_keys(KC_P, KC_H)) {
+    // Leader, p, h => sends phone number
+    SEND_STRING("sctph");
+    return false;
+  } else if (leader_sequence_two_keys(KC_A, KC_D)) {
+    // Leader, a, d => sends address
+    SEND_STRING("sctad");
+    return false;
+  } else if (leader_sequence_two_keys(KC_A, KC_P)) {
+    // Leader, a, p => sends name
+    SEND_STRING("sctap");
+    return false;
   }
   return true; // Keep going
 }
