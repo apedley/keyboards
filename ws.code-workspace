@@ -44,7 +44,8 @@
       "oled.h": "c",
       "*.ipp": "cpp",
       "rgb_matrix_stuff.h": "c",
-      "rgb_matrix_user.h": "c"
+      "rgb_matrix_user.h": "c",
+      "wrappers.h": "c"
     },
     "editor.tabSize": 2,
     "editor.detectIndentation": false,

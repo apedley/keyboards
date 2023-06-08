@@ -51,6 +51,7 @@ enum tap_dance_codes {
 #define KC_CUT LCTL(KC_X)
 #define KC_PAST LCTL(KC_V)
 #define KC_UNDO LCTL(KC_Z)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty
@@ -86,8 +87,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_ADJUST] =  LAYOUT(
       KC_GRV,  _______, _______, _______, _______, _______,                   _______, _______, KC_NUM,  _______, _______, KC_DEL,
-      _______, QK_BOOT, _______, _______, _______, _______,                   RGB_MOD, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,
-      KC_CAPS, KC_MAKE, _______, _______, _______, _______,                   RGB_RMOD,RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,
+      _______, QK_BOOT, _______, _______, _______, _______,                   _______________________RGB_1________________________,
+      KC_CAPS, KC_MAKE, _______, _______, _______, _______,                   _______________________RGB_2________________________,
       _______, DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MAKE, QK_BOOT
       )
