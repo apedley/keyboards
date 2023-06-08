@@ -1,3 +1,8 @@
+#pragma once
+#include "quantum.h"
+
+#define ___ KC_NO
+
 #define LAYOUT( \
            K00,   K01,   K02,   K03,   K04,   K05,   \
            K10,   K11,   K12,   K13,   K14,   K15,   \
