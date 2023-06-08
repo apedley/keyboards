@@ -28,7 +28,7 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
 }
 
 
-void render_layer(void) {
+void render_layer_kb(void) {
 
     char buf[10];
 
@@ -59,7 +59,7 @@ void render_layer(void) {
     oled_advance_page(true);
 
 }
-void render_status(void) {
+void render_status_kb(void) {
 
     led_t led_state = host_keyboard_led_state();
     oled_write_P(led_state.num_lock ? PSTR("NUML") : PSTR("    "), false);
@@ -69,7 +69,7 @@ void render_status(void) {
 }
 
 
-void render_rgbmatrix(bool simple) {
+void render_rgbmatrix_kb(bool simple) {
 #ifdef RGB_MATRIX_ENABLE
   char buf[30];
   if (rgb_matrix_is_enabled()) {
@@ -95,11 +95,11 @@ bool oled_task_kb(void) {
     if (oled_task_user()) {
       /* keymap/user level oled_task_user() dose not exist */
       if (is_keyboard_left()) {
-        render_layer();
-        render_rgbmatrix(false);
+        render_layer_kb();
+        render_rgbmatrix_kb(false);
       } else {
-        render_layer();
-        render_status();
+        render_layer_kb();
+        render_status_kb();
       }
       return false;
     }
