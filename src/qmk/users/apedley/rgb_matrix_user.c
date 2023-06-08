@@ -44,7 +44,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
   }
 
   if (is_caps_word_on()) {
-    rgb_matrix_set_color_all(RGB_YELLOW);
+    // rgb_matrix_set_color_all(RGB_YELLOW);
+
+    for (uint8_t i = led_min; i < led_max; i++) {
+      if (g_led_config.flags[i] & LED_FLAG_INDICATOR) {
+          rgb_matrix_set_color(i, RGB_YELLOW);
+      }
+    }
     return false;
   }
 
