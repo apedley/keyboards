@@ -24,7 +24,8 @@ enum layer_number {
   _BASE,
   _LOWER,
   _RAISE,
-  _ADJUST
+  _ADJUST,
+  _NUMPAD
 };
 
 enum custom_keycodes {
@@ -47,9 +48,12 @@ enum tap_dance_codes {
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
+
+#define TOGNP TG(_NUMPAD)
+
 #define KC_COPY LCTL(KC_C)
 #define KC_CUT LCTL(KC_X)
-#define KC_PAST LCTL(KC_V)
+#define KC_PASTE LCTL(KC_V)
 #define KC_UNDO LCTL(KC_Z)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -85,16 +89,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    /* Adjust
    */
   [_ADJUST] =  LAYOUT(
-      KC_GRV,  _______, _______, _______, _______, _______,                   _______, _______, KC_NUM,  _______, _______, KC_DEL,
+      KC_GRV,  _______, _______, _______, _______, _______,                   KC_NUM,  _______,  KC_CAPS, _______, _______, KC_DEL,
       _______, QK_BOOT, _______, _______, _______, _______,                   RGB_MOD, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,
       KC_CAPS, KC_MAKE, _______, _______, _______, _______,                   RGB_RMOD,RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,
-      _______, DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, DB_TOGG, _______, _______, _______, _______, _______, TOGNP,   _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MAKE, QK_BOOT
-      )
+      ),
+  [_NUMPAD] =  LAYOUT(
+      KC_GRV,  _______, _______, _______, _______, _______,                   KC_NUM,   KC_PSLS,KC_PAST,KC_PMNS, _______, _______,
+      _______, _______, _______, _______, _______, _______,                   KC_P7,    KC_P8,  KC_P9, KC_PPLS, _______, _______,
+      _______, _______, _______, _______, _______, _______,                   KC_P4,    KC_P5,  KC_P6, KC_PPLS, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, TOGNP,   KC_P1,    KC_P2,  KC_P3, KC_PENT, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, KC_P0,    KC_P0,  KC_DOT, KC_PENT, KC_MAKE, QK_BOOT
+      ),
 };
 
 // clang-format on
-
 
 
 

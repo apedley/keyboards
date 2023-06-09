@@ -29,7 +29,8 @@ enum layer_number {
     _QWERTY = 0,
     _LOWER,
     _RAISE,
-    _ADJUST
+    _ADJUST,
+    _NUMPAD
 };
 
 //assign the right code to your layers for OLED display
@@ -37,6 +38,7 @@ enum layer_number {
 #define L_LOWER (1<<_LOWER)
 #define L_RAISE (1<<_RAISE)
 #define L_ADJUST (1<<_ADJUST)
+#define L_NUMPAD (1<<_NUMPAD)
 #define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
 
 //OLED update loop
@@ -86,7 +88,7 @@ static void render_layer_status(bool full_display) {
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
     switch (layer_state) {
     case L_BASE:
-        oled_write_P(PSTR("Default"), false);
+        oled_write_P(PSTR("Base"), false);
         break;
     case L_RAISE:
         oled_write_P(PSTR("Raise"), false);
@@ -97,6 +99,9 @@ static void render_layer_status(bool full_display) {
     case L_ADJUST:
     case L_ADJUST_TRI:
         oled_write_P(PSTR("Adjust"), false);
+        break;
+    case L_NUMPAD:
+        oled_write_P(PSTR("Numpad"), false);
         break;
     default:
         oled_write_P(PSTR("Undef-"), false);
