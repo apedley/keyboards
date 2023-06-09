@@ -16,3 +16,13 @@
   { K35, K34, K33, K32, K31, K30,   K36 }, \
   { K45, K44, K43, K42, K41, K40,   K46 }  \
 }
+
+// #define LAYOUT( \
+// 	k0B, k0C, k0D, k0E, k0F, k0G, k1B, k1C, k1D, k1E, k1F, k1G, k2B, k2C, k2D, k2E, k2F, k2G, k3A, k3B, k3C, k3D, k3E, k3F, k3G, k4A, k4B, k4C, k4D, k4E, k4F, k4G \
+// ) { \
+// 	{XXX, k0B, k0C, k0D, k0E, k0F, k0G}, \
+// 	{XXX, k1B, k1C, k1D, k1E, k1F, k1G}, \
+// 	{XXX, k2B, k2C, k2D, k2E, k2F, k2G}, \
+// 	{k3A, k3B, k3C, k3D, k3E, k3F, k3G}, \
+// 	{k4A, k4B, k4C, k4D, k4E, k4F, k4G} \
+// }
