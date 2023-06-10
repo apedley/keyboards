@@ -7,7 +7,7 @@
 
 led_config_t g_led_config = { {
   //Key Matrix to LED Index
-  { 5,  4,  3,  2,  1,  0, NO_LED },
+  { 5,  4,  3,  2,  1,  0, NO_LED},
   { 6,  7,  8,  9, 10, 11, NO_LED },
   {17, 16, 15, 14, 13, 12, NO_LED },
   {18, 19, 20, 21, 22, 23, 24},
@@ -24,7 +24,7 @@ led_config_t g_led_config = { {
 
 }, {
   // LED Index to Flag
-     9, 4, 4, 4, 4, 12,
+     4, 4, 4, 4, 4, 4,
      4, 4, 4, 4, 4, 4,
      4, 4, 4, 4, 4, 4,
   4, 4, 4, 4, 4, 4, 1,

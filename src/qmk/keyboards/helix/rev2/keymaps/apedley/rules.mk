@@ -27,7 +27,6 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
   SRC += oled_display.c
 endif
 
-BONGO_ENABLE = yes
 WPM_ENABLE = yes
 
 BOOTLOADER = rp2040
