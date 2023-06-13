@@ -119,4 +119,6 @@ void keyboard_post_init_user() {
   keyboard_post_init_keymap();
 }
 
-void matrix_scan_user(void) { select_word_task(); }
+void matrix_scan_user(void) {
+  select_word_task();
+}

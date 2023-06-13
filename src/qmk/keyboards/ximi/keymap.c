@@ -1,4 +1,7 @@
 #include QMK_KEYBOARD_H
+#include "apedley.h"
+#include "debug.h"
+
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -139,3 +142,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______, _______,           _______, _______, _______
 )
 };
+
+void matrix_init_keymap(void) {
+  debug_config.enable = true;
+  dprintf("matrix_init_keymap\n");
+}
+
+void matrix_init_user(void) {
+  debug_config.enable = true;
+  dprintf("matrix_init_user\n");
+}
+
+
+uint16_t scan_timer = 0;
+
+
