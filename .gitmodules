@@ -7,7 +7,3 @@
 	path = qmk
 	url = https://github.com/apedley/qmkmk47
   ignore = dirty
-[submodule "fingerpunch-qmk"]
-	path = fingerpunch-qmk
-	url = https://github.com/sadekbaroudi/qmk_firmware.git
-	branch = develop_fingerpunch
