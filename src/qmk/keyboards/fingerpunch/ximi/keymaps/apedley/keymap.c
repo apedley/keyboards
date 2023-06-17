@@ -47,14 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LOWER,    KC_A,     KC_S,   KC_D,     KC_F,   KC_G,            KC_H,    KC_J,    KC_K,     KC_L,   KC_SCLN,KC_QUOT,
     KC_LSFT,  KC_Z,     KC_X,   KC_C,     KC_V,   KC_B,            KC_N,    KC_M,    KC_COMM,  KC_DOT, KC_SLSH,KC_RGUI,
                 KC_MUTE,        KC_TAB,    KC_LCTL,KC_SPC,         KC_ENT,  KC_RALT, RAISE,          KC_MUTE,
-                                KC_WH_D,  KC_BTN3,KC_WH_U,         KC_WH_D, KC_BTN3, KC_WH_U
-    ),
-    [_RAISE] = LAYOUT_ximi(
-    KC_GRV,   KC_1,    KC_UP,   KC_3,    KC_4,    KC_5,           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-    _______,   KC_EXLM, KC_AT,  KC_HASH, KC_DLR,  KC_PERC,        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-    QK_BOOT,  KC_CAPS, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR,        _______, _______, _______, KC_PIPE,  KC_DQT, _______,
-                 QK_BOOT,       _______, _______, _______,        QK_BOOT, KC_MAKE, _______,          _______,
-                                _______, _______, _______,        KC_VOLD, KC_MUTE, KC_VOLU
+                                KC_WH_D,  KC_BTN3,KC_WH_U,         KC_WH_D, _______, KC_WH_U
     ),
     [_LOWER] = LAYOUT_ximi(
     KC_GRV,   KC_1,    KC_UP,   KC_3,    KC_4,    KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
@@ -62,6 +55,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, _______, _______, _______, DB_TOGG,       _______, _______, _______, KC_BSLS, KC_QUOT, _______,
                  QK_BOOT,       QK_RBT,  QK_BOOT, KC_MAKE,       _______, _______, _______,        _______,
                                 KC_BTN1, KC_BTN3, KC_BTN2,       KC_VOLD, KC_MUTE, KC_VOLU
+    ),
+
+    [_RAISE] = LAYOUT_ximi(
+    KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+    _______,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+    QK_BOOT,  KC_CAPS, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR,        _______, _______, _______, KC_PIPE,  KC_DQT, _______,
+                 QK_BOOT,       _______, _______, _______,        QK_BOOT, KC_MAKE, _______,          _______,
+                                _______, _______, _______,        KC_VOLD, KC_MUTE, KC_VOLU
     ),
 
     [_ADJUST] =  LAYOUT_ximi(
@@ -80,10 +81,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 _______, _______, _______,       _______, _______, _______
     )
 };
+
 void keyboard_post_init_keymap(void) {
   // Customise these values to desired behaviour
   debug_enable=true;
-  debug_matrix=true;
-  //debug_keyboard=true;
+  // debug_matrix=true;
+  debug_keyboard=true;
   //debug_mouse=true;
+}
+
+layer_state_t layer_state_set_keymap(layer_state_t state) {
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
