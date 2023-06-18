@@ -1,7 +1,11 @@
-
 #include "apedley.h"
 #include QMK_KEYBOARD_H
 
+// float sonic_ring_song[][2] = SONG(SONIC_RING);
+
+enum custom_keycodes {
+    DRAG_SCROLL = NEW_SAFE_RANGE
+};
 // clang-format off
 
 // Defines names for use in layer keycodes and the keymap
@@ -16,6 +20,18 @@ enum layer_names {
 #define LOWER LT(_LOWER, KC_TAB)
 #define RAISE LT(_RAISE, KC_BSLS)
 #define NUMPAD MO(_NUMPAD)
+
+// Left-hand home row mods
+#define HOME_A LGUI_T(KC_A)
+#define HOME_S LALT_T(KC_S)
+#define HOME_D LSFT_T(KC_D)
+#define HOME_F LCTL_T(KC_F)
+
+// Right-hand home row mods
+#define HOME_J RCTL_T(KC_J)
+#define HOME_K RSFT_T(KC_K)
+#define HOME_L LALT_T(KC_L)
+#define HOME_SCLN RGUI_T(KC_SCLN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base
@@ -44,15 +60,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                                           KC_PGDN,      KC_END,       KC_PGUP,      KC_VOLD, KC_MUTE,      KC_VOLU
     // ),
     [_BASE] = LAYOUT_ximi(
-    KC_ESC,   KC_Q,     KC_W,   KC_E,     KC_R,   KC_T,            KC_Y,    KC_U,    KC_I,     KC_O,   KC_P,   KC_BSPC,
-    LOWER,    KC_A,     KC_S,   KC_D,     KC_F,   KC_G,            KC_H,    KC_J,    KC_K,     KC_L,   KC_SCLN,KC_QUOT,
-    KC_LSFT,  KC_Z,     KC_X,   KC_C,     KC_V,   KC_B,            KC_N,    KC_M,    KC_COMM,  KC_DOT, KC_SLSH,KC_RGUI,
+    KC_ESC,   KC_Q,     KC_W,   KC_E,     KC_R,   KC_T,            KC_Y,    KC_U,    KC_I,     KC_O,   KC_P,      KC_BSPC,
+    LOWER,    HOME_A,   HOME_S, HOME_D,   HOME_F, KC_G,            KC_H,    HOME_J,  HOME_K,   HOME_L, HOME_SCLN, KC_QUOT,
+    KC_LSFT,  KC_Z,     KC_X,   KC_C,     KC_V,   KC_B,            KC_N,    KC_M,    KC_COMM,  KC_DOT, KC_SLSH,   KC_RGUI,
                 KC_MUTE,        KC_TAB,   KC_LCTL,KC_SPC,          KC_ENT,  KC_RALT, RAISE,          KC_MUTE,
-                                KC_P1,    KC_P2,  KC_P3,           KC_WH_D, _______, KC_WH_U
+                                KC_BTN1,  KC_BTN3, KC_BTN2,        KC_WH_D, _______, KC_WH_U
     ),
     [_LOWER] = LAYOUT_ximi(
     KC_GRV,   KC_1,    KC_UP,   KC_3,    KC_4,    KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-    _______,  KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_TAB,        _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
+    _______,  KC_LEFT, KC_DOWN, KC_RGHT, DRAG_SCROLL, KC_TAB,        _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
     _______,  _______, _______, _______, _______, DB_TOGG,       _______, _______, _______, KC_BSLS, KC_QUOT, _______,
                  QK_BOOT,       QK_RBT,  QK_BOOT, KC_MAKE,       _______, _______, _______,        _______,
                                 KC_P1,   KC_P2,   KC_P3,         KC_VOLD, KC_MUTE, KC_VOLU
@@ -90,6 +106,8 @@ void keyboard_post_init_keymap(void) {
   // debug_matrix=true;
   // debug_keyboard=true;
   debug_mouse=true;
+
+    // pimoroni_trackball_set_rgbw(0, 0, 254, 0);
 }
 
 layer_state_t layer_state_set_keymap(layer_state_t state) {
@@ -142,3 +160,36 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 
 #endif
 
+#ifdef POINTING_DEVICE_ENABLE
+
+bool set_scrolling = false;
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (set_scrolling) {
+        mouse_report.h = mouse_report.x;
+        mouse_report.v = mouse_report.y;
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+    return mouse_report;
+}
+
+#endif
+
+
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    #if POINTING_DEVICE_ENABLE
+    case DRAG_SCROLL:
+      if (record->event.pressed) {
+        set_scrolling = !set_scrolling;
+      }
+      return false;
+      break;
+    #endif
+
+    #ifdef AUDIO_ENABLE
+    #endif // AUDIO_ENABLE
+  }
+  return true;
+}
