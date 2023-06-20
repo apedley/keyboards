@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LOWER,    HOME_A,   HOME_S, HOME_D,   HOME_F, KC_G,            KC_H,    HOME_J,  HOME_K,   HOME_L, HOME_SCLN, KC_QUOT,
     KC_LSFT,  KC_Z,     KC_X,   KC_C,     KC_V,   KC_B,            KC_N,    KC_M,    KC_COMM,  KC_DOT, KC_SLSH,   KC_RGUI,
                 KC_MUTE,        KC_TAB,   KC_LCTL,KC_SPC,          KC_ENT,  KC_RALT, RAISE,          KC_MUTE,
-                                KC_BTN1,  KC_BTN3, KC_BTN2,        KC_WH_D, _______, KC_WH_U
+                                KC_BTN1,  EE_CLR, KC_BTN2,        KC_WH_D, EE_CLR, KC_WH_U
     ),
     [_LOWER] = LAYOUT_ximi(
     KC_GRV,   KC_1,    KC_UP,   KC_3,    KC_4,    KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
@@ -207,7 +207,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 //   return false;
 // }
 
-#endif
+#endif  // OLED_ENABLE
 
 #ifdef POINTING_DEVICE_ENABLE
 
@@ -223,7 +223,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     return mouse_report;
 }
 
-#endif
+#endif // POINTING_DEVICE_ENABLE
 
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {

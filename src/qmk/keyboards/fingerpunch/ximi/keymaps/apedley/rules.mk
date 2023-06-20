@@ -6,8 +6,7 @@ HAPTIC_ENABLE = yes
 
 
 FP_CIRQUE_LEFT_ONLY = yes
-
-# CIRQUE_ENABLE = yes
+CIRQUE_ENABLE = yes
 
 OLED_ENABLE = no
 
