@@ -29,7 +29,7 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  SEND_RAW = NEWER_SAFE_RANGE,
+  SEND_RAW = NEW_SAFE_RANGE,
   ADJUST,
   UPSPC,
   NEWTAB,
