@@ -1,5 +1,11 @@
-OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
+
+ifeq ($(strip $(OLED_ENABLE)), yes)
+	OLED_ENABLE = yes
+	OLED_DRIVER = SSD1306
+  SRC += oled_display.c
+endif
+
+
 
 RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes

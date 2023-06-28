@@ -33,6 +33,7 @@ enum custom_keycodes {
   ADJUST,
   UPSPC,
   NEWTAB,
+  DRAG_SCROLL
 };
 
 
@@ -43,7 +44,12 @@ enum tap_dance_codes {
   TD_MINUS_EQUAL
 };
 
+// Modify these values to adjust the scrolling speed
+#define SCROLL_DIVISOR_H 20.0
+#define SCROLL_DIVISOR_V 20.0
+
 // clang-format off
+
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -74,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_F12,  KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, NEWTAB,                    KC_MINUS,KC_EQUAL,_______, DM_REC1, DM_PLY1, KC_F11,
       _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, KC_PGUP,                   KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, KC_BTN2,
       _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_HOME, KC_END, KC_HOME,  KC_END, KC_HOME, KC_END,  _______, _______, KC_DEL,  _______,
-      _______, _______, _______, _______, KC_LPRN, _______, KC_ENT,   UPSPC,  _______, KC_RPRN, _______, _______, _______, _______
+      QK_BOOT, _______, _______, _______, KC_LPRN, _______, KC_ENT,   UPSPC,  _______, KC_RPRN, _______, _______, _______, QK_BOOT
       ),
 
   /* Raise
@@ -84,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_F12,  UPDIR,   KC_UP,   SELWORD, KC_VOLU, NEWTAB,                    KC_UNDS, KC_PLUS, _______, _______,  _______, KC_F11,
       _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD, KC_HOME,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
       _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_PGUP, KC_PGDN, KC_HOME,  KC_END, KC_PGUP, KC_PGDN, _______,  KC_INSERT,KC_DEL, _______,
-      _______, _______, _______, _______, KC_LPRN, _______, KC_ENT,   UPSPC,  _______, KC_RPRN, _______, _______,  _______, _______
+      QK_BOOT, DRAG_SCROLL, _______, _______, KC_LPRN, _______, KC_ENT,   UPSPC,  _______, KC_RPRN, _______, _______,  QK_BOOT, DRAG_SCROLL
       ),
    /* Adjust
    */
@@ -114,6 +120,62 @@ tap_dance_action_t tap_dance_actions[] = {
   [TD_MINUS_EQUAL] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL)
 };
 
+
+bool set_scrolling = false;
+
+
+#ifdef POINTING_DEVICE_ENABLE
+
+// Variables to store accumulated scroll values
+float scroll_accumulated_h = 0;
+float scroll_accumulated_v = 0;
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+  // if (set_scrolling) {
+  //     mouse_report.h = mouse_report.x;
+  //     mouse_report.v = mouse_report.y;
+  //     mouse_report.x = 0;
+  //     mouse_report.y = 0;
+  // }
+
+  // return mouse_report;
+
+
+  // Check if drag scrolling is active
+  if (set_scrolling) {
+    // Calculate and accumulate scroll values based on mouse movement and divisors
+    scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
+    scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+
+    // Assign integer parts of accumulated scroll values to the mouse report
+    mouse_report.h = (int8_t)scroll_accumulated_h;
+    mouse_report.v = -(int8_t)scroll_accumulated_v;
+
+    // Update accumulated scroll values by subtracting the integer parts
+    scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
+    scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+
+    // Clear the X and Y values of the mouse report
+    mouse_report.x = 0;
+    mouse_report.y = 0;
+  }
+  return mouse_report;
+}
+
+#endif // POINTING_DEVICE_ENABLE
+
+
+void keyboard_post_init_keymap(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  // debug_matrix=true;
+  //debug_keyboard=true;
+  debug_mouse=true;
+
+  if (!is_keyboard_left()) {
+    pimoroni_trackball_set_rgbw(0, 0, 0, 80);
+  }
+}
 #ifdef RAW_ENABLE
 #define QMK_RC_BUFFER_MAX 64
 uint8_t qmk_rc_buffer[QMK_RC_BUFFER_MAX] = {};
@@ -149,7 +211,23 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 //   }
 //   raw_hid_send(qmk_rc_layer_buffer, QMK_RC_BUFFER_MAX);
 #endif
+
+#ifdef POINTING_DEVICE_ENABLE
+
+  switch (get_highest_layer(state)) {
+    case _LOWER:
+    case _RAISE:
+    case _ADJUST:
+      set_scrolling = true;
+      break;
+    default:
+      set_scrolling = false;
+      break;
+  }
+#endif
+
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
@@ -172,6 +250,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     case NEWTAB:
       if (record->event.pressed) {
         SEND_STRING(SS_LSFT(SS_TAP(X_T)));
+      }
+      return false;
+      break;
+    case DRAG_SCROLL:
+      if (record->event.pressed) {
+        set_scrolling = !set_scrolling;
+        // set_scrolling = record->event.pressed;
       }
       return false;
       break;

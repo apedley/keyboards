@@ -1,4 +1,4 @@
-
+USER_NAME := apedley
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
   SRC += oled_display.c

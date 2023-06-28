@@ -7,3 +7,7 @@
 	path = qmk
 	url = https://github.com/apedley/qmkmk47
   ignore = dirty
+[submodule "vial"]
+	path = vial
+	url = git@github.com:apedley/vial-qmk.git
+	branch = vial-original
