@@ -22,7 +22,7 @@ endif
 
 # QUANTUM_PAINTER_ENABLE = yes
 # QUANTUM_PAINTER_DRIVERS += gc9a01_spi
-QUANTUM_PAINTER_ENABLE = yes
+
 ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
   SRC += lcd_display.c
 	WPM_ENABLE = yes

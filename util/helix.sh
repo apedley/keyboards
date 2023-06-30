@@ -1,6 +1,5 @@
 #!/usr/bin/bash
 
-
 KB=helixrp2040
 KM=pointing
 BIN="${KB//\//_}_${KM}.uf2"
@@ -12,20 +11,19 @@ KEYMAP_DIR=$QMK/keyboards/$KB/keymaps/$KM
 
 echo -n "" >$LOG
 
-keymapviz -k helix $KEYMAP_DIR/keymap.c -o $KEYMAP_DIR/keymap.txt
+keymapviz -k helix $KEYMAP_DIR/keymap.c -o $QMK_HOME/$KB-$KM.txt -c $XDG_CONFIG_HOME/keymapviz.conf
 
-qmk compile -kb $KB -km $KM 2>>$LOG || exit
+# qmk compile -kb $KB -km $KM || exit
 
+# echo Flashing first half ...
+# qmk flash $BIN
 
-echo Flashing first half ...
-qmk flash $BIN 2>>$LOG || exit
+# read -p "Press enter to continue"
 
-read -p "Press enter to continue"
+# printf "\n \n" >>$LOG
 
-printf "\n \n" >>$LOG
-
-echo Flashing second half ...
-qmk flash $BIN 2>>$LOG || exit
+# echo Flashing second half ...
+# qmk flash $BIN
 
 # for SIDE in LEFT RIGHT; do
 #   cat << EOF
@@ -39,7 +37,6 @@ qmk flash $BIN 2>>$LOG || exit
 #   if [ $SIDE = LEFT ]; then
 #     printf "\n-----------------------\n\n" >>$LOG
 #   fi
-
 
 # EOF
 # done

@@ -8,20 +8,27 @@ BIN="${KB//\//_}_${KM}.uf2"
 
 cd $(qmk env QMK_HOME)
 QMK=$(pwd)
-LOG=$QMK/keyboards/$KB/keymaps/$KM/compile.log
+KEYMAP_DIR=$QMK/keyboards/$KB/keymaps/$KM
+LOG=$KEYMAP_DIR/compile.log
 
 echo -n "" >$LOG
 
 for SIDE in LEFT RIGHT; do
   # cat << EOF
+  SIDE_BIN="${KB//\//_}_${KM}_${SIDE}.uf2"
   echo Compiling $SIDE ...
   qmk compile -kb $KB -km $KM -c -e FP_SPLIT_$SIDE=yes 2>>$LOG || exit
-  cp $BIN /mnt/c/Users/apedl/Desktop/$SIDE-$BIN
+  cp $BIN $SIDE_BIN
   rm $BIN
+  qmk flash $SIDE_BIN
+
   if [ $SIDE = LEFT ]; then
     printf "\n-----------------------\n\n" >>$LOG
+    read -p "Press enter to continue"
   fi
 # EOF
+
+
 done
 
 # clear

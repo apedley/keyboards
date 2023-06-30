@@ -1,5 +1,4 @@
 #include "apedley.h"
-#include "qp.h"
 #include QMK_KEYBOARD_H
 
 // float sonic_ring_song[][2] = SONG(SONIC_RING);
@@ -35,31 +34,21 @@ enum layer_names {
 #define HOME_SCLN RGUI_T(KC_SCLN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base
-    *
-    * ,-----------------------------------------.           ,-----------------------------------------.
-    * | `Esc |   Q  |   W  |   E  |   R  |   T  |           |   Y  |   U  |   I  |   O  |   P  |   \  |
-    * |------+------+------+------+------+------|           |------+------+------+------+------+------|
-    * |LwrTab|   A  |   S  |   D  |   F  |   G  |           |   H  |   J  |   K  |   L  |   ;  |   '  |
-    * |------+------+------+------+------+------|           |------+------+------+------+------+------|
-    * | Shft |   Z  |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   /  | Ctrl |
-    * `-----------------------------------------'           `-----------------------------------------'
-    *        ,------.         ,--------------------.    ,--------------------.          ,------.
-    *        | MUTE |         | Ctrl | Enter|  Del |    |BckSpc| Space| RAISE|          | MUTE |
-    *        `------'         `--------------------'    `--------------------.          `------'
-    *                         ,--------------------.    ,--------------------.
-    *                         |Mouse3|Mouse1|Mouse2|    | Vol- | Mute | Vol+ |    // 3 way thumb switch
-    *                         `--------------------'    `--------------------.
-    */
+/* ,-----------------------------------------.                ,-----------------------------------------.
+ * | ESC  |  Q   |  W   |  E   |  R   |  T   |                |  Y   |  U   |  I   |  O   |  P   | BSPC |
+ * |------+------+------+------+------+------|                |------+------+------+------+------+------|
+ * |LOWER |HOME_A|HOME_S|HOME_D|HOME_F|  G   |                |  H   |HOME_J|HOME_K|HOME_L|HOME_S| QUOT |
+ * |------+------+------+------+------+------|                |------+------+------+------+------+------|
+ * | LSFT |  Z   |  X   |  C   |  V   |  B   |                |  N   |  M   | COMM | DOT  | SLSH | RGUI |
+ * `------+------+------+------+------+------+------.  ,------+------+------+------+----+--------+------|
+ *          | MUTE |           | TAB  | LCTL | SPC  |  | ENT  | RALT |RAISE |           | MUTE |
+ *          `------'           `--------------------'  `--------------------'           `------'
+ *
+ *                             ,--------------------.  ,--------------------.
+ *                             | BTN1 |EE_CLR| BTN2 |  | WH_D |EE_CLR| WH_U |
+ *                             `--------------------'  `--------------------'
+ */
 
-    // Default config uses home row mods. So hold each of the keys on the home row to use ctrl, gui, alt, or shift
-    // [_BASE] = LAYOUT_ximi(
-    // KC_ESC,       KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,         KC_Y,    KC_U,         KC_I,         KC_O,         KC_P,            KC_BSLS,
-    // KC_TAB,       LCTL_T(KC_A), LGUI_T(KC_S), LALT_T(KC_D), LSFT_T(KC_F), KC_G,         KC_H,    RSFT_T(KC_J), RALT_T(KC_K), RGUI_T(KC_L), RCTL_T(KC_SCLN), KC_QUOT,
-    // KC_LSFT,      KC_Z,         KC_X,         KC_C,         KC_V,         KC_B,         KC_N,    KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,         KC_RCTL,
-    //                 KC_MUTE,                  LOWER,        KC_ENT,       KC_DEL,       KC_BSPC, KC_SPC,       RAISE,                      KC_MUTE,
-    //                                           KC_PGDN,      KC_END,       KC_PGUP,      KC_VOLD, KC_MUTE,      KC_VOLU
-    // ),
     [_BASE] = LAYOUT_ximi(
     KC_ESC,   KC_Q,     KC_W,   KC_E,     KC_R,   KC_T,            KC_Y,    KC_U,    KC_I,     KC_O,   KC_P,      KC_BSPC,
     LOWER,    HOME_A,   HOME_S, HOME_D,   HOME_F, KC_G,            KC_H,    HOME_J,  HOME_K,   HOME_L, HOME_SCLN, KC_QUOT,
@@ -67,6 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_MUTE,        KC_TAB,   KC_LCTL,KC_SPC,          KC_ENT,  KC_RALT, RAISE,          KC_MUTE,
                                 KC_BTN1,  EE_CLR, KC_BTN2,        KC_WH_D, EE_CLR, KC_WH_U
     ),
+
     [_LOWER] = LAYOUT_ximi(
     KC_GRV,   KC_1,    KC_UP,   KC_3,    KC_4,    KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
     _______,  KC_LEFT, KC_DOWN, KC_RGHT, DRAG_SCROLL, KC_TAB,        _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
