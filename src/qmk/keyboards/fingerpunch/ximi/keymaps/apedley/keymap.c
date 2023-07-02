@@ -151,6 +151,7 @@ void lv_example_arc_2(void) {
 
 
 layer_state_t layer_state_set_keymap(layer_state_t state) {
+  state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
   switch (get_highest_layer(state)) {
   case _RAISE:
     tap_code16(KC_F14); break;
@@ -163,7 +164,8 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
   default:
     tap_code16(KC_F13); break;
   }
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+//   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+  return state;
 }
 
 #ifdef OLED_ENABLE
