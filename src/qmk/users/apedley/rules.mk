@@ -30,3 +30,8 @@ endif
 EXTRAKEY_ENABLE = yes
 DEFERRED_EXEC_ENABLE = yes
 CAPS_WORD_ENABLE = yes
+
+
+ifeq ($(strip $(AP_KEYMAP_OVERLAY_ENABLE)), yes)
+    OPT_DEFS += -DAP_KEYMAP_OVERLAY_ENABLE
+endif

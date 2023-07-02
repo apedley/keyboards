@@ -83,7 +83,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       clear_mods();
       clear_oneshot_mods();
 
-      if ((temp_mod | temp_osm) & MOD_MASK_SHIFT) {
+      #ifndef FLASH_BOOTLOADER
+        if ((temp_mod | temp_osm) & MOD_MASK_SHIFT)
+      #endif
+      {
         SEND_STRING("qmk compile -kb " QMK_KEYBOARD " -km " QMK_KEYMAP);
       } else {
         SEND_STRING("qmk flash -kb " QMK_KEYBOARD " -km " QMK_KEYMAP SS_TAP(X_ENTER));
@@ -103,6 +106,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+  #ifdef AP_KEYMAP_OVERLAY_ENABLE
+  dprintf("layer_state_set_user: %d\n", state);
+  #endif // AP_KEYMAP_OVERLAY_ENABLE
   return layer_state_set_keymap(state);
 }
 

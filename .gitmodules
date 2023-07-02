@@ -5,7 +5,7 @@
   ignore = dirty
 [submodule "qmk_mk47"]
 	path = qmk
-	url = https://github.com/apedley/qmkmk47
+	url = https://github.com/apedley/qmk
   ignore = dirty
 [submodule "vial"]
 	path = vial
