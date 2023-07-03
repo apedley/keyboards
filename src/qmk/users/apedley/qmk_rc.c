@@ -49,6 +49,8 @@ enum qmk_rc_commands_quantum {
 
   SEND_STRING,
 #endif
+  GET_LAYER,
+  GET_KEYMAP,
 };
 
 #ifdef RGB_MATRIX_ENABLE

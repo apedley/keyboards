@@ -1,4 +1,11 @@
 #include "apedley.h"
+#include "qmk_rc.h"
+#include "print.h"
+
+#ifdef RAW_ENABLE
+  #include "raw_hid.h"
+#endif
+
 #include QMK_KEYBOARD_H
 
 // float sonic_ring_song[][2] = SONG(SONIC_RING);
@@ -50,23 +57,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_ximi(
     KC_ESC,   KC_Q,     KC_W,   KC_E,     KC_R,   KC_T,            KC_Y,    KC_U,    KC_I,     KC_O,   KC_P,      KC_BSPC,
     LOWER,    HOME_A,   HOME_S, HOME_D,   HOME_F, KC_G,            KC_H,    HOME_J,  HOME_K,   HOME_L, HOME_SCLN, KC_QUOT,
-    KC_LSFT,  KC_Z,     KC_X,   KC_C,     KC_V,   KC_B,            KC_N,    KC_M,    KC_COMM,  KC_DOT, KC_SLSH,   KC_RGUI,
+    KC_LSFT,  KC_Z,     KC_X,   KC_C,     KC_V,   KC_B,            KC_N,    KC_M,    KC_COMM,  KC_DOT, KC_SLSH,   KC_RSFT,
                 KC_MUTE,        KC_TAB,   KC_LCTL,KC_SPC,          KC_ENT,  KC_RALT, RAISE,          KC_MUTE,
                                 RGB_RMOD, RGB_TOG,RGB_MOD,        RGB_RMOD, RGB_TOG,RGB_MOD
     ),
 
     [_LOWER] = LAYOUT_ximi(
-    KC_GRV,   KC_1,    KC_UP,   KC_3,    KC_4,    KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-    _______,  KC_LEFT, KC_DOWN, KC_RGHT, DRAG_SCROLL, KC_TAB,    _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
+    KC_GRV,   UPDIR,    KC_UP,   SELWORD,    KC_4,    KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+    _______,  KC_LEFT, KC_DOWN, KC_RGHT, DRAG_SCROLL, KC_TAB,    _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, M_XXX1,
     QK_BOOT,  RGB_TOG, RGB_MOD, RGB_VAD, RGB_VAI, DB_TOGG,       _______, _______, _______, KC_BSLS, KC_QUOT, _______,
                  QK_BOOT,       QK_RBT,  QK_BOOT, KC_MAKE,       _______, _______, _______,        QK_BOOT,
                                 KC_P1,   KC_P2,   KC_P3,         RGB_HUD, RGB_VAD, RGB_HUI
     ),
 
     [_RAISE] = LAYOUT_ximi(
-    KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-    _______,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-    QK_BOOT,  KC_CAPS, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR,        _______, _______, _______, KC_PIPE,  KC_DQT, _______,
+    KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,           KC_7,    KC_8,    KC_9,   KC_9,    KC_0,    _______,
+    _______,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,        KC_4,    KC_5,    KC_6,   KC_LPRN, KC_RPRN, M_XXX1,
+    QK_BOOT,  KC_CAPS, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR,        KC_1,    KC_2,    KC_3,   KC_PIPE,  KC_DQT, _______,
                  QK_BOOT,       _______, _______, _______,        QK_BOOT, KC_MAKE, _______,          QK_BOOT,
                                 _______, _______, _______,        RGB_SPD, RGB_VAI, RGB_SPI
     ),
@@ -80,10 +87,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_NUMPAD] =  LAYOUT_ximi(
-    _______,  _______, _______, _______, _______, _______,       KC_NUM,  KC_P7,   KC_P8,   KC_P9,  KC_PMNS,  KC_PSLS,
-    _______,  _______, _______, _______, _______, _______,       _______, KC_P4,   KC_P5,   KC_P6,  KC_PPLS,  KC_PAST,
-    _______,  _______, _______, _______, _______, _______,       _______, KC_P1,   KC_P2,   KC_P3,  KC_PENT,  _______,
-                _______,        _______, _______, _______,       _______, KC_P0,   KC_PDOT,       _______,
+    _______,  _______, _______, _______, _______, _______,       KC_P7,   KC_P8,   KC_P9,  KC_PMNS,  _______,  KC_PSLS,
+    _______,  _______, _______, _______, _______, _______,       KC_P4,   KC_P5,   KC_P6,  KC_PPLS,  _______,  KC_PAST,
+    _______,  _______, _______, _______, _______, _______,       KC_P1,   KC_P2,   KC_P3,  KC_PENT,  _______,  _______,
+                _______,        _______, _______, _______,       KC_P0,   KC_P0,   KC_PDOT,       _______,
                                 _______, _______, _______,       _______, _______, _______
     )
 };
@@ -149,21 +156,46 @@ void lv_example_arc_2(void) {
 #endif
 
 
+#ifdef RAW_ENABLE
+
+#define QMK_RC_BUFFER_MAX 64
+uint8_t qmk_rc_buffer[QMK_RC_BUFFER_MAX] = {};
+
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+  qmk_rc_receive(qmk_rc_buffer, QMK_RC_BUFFER_MAX, data, length);
+}
+#endif
+
 
 layer_state_t layer_state_set_keymap(layer_state_t state) {
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-  switch (get_highest_layer(state)) {
-  case _RAISE:
-    tap_code16(KC_F14); break;
-  case _LOWER:
-    tap_code16(KC_F15); break;
-  case _ADJUST:
-    tap_code16(KC_F16); break;
-  case _NUMPAD:
-    tap_code16(KC_F17); break;
-  default:
-    tap_code16(KC_F13); break;
-  }
+
+//   #ifdef RAW_ENABLE
+//   uint8_t highest_layer = get_highest_layer(state);
+//   // uint8_t qmk_rc_layer_buffer[QMK_RC_BUFFER_MAX] = {0, 1, 0, 0, 0, 0, highest_layer, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0};
+
+//   // if (debug_enable) {
+//   //   dprintf("raw_hid_send layer %d\n", highest_layer);
+//   // }
+//   // raw_hid_send(qmk_rc_layer_buffer, QMK_RC_BUFFER_MAX);
+
+//   uint8_t data[32];
+//   data[2] = highest_layer;
+//   raw_hid_send(data, 32);
+// #endif
+
+    // switch (get_highest_layer(state)) {
+    // case _RAISE:
+    //   tap_code16(KC_F14); break;
+    // case _LOWER:
+    //   tap_code16(KC_F15); break;
+    // case _ADJUST:
+    //   tap_code16(KC_F16); break;
+    // case _NUMPAD:
+    //   tap_code16(KC_F17); break;
+    // default:
+    //   tap_code16(KC_F13); break;
+    // }
 //   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
   return state;
 }

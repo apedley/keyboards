@@ -14,7 +14,6 @@ LOG=$KEYMAP_DIR/compile.log
 
 echo -n "" >$LOG
 
-
 if [ -z $SPLIT_UF ]; then
   for SIDE in LEFT RIGHT; do
     # cat << EOF
@@ -33,7 +32,7 @@ if [ -z $SPLIT_UF ]; then
 # EOF
 else
   echo Compiling ....
-  qmk compile -kb $KB -km $KM -c 2>>$LOG || exit
+  qmk compile -kb $KB -km $KM -e FP_CIRQUE_BOTH=yes -c 2>>$LOG || exit
   qmk flash $BIN
   read -p "Press enter to continue"
   qmk flash $BIN
