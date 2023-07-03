@@ -2,6 +2,9 @@
 #include "features/select_word.h"
 #include "print.h"
 
+#ifdef RAW_ENABLE
+#include "raw_hid.h"
+#endif
 dynamic_macro_t dynamic_macro = {.recording = false};
 
 
@@ -105,10 +108,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          process_record_secrets(keycode, record);
 }
 
+
 layer_state_t layer_state_set_user(layer_state_t state) {
   #ifdef AP_KEYMAP_OVERLAY_ENABLE
-  dprintf("layer_state_set_user: %d\n", state);
-  #endif // AP_KEYMAP_OVERLAY_ENABLE
+    dprintf("layer_state_set_user: %d\n", state);
+      dprintf("send raw layer: %d\n", get_highest_layer(state));
+      uint8_t data[32];
+      data[2] = get_highest_layer(state);
+      raw_hid_send(data, 32);
+  #endif
   return layer_state_set_keymap(state);
 }
 
