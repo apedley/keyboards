@@ -51,8 +51,8 @@ enum tap_dance_codes {
 // clang-format off
 
 
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
+// #define LOWER MO(_LOWER)
+// #define RAISE MO(_RAISE)
 
 
 #define TOGNP TG(_NUMPAD)
@@ -68,9 +68,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
       QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
       KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-      RAISE,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+      TL_UPPR,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_PGUP, KC_PGDN,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-      QK_REP,  KC_LCTL, KC_LGUI, KC_LALT, KC_LBRC, LOWER,  KC_SPC,  KC_SPC,   RAISE,   KC_RBRC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+      QK_REP,  KC_LCTL, KC_LGUI, KC_LALT, KC_LBRC, TL_LOWR,  KC_SPC,  KC_SPC,   TL_UPPR,   KC_RBRC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
       ),
 
   /* Lower
@@ -196,23 +196,56 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #endif
 
 int RGB_current_mode;
-layer_state_t currentLayerState;
+
+// layer_state_t layer_state_set_keymap(layer_state_t state) {
+  // layer_state_t new_state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+
+  // #ifdef RAW_ENABLE
+//   uint8_t highest_layer = get_highest_layer(state);
+//   // uint8_t qmk_rc_layer_buffer[QMK_RC_BUFFER_MAX] = {0, 1, 0, 0, 0, 0, highest_layer, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0};
+
+//   // if (debug_enable) {
+//   //   dprintf("raw_hid_send layer %d\n", highest_layer);
+//   // }
+//   // raw_hid_send(qmk_rc_layer_buffer, QMK_RC_BUFFER_MAX);
+
+  // uint8_t layer_data[RAW_EPSIZE];
+  // memset(layer_data, 0, RAW_EPSIZE);
+
+
+  // layer_data[0] = get_highest_layer(new_state|default_layer_state);
+
+  // switch (get_highest_layer(state)) {
+  //   case _RAISE:
+  //     layer_data[0] = 1;
+  //     break;
+  //   case _LOWER:
+  //     layer_data[0] = 2;
+  //     break;
+  //   case _ADJUST:
+  //     layer_data[0] = 3;
+  //     break;
+  //   case _NUMPAD:
+  //     layer_data[0] = 4;
+  //     break;
+  //   default:
+  //     layer_data[0] = 0;
+  //     break;
+  // }
+
+  // dprintf("layer_data:");
+  // for (int i = 0; i < RAW_EPSIZE; i++) {
+  //   dprintf("%d ", layer_data[i]);
+  // }
+  // dprintf("\n");
+
+  // raw_hid_send(layer_data, RAW_EPSIZE);
+
+
+  // #endif
 
 layer_state_t layer_state_set_keymap(layer_state_t state) {
-  currentLayerState = state;
-
-
-#ifdef RAW_ENABLE
-//   uint8_t highest_layer = get_highest_layer(currentLayerState);
-//   uint8_t qmk_rc_layer_buffer[QMK_RC_BUFFER_MAX] = {0, 1, 0, 0, 0, 0, highest_layer, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0};
-
-//   if (debug_enable) {
-//     print("raw_hid_send layer\n");
-//   }
-//   raw_hid_send(qmk_rc_layer_buffer, QMK_RC_BUFFER_MAX);
-#endif
-
-#ifdef POINTING_DEVICE_ENABLE
+  #ifdef POINTING_DEVICE_ENABLE
 
   switch (get_highest_layer(state)) {
     case _LOWER:
@@ -224,9 +257,9 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
       set_scrolling = false;
       break;
   }
-#endif
+  #endif
 
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+  return state;
 
 }
 

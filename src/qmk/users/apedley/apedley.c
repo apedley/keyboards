@@ -27,7 +27,7 @@ __attribute__((weak)) void keyboard_post_init_keymap(void) {
   return;
 }
 
-void dynamic_macro_record_start_user(void) { dynamic_macro.recording = true; }
+void dynamic_macro_record_start_user(int8_t direction) { dynamic_macro.recording = true; }
 
 void dynamic_macro_record_end_user(int8_t direction) {
   dynamic_macro.recording = false;
@@ -118,7 +118,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       // data[2] = 1;
       // raw_hid_send(data, 32);
   #endif
-  return layer_state_set_keymap(state);
+
+  layer_state_t keymap_state = layer_state_set_keymap(state);
+  #ifdef RAW_ENABLE
+      uint8_t response[32];
+    memset(response, 0, 32);
+    response[0] = 'B';
+
+    // if(data[0] == 'A') {
+        raw_hid_send(response, 32);
+    // }
+  #endif
+
+  return keymap_state;
 }
 
 
@@ -137,3 +149,62 @@ void keyboard_post_init_user() {
 void matrix_scan_user(void) {
   select_word_task();
 }
+
+
+
+#ifdef I2C_SCANNER_ENABLE
+#    include "i2c_master.h"
+#    include "debug.h"
+
+#    ifndef I2C_SCANNER_TIMEOUT
+#        define I2C_SCANNER_TIMEOUT 50
+#    endif
+
+i2c_status_t i2c_start_bodge(uint8_t address, uint16_t timeout) {
+    i2c_start(address);
+
+    // except on ChibiOS where the only way is do do "something"
+    uint8_t data = 0;
+    return i2c_readReg(address, 0, &data, sizeof(data), I2C_SCANNER_TIMEOUT);
+}
+
+#    define i2c_start i2c_start_bodge
+
+void do_scan(void) {
+    uint8_t nDevices = 0;
+
+    dprintf("Scanning...\n");
+
+    for (uint8_t address = 1; address < 127; address++) {
+        // The i2c_scanner uses the return value of
+        // i2c_start to see if a device did acknowledge to the address.
+        i2c_status_t error = i2c_start(address << 1, I2C_SCANNER_TIMEOUT);
+        if (error == I2C_STATUS_SUCCESS) {
+            i2c_stop();
+            xprintf("  I2C device found at address 0x%02X\n", I2C_SCANNER_TIMEOUT);
+            nDevices++;
+        } else {
+            // dprintf("  Unknown error (%u) at address 0x%02X\n", error, address);
+        }
+    }
+
+    if (nDevices == 0)
+        xprintf("No I2C devices found\n");
+    else
+        xprintf("done\n");
+}
+
+uint16_t scan_timer = 0;
+
+void housekeeping_task_i2c_scanner(void) {
+    if (timer_elapsed(scan_timer) > 5000) {
+        do_scan();
+        scan_timer = timer_read();
+    }
+}
+
+void keyboard_post_init_i2c(void) {
+    i2c_init();
+    scan_timer = timer_read();
+}
+#endif
