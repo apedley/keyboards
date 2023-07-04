@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-source ximi.sh
 KEYBOARD=ximi
 KEYMAP_DIR=$QMK_HOME/keyboards/fingerpunch/ximi/keymaps/apedley
 KEYMAP_FILE=keymap.c

@@ -171,6 +171,12 @@ void qmk_rc_process_command_quantum(qmk_rc_command_t *command) {
     send_string((const char *)command->data);
     break;
 
+  case GET_LAYER:
+    uint8_t layer_data[32];
+    layer_data[2] = get_highest_layer(layer_state|default_layer_state);
+    raw_hid_send(layer_data, 32);
+    break;
+
   default:
     qmk_rc_process_command_user(command);
   }

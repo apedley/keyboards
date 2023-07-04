@@ -154,8 +154,6 @@ void lv_example_arc_2(void) {
   lv_anim_start(&a);
 }
 #endif
-
-
 #ifdef RAW_ENABLE
 
 #define QMK_RC_BUFFER_MAX 64
