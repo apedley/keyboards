@@ -168,7 +168,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 layer_state_t layer_state_set_keymap(layer_state_t state) {
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 
-//   #ifdef RAW_ENABLE
+  #ifdef RAW_ENABLE
 //   uint8_t highest_layer = get_highest_layer(state);
 //   // uint8_t qmk_rc_layer_buffer[QMK_RC_BUFFER_MAX] = {0, 1, 0, 0, 0, 0, highest_layer, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0, 0, 0,   0, 0,   0, 0,  0, 0,0,   0, 0, 0};
 
@@ -177,10 +177,28 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 //   // }
 //   // raw_hid_send(qmk_rc_layer_buffer, QMK_RC_BUFFER_MAX);
 
-//   uint8_t data[32];
-//   data[2] = highest_layer;
-//   raw_hid_send(data, 32);
-// #endif
+  uint8_t data[32];
+  // data[0] = get_highest_layer(layer_state|default_layer_state);
+
+  switch (get_highest_layer(state)) {
+    case _RAISE:
+      data[0] = 1;
+      break;
+    case _LOWER:
+      data[0] = 2;
+      break;
+    case _ADJUST:
+      data[0] = 3;
+      break;
+    case _NUMPAD:
+      data[0] = 4;
+      break;
+    default:
+      data[0] = 0;
+      break;
+    }
+  raw_hid_send(data, 32);
+  #endif
 
     // switch (get_highest_layer(state)) {
     // case _RAISE:
