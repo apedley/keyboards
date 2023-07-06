@@ -50,7 +50,8 @@ enum qmk_rc_commands_quantum {
   SEND_STRING,
 #endif
   GET_LAYER,
-  GET_KEYMAP,
+  GET_INFO,
+  GET_KEY,
 };
 
 #ifdef RGB_MATRIX_ENABLE
@@ -59,6 +60,7 @@ enum qmk_rc_commands_quantum {
 #define MY_RGB_MATRIX_CLEAR 129
 #define MY_RGB_MATRIX_SETRGB_ALL 130
 #define MY_RGB_MATRIX_GET_MODE 131
+#define MY_GET_KEYMAP_KEY 132
 
 my_rgb_range_t my_rgb_range;
 #endif
@@ -66,11 +68,11 @@ my_rgb_range_t my_rgb_range;
 #ifndef QMK_RC_DISABLE_DEFAULT_COMMANDS
 void qmk_rc_process_command_quantum(qmk_rc_command_t *command) {
 
-  // if (debug_enable) {
-  //     print("qmk_rc_process_command_quantum: ");
-  //     print_hex8(command->id);
-  //     print("\n");
-  // }
+  if (debug_enable) {
+      print("qmk_rc_process_command_quantum: ");
+      print_hex8(command->id);
+      print("\n");
+  }
   switch (command->id) {
 #ifdef OLED_ENABLE
   case OLED_OFF:
@@ -123,6 +125,12 @@ void qmk_rc_process_command_quantum(qmk_rc_command_t *command) {
                            command->data[2]);
     break;
   case MY_RGB_MATRIX_SETRGB_RANGE:
+      // uint16_t keycode = dynamic_keymap_get_keycode(command->data[0], command->data[1], command->data[2]);
+    dprintf("Got request command: %d\n", command->id);
+    for (int i = 0; i < command->data_length; i++) {
+      dprintf("%d ", command->data[i]);
+    }
+    dprintf("\n");
     my_rgb_range.red = command->data[0];
     my_rgb_range.green = command->data[1];
     my_rgb_range.blue = command->data[2];
@@ -147,12 +155,25 @@ void qmk_rc_process_command_quantum(qmk_rc_command_t *command) {
     my_rgb_range.is_set = true;
     break;
   case MY_RGB_MATRIX_GET_MODE:
-    dprintf("MY_RGB_MATRIX_GET_MODE: %d\n", rgb_matrix_get_mode());
-    uint8_t data[32];
-    data[2] = rgb_matrix_get_mode();
-    raw_hid_send(data, 32);
+    uint8_t matrix_data[32];
+    matrix_data[2] = rgb_matrix_get_mode();
+    raw_hid_send(matrix_data, 32);
     break;
+
 #endif
+
+  case MY_GET_KEYMAP_KEY:
+  for (int i = 0; i < command->data_length; i++) {
+      dprintf("%d ", command->data[i]);
+    }
+    dprintf("\n");
+    uint16_t keymap_keycode = keymap_key_to_keycode(command->data[0], (keypos_t) {.row = command->data[1], .col = command->data[2]});
+    uint8_t keymap_keycode_data[32];
+    memset(keymap_keycode_data, 0, 32);
+    keymap_keycode_data[2] = keymap_keycode >> 8;
+    keymap_keycode_data[3] = keymap_keycode & 0xFF;
+    raw_hid_send(keymap_keycode_data, 32);
+    break;
 
   case LAYER_ON:
     layer_on(command->data[0]);
@@ -175,6 +196,35 @@ void qmk_rc_process_command_quantum(qmk_rc_command_t *command) {
     uint8_t layer_data[32];
     layer_data[2] = get_highest_layer(layer_state|default_layer_state);
     raw_hid_send(layer_data, 32);
+    break;
+
+  case GET_INFO:
+    uint8_t info_data[32];
+    memset(info_data, 0, 32);
+    info_data[2] = MATRIX_ROWS;
+    info_data[3] = MATRIX_COLS;
+    info_data[4] = DYNAMIC_KEYMAP_LAYER_COUNT;
+    #ifdef SPLIT_KEYBOARD
+      info_data[5] = 1;
+    #endif
+
+    raw_hid_send(info_data, 32);
+    break;
+
+  case GET_KEY:
+    // uint16_t keycode = dynamic_keymap_get_keycode(command->data[0], command->data[1], command->data[2]);
+    dprintf("Got request command: %d\n", command->id);
+    for (int i = 0; i < command->data_length; i++) {
+      dprintf("%d ", command->data[i]);
+    }
+    dprintf("\n");
+    uint16_t keycode = keymap_key_to_keycode(command->data[0], (keypos_t) {.row = command->data[1], .col = command->data[2]});
+    // dprintf("Got keycode: %d\n", keycode);
+    uint8_t key_data[32];
+    memset(key_data, 0, 32);
+    key_data[2] = keycode >> 8;
+    key_data[3] = keycode & 0xFF;
+    raw_hid_send(key_data, 32);
     break;
 
   default:

@@ -32,7 +32,7 @@ if [ -z $SPLIT_UF ]; then
 # EOF
 else
   echo Compiling ....
-  qmk compile -kb $KB -km $KM -e FP_CIRQUE_BOTH=yes -c 2>>$LOG || exit
+  qmk compile -kb $KB -km $KM -j 8 -e FP_CIRQUE_BOTH=yes -c 2>>$LOG || exit
   qmk flash $BIN
   read -p "Press enter to continue"
   qmk flash $BIN

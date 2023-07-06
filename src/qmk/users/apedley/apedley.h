@@ -52,6 +52,7 @@ enum user_custom_keycodes {
   M_XXX1,
   M_XXX2,
   M_XXX3,
+  SEND_RAW_TEST,
   NEW_SAFE_RANGE,
 };
 

@@ -35,3 +35,7 @@ CAPS_WORD_ENABLE = yes
 ifeq ($(strip $(AP_KEYMAP_OVERLAY_ENABLE)), yes)
     OPT_DEFS += -DAP_KEYMAP_OVERLAY_ENABLE
 endif
+
+ifeq ($(strip $(AP_RGB_INDICATORS_ENABLE)), yes)
+    OPT_DEFS += -DAP_RGB_INDICATORS_ENABLE
+endif

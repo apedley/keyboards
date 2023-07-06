@@ -27,7 +27,7 @@ __attribute__((weak)) void keyboard_post_init_keymap(void) {
   return;
 }
 
-void dynamic_macro_record_start_user(int8_t direction) { dynamic_macro.recording = true; }
+void dynamic_macro_record_start_user(void) { dynamic_macro.recording = true; }
 
 void dynamic_macro_record_end_user(int8_t direction) {
   dynamic_macro.recording = false;
@@ -103,6 +103,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       set_mods(temp_mod);
     }
     return false;
+  case SEND_RAW_TEST:
+    #ifdef RAW_ENABLE
+      if (record->event.pressed) {
+        uint8_t layer_data[32];
+        layer_data[0] = 1;
+        layer_data[1] = get_highest_layer(layer_state|default_layer_state);
+        raw_hid_send(layer_data, 32);
+        // uint8_t data[32];
+        // memset(data, 0, 32);
+        // data[0] = 'A';
+        // data[1] = 'B';
+        // data[2] = 'C';
+        // raw_hid_send(data, 32);
+      }
+    #endif
+    return false;
   }
   return process_record_keymap(keycode, record) &&
          process_record_secrets(keycode, record);
@@ -120,15 +136,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   #endif
 
   layer_state_t keymap_state = layer_state_set_keymap(state);
-  #ifdef RAW_ENABLE
-      uint8_t response[32];
-    memset(response, 0, 32);
-    response[0] = 'B';
+  // #ifdef RAW_ENABLE
+  //   uint8_t response[32];
+  //   memset(response, 0, 32);
+  //   response[0] = get_highest_layer(keymap_state);
 
-    // if(data[0] == 'A') {
-        raw_hid_send(response, 32);
-    // }
-  #endif
+  //   // if(data[0] == 'A') {
+  //   raw_hid_send(response, 32);
+  //   // }
+  // #endif
 
   return keymap_state;
 }
