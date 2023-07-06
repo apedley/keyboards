@@ -1,8 +1,8 @@
 
 #pragma once
 
-
 #define EE_HANDS
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6
 
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE

@@ -258,6 +258,13 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
       break;
   }
   #endif
+  #ifdef RAW_ENABLE
+  uint8_t layer_data[32];
+  layer_data[0] = 1;
+  layer_data[1] = get_highest_layer(state|default_layer_state);
+  raw_hid_send(layer_data, 32);
+
+  #endif // RAW_ENABLE
 
   return state;
 
