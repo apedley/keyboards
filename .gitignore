@@ -107,5 +107,6 @@ compile_commands.json
 via*.json
 src/qmk/keyboards/.vscode/c_cpp_properties.json
 src/.vscode/settings.json
-keymap.txt
+km.pdf
+km.txt
 *.bac

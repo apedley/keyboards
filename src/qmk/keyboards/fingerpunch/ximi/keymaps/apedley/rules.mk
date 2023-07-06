@@ -34,4 +34,5 @@ endif
 # endif
 
 AP_KEYMAP_OVERLAY_ENABLE = yes
+AP_RGB_INDICATORS_ENABLE = no
 RAW_ENABLE = yes
