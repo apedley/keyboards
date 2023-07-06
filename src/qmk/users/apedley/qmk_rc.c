@@ -60,10 +60,10 @@ enum qmk_rc_commands_quantum {
 #define MY_RGB_MATRIX_CLEAR 129
 #define MY_RGB_MATRIX_SETRGB_ALL 130
 #define MY_RGB_MATRIX_GET_MODE 131
-#define MY_GET_KEYMAP_KEY 132
 
 my_rgb_range_t my_rgb_range;
 #endif
+#define MY_GET_KEYMAP_KEY 132
 
 #ifndef QMK_RC_DISABLE_DEFAULT_COMMANDS
 void qmk_rc_process_command_quantum(qmk_rc_command_t *command) {
