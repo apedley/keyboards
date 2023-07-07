@@ -143,7 +143,7 @@ void lv_example_arc_2(void);
 
 #endif
 
-void keyboard_post_init_keymap(void) {
+void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
   debug_enable = true;
   // debug_matrix=true;
@@ -153,10 +153,10 @@ void keyboard_post_init_keymap(void) {
 #ifdef QUANTUM_PAINTER_ENABLE
 
   // pimoroni_trackball_set_rgbw(0, 0, 254, 0);
-  lcd = qp_gc9a01_make_spi_device(240, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN,
-                                  4, 0);
+  lcd = qp_gc9a01_make_spi_device(240, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 4, 0);
+  // lcd = qp_st7789_make_spi_device(240, 310, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 4, 0);
   qp_init(lcd, QP_ROTATION_0);
-  qp_rect(lcd, 0, 0, 239, 319, 0, 255, 255, true);
+  qp_rect(lcd, 0, 0, 239, 239, 0, 255, 255, true);
 
   if (qp_lvgl_attach(lcd)) {
     lv_example_arc_2();
@@ -204,8 +204,8 @@ void lv_example_arc_2(void) {
 // #endif
 
 
-layer_state_t layer_state_set_keymap(layer_state_t state) {
-  state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+// layer_state_t layer_state_set_keymap(layer_state_t state) {
+//   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 
   // #ifdef RAW_ENABLE
 //   uint8_t highest_layer = get_highest_layer(state);
@@ -238,15 +238,15 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
   //   }
   // raw_hid_send(data, 32);
   // #endif
-  #ifdef RAW_ENABLE
-  uint8_t layer_data[32];
-  layer_data[0] = 1;
-  layer_data[1] = get_highest_layer(state|default_layer_state);
-  raw_hid_send(layer_data, 32);
+  // #ifdef RAW_ENABLE
+  // uint8_t layer_data[32];
+  // layer_data[0] = 1;
+  // layer_data[1] = get_highest_layer(state|default_layer_state);
+  // raw_hid_send(layer_data, 32);
 
-  #endif // RAW_ENABLE
+  // #endif // RAW_ENABLE
 
-  #ifdef POINTING_DEVICE_ENABLE
+  // #ifdef POINTING_DEVICE_ENABLE
   // switch (get_highest_layer(state)) {
   //   case _LOWER:
   //   case _RAISE:
@@ -260,12 +260,12 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 
   //   }
 
-  #endif
-//   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-  return state;
-}
+//   #endif
+// //   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+//   return state;
+// }
 
-#ifdef OLED_ENABLE
+// #ifdef OLED_ENABLE
 
 // void render_layer(void) {
 
@@ -316,7 +316,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 //   return false;
 // }
 
-#endif // OLED_ENABLE
+// #endif // OLED_ENABLE
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
