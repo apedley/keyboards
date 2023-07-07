@@ -16,4 +16,4 @@ keymapviz -k $KEYBOARD $KEYMAP_DIR/$KEYMAP_FILE -c $VIZ_CONFIG -t fancy -o $KEYM
 paps -o $KEYMAP_DIR/km.pdf --landscape $KEYMAP_DIR/km.txt
 # # keymapviz -k ximi keyboards/fingerpunch/ximi/keymaps/apedley/keymap.c -c ~/.config/keymapviz.conf -t fancy | paps -o km.pdf --landscape
 
-echo "keymapviz -k $KEYBOARD $KEYMAP_DIR/$KEYMAP_FILE -c $VIZ_CONFIG -t json -o $KEYMAP_DIR/km.json"
+# echo "keymapviz -k $KEYBOARD $KEYMAP_DIR/$KEYMAP_FILE -c $VIZ_CONFIG -t json -o $KEYMAP_DIR/km.json"

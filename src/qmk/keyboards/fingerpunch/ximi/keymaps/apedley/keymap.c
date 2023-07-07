@@ -18,7 +18,8 @@ enum layer_names {
     _LOWER,
     _RAISE,
     _ADJUST,
-    _NUMPAD
+    _NUMPAD,
+    _MOUSE,
 };
 
 enum custom_keycodes {
@@ -26,6 +27,7 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
+  MOUSE,
 };
 
 // #define LOWER LT(_LOWER, KC_TAB)
@@ -65,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,    HOME_A,   HOME_S, HOME_D,   HOME_F, KC_G,            KC_H,    HOME_J,  HOME_K,   HOME_L, HOME_SCLN, KC_QUOT,
     KC_LSFT,  KC_Z,     KC_X,   KC_C,     KC_V,   KC_B,            KC_N,    KC_M,    KC_COMM,  KC_DOT, KC_SLSH,   KC_RSFT,
                 KC_MUTE,        LOWER,   KC_LCTL,KC_SPC,          KC_ENT,  KC_RALT, RAISE,          KC_MUTE,
-                                FP_SCROLL_DPI_DN, FP_SCROLL_DPI_RESET, FP_SCROLL_DPI_UP, FP_POINT_DPI_DN, FP_POINT_DPI_RESET,FP_POINT_DPI_UP
+                                KC_MPRV, KC_MPLY, KC_MNXT,        KC_BTN1, KC_BTN3, KC_BTN2
     ),
 
 
@@ -88,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     UPDIR,    KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,  UPDIR,        _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_EQL,
     _______,  _______, _______, _______, _______, _______,      _______, _______, _______, _______, KC_BSLS, _______,
                  QK_BOOT,       _______,  _______, _______,       _______, _______, _______,        QK_BOOT,
-                                RGB_RMOD, RGB_TOG,RGB_MOD,         RGB_RMOD, RGB_TOG,RGB_MOD
+                                RGB_RMOD, RGB_TOG,RGB_MOD,         FP_POINT_DPI_DN, FP_POINT_DPI_RESET,FP_POINT_DPI_UP
     ),
 /* ,-----------------------------------------.                ,-----------------------------------------.
  * | ` ~  |  1   |  2   |  3   |  4   |  5   |                |  6   |  7   |  8   |  9   |  0   | DEL  |
@@ -151,6 +153,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, _______, _______, _______, _______,       KC_P4,   KC_P5,   KC_P6,  KC_PPLS,  _______,  KC_PAST,
     _______,  _______, _______, _______, _______, _______,       KC_P1,   KC_P2,   KC_P3,  KC_PENT,  _______,  _______,
                 _______,        _______, _______, _______,       _______, KC_P0,   KC_PDOT,       _______,
+                                _______, _______, _______,       _______, _______, _______
+    ),
+    [_MOUSE] =  LAYOUT_ximi(
+    _______,  _______, _______, _______, _______, _______,       _______, _______, _______, _______,  _______,  _______,
+    _______,  _______, _______, _______, _______, _______,       _______, _______, _______, _______,  _______,  _______,
+    _______,  _______, _______, FP_ACCEL_TOG, FP_ZOOM_TOG, FP_SNIPE_TOG,       KC_BTN4, KC_BTN5, _______, _______,  _______,  _______,
+                _______,        KC_BTN3, KC_BTN2, KC_BTN1,       KC_BTN1, KC_BTN2, KC_BTN3,       _______,
                                 _______, _______, _______,       _______, _______, _______
     )
 };
