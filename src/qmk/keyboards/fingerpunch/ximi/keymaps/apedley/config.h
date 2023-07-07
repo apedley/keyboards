@@ -29,12 +29,12 @@
   #define ENCODERS_PAD_B { GP7 }
 
 
-  #undef FP_ENC_1_LAYER_SUPER_TAB
-  #undef FP_ENC_1_LAYER_SCROLL_WHEEL
+  // #undef FP_ENC_1_LAYER_SUPER_TAB
+  // #undef FP_ENC_1_LAYER_VOLUME
 
-  #define FP_ENC_1_LAYER_SUPER_TAB 5
-  #define FP_ENC_1_LAYER_SCROLL_WHEEL 0
-  // #define FP_ENC_1_LAYER_SCROLL_WHEEL 0
+  #define FP_ENC_1_LAYER_SUPER_TAB 0
+  // #define FP_ENC_1_LAYER_VOLUME 4
+  // #define FP_ENC_1_LAYER_SCROLL_WHEEL 2
   // #define FP_ENC_1_LAYER_SUPER_TAB 4
 #endif
 

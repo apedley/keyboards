@@ -29,12 +29,16 @@ if [ -z $SPLIT_UF ]; then
       read -p "Press enter to continue"
     fi
   done
-# EOF
+#make fingerpunch/ximi:apedley FP_CIRQUE_BOTH=yes RGB_MATRIX_ENABLE=yes ENCODER_ENABLE=yes AUDIO_ENABLE=yes HAPTIC_ENABLE=yes
 else
   echo Compiling ....
-  qmk compile -kb $KB -km $KM -j 8 -e FP_CIRQUE_BOTH=yes -c 2>>$LOG || exit
+  # qmk compile -kb $KB -km $KM -j 8 -e FP_CIRQUE_BOTH=yes -c 2>>$LOG || exit
+  echo "Flashing fist side.."
+  qmk compile -kb $KB -km $KM -j 8 -e FP_CIRQUE_BOTH=yes -e RGB_MATRIX_ENABLE=yes -e ENCODER_ENABLE=yes -e AUDIO_ENABLE=yes -e HAPTIC_ENABLE=yes || exit
   qmk flash $BIN
-  read -p "Press enter to continue"
+  sleep 1
+  echo "Flashing second side.."
+  sleep 1
   qmk flash $BIN
 fi
 

@@ -1,4 +1,4 @@
-USER_NAME := apedley
+# USER_NAME := apedley
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = no
 RGB_MATRIX_ENABLE = no
@@ -17,19 +17,20 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
 	WPM_ENABLE = yes
 endif
 
-# POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_ENABLE = no
 # POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
 # POINTING_DEVICE_DRIVER = pimoroni_trackball
 
 QUANTUM_PAINTER_ENABLE = yes
 QUANTUM_PAINTER_DRIVERS += gc9a01_spi
+QUANTUM_PAINTER_LVGL_INTEGRATION = yes
+WPM_ENABLE = yes
 
-ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
-  SRC += lcd_display.c
-	WPM_ENABLE = yes
-	QUANTUM_PAINTER_LVGL_INTEGRATION = yes
-	QUANTUM_PAINTER_DRIVERS = gc9a01_spi
-endif
+# ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
+#   SRC += lcd_display.c
+# 	QUANTUM_PAINTER_LVGL_INTEGRATION = yes
+# 	QUANTUM_PAINTER_DRIVERS = gc9a01_spi
+# endif
 
 AP_KEYMAP_OVERLAY_ENABLE = no
 AP_RGB_INDICATORS_ENABLE = no
