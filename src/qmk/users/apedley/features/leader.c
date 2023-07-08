@@ -5,9 +5,18 @@
 #include "print.h"
 leader_t leader = {.isLeading = false, .timedOut = false};
 
+static uint8_t old_mode;
+static HSV old_hsv;
+
 __attribute__((weak)) bool process_leader_dictionary_secret() { return true; }
 
 void leader_start_user() {
+#if defined(RGB_MATRIX_ENABLE) && defined(AP_RGB_INDICATORS_ENABLE)
+  old_mode = rgb_matrix_get_mode();
+  old_hsv = rgb_matrix_get_hsv();
+  rgb_matrix_sethsv_noeeprom(HSV_TEAL);
+  rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+#endif // RGB_MATRIX_ENABLE
   leader.isLeading = true;
   leader.timedOut = false;
   leader.success = false;
@@ -208,11 +217,30 @@ void process_leader_dictionary(void) {
     SEND_STRING("https://docs.qmk.fm/#/keycodes");
   } else if (process_leader_dictionary_secret() &&
              leader_sequence_timed_out()) {
+
+#if defined(RGB_MATRIX_ENABLE) && defined(AP_RGB_INDICATORS_ENABLE)
+  rgb_matrix_sethsv_noeeprom(HSV_RED);
+  // rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+  defer_exec(400, reset_leader_color_deferred, NULL);
+#endif // RGB_MATRIX_ENABLE
     leader.timedOut = true;
     leader.timedOutTimer = timer_read();
     return;
   }
 
+#if defined(RGB_MATRIX_ENABLE) && defined(AP_RGB_INDICATORS_ENABLE)
+  rgb_matrix_sethsv_noeeprom(HSV_GREEN);
+  // rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+
+  defer_exec(400, reset_leader_color_deferred, NULL);
+#endif // RGB_MATRIX_ENABLE
   leader.success = true;
   leader.successTimer = timer_read();
+}
+uint32_t reset_leader_color_deferred(uint32_t trigger_time, void *cb_arg) {
+  #if defined(RGB_MATRIX_ENABLE) && defined(AP_RGB_INDICATORS_ENABLE)
+    rgb_matrix_mode_noeeprom(old_mode);
+    rgb_matrix_sethsv_noeeprom(old_hsv.h, old_hsv.s, old_hsv.v);
+    return 0;
+  #endif
 }
