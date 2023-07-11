@@ -5,9 +5,10 @@
 #include "print.h"
 leader_t leader = {.isLeading = false, .timedOut = false};
 
+#if defined(RGB_MATRIX_ENABLE) && defined(AP_RGB_INDICATORS_ENABLE)
 static uint8_t old_mode;
 static HSV old_hsv;
-
+#endif
 __attribute__((weak)) bool process_leader_dictionary_secret() { return true; }
 
 void leader_start_user() {
@@ -241,6 +242,6 @@ uint32_t reset_leader_color_deferred(uint32_t trigger_time, void *cb_arg) {
   #if defined(RGB_MATRIX_ENABLE) && defined(AP_RGB_INDICATORS_ENABLE)
     rgb_matrix_mode_noeeprom(old_mode);
     rgb_matrix_sethsv_noeeprom(old_hsv.h, old_hsv.s, old_hsv.v);
-    return 0;
   #endif
+    return 0;
 }

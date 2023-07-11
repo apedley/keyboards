@@ -201,13 +201,13 @@ void qmk_rc_process_command_quantum(qmk_rc_command_t *command) {
   case GET_INFO:
     uint8_t info_data[32];
     memset(info_data, 0, 32);
-    info_data[2] = MATRIX_ROWS;
-    info_data[3] = MATRIX_COLS;
+    info_data[2] = matrix_rows();
+    info_data[3] = matrix_cols();
     info_data[4] = DYNAMIC_KEYMAP_LAYER_COUNT;
     #ifdef SPLIT_KEYBOARD
       info_data[5] = 1;
     #endif
-
+    dprintf("Sending info: %d %d %d %d\n", info_data[2], info_data[3], info_data[4], info_data[5]);
     raw_hid_send(info_data, 32);
     break;
 

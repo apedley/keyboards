@@ -188,7 +188,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
       printf("%d ", data[i]);
     }
     dprintf("\n");
-    raw_hid_send(data, length);
+    // raw_hid_send(data, length);
   }
   qmk_rc_receive(qmk_rc_buffer, QMK_RC_BUFFER_MAX, data, length);
 }
@@ -259,10 +259,10 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
   }
   #endif
   #ifdef RAW_ENABLE
-  uint8_t layer_data[32];
-  layer_data[0] = 1;
-  layer_data[1] = get_highest_layer(state|default_layer_state);
-  raw_hid_send(layer_data, 32);
+  // uint8_t layer_data[32];
+  // layer_data[0] = 1;
+  // layer_data[1] = get_highest_layer(state|default_layer_state);
+  // raw_hid_send(layer_data, 32);
 
   #endif // RAW_ENABLE
 
