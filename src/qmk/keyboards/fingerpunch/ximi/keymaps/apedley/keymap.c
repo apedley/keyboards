@@ -44,7 +44,17 @@ enum custom_keycodes {
 #define HOME_K RSFT_T(KC_K)
 #define HOME_L LALT_T(KC_L)
 #define HOME_SCLN RGUI_T(KC_SCLN)
+// Left-hand bottom row mods
+#define HOME_Z LGUI_T(KC_Z)
+#define HOME_X LALT_T(KC_X)
+#define HOME_C LSFT_T(KC_C)
+#define HOME_V LCTL_T(KC_V)
 
+// Right-hand bottom row mods
+#define HOME_M RCTL_T(KC_M)
+#define HOME_CM RSFT_T(KC_COMM)
+#define HOME_DOT LALT_T(KC_DOT)
+#define HOME_SLSH RGUI_T(KC_SLSH)
 // clang-format off
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -55,8 +65,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * | LSFT |  Z   |  X   |  C   |  V   |  B   |                |  N   |  M   | , <  | . >  | / ?  | RSFT |
  * `------+------+------+------+------+------+------.  ,------+------+------+------+----+--------+------'
- *          | Mute |           |LOWER |Space | LCTL |  | RALT | ENT  |RAISE |           | Mute |         
- *          `------'           `--------------------'  `--------------------'           `------'           
+ *          | Mute |           |LOWER |Space | LCTL |  | RALT | ENT  |RAISE |           | Mute |
+ *          `------'           `--------------------'  `--------------------'           `------'
  *
  *                             | Prev | Play | Next |  |Mouse1|Mouse3|Mouse2|
  *                             `--------------------'  `--------------------'
@@ -79,8 +89,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      | HOME | PGDN | PGUP | END  |      |                | HOME | PGDN | PGUP | END  |      | \ |  |
  * `------+------+------+------+------+------+------.  ,------+------+------+------+----+--------+------'
- *          | BOOT |           |      |      |      |  |      |      |      |           | BOOT |         
- *          `------'           `--------------------'  `--------------------'           `------'           
+ *          | BOOT |           |      |      |      |  |      |      |      |           | BOOT |
+ *          `------'           `--------------------'  `--------------------'           `------'
  *
  *                             |Mode- | RGB  |Mode+ |  | DPI- |Reset | DPI+ |
  *                             `--------------------'  `--------------------'
@@ -100,8 +110,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      | CAPS |  _   |  +   |  {   |  }   |                | HOME | PGDN | PGUP | END  |  "   |  |   |
  * `------+------+------+------+------+------+------.  ,------+------+------+------+----+--------+------'
- *          | BOOT |           |      |      |      |  |      |      |      |           | BOOT |         
- *          `------'           `--------------------'  `--------------------'           `------'           
+ *          | BOOT |           |      |      |      |  |      |      |      |           | BOOT |
+ *          `------'           `--------------------'  `--------------------'           `------'
  *
  *                             | DPI- |Snipe | DPI+ |  |Mode- | RGB  |Mode+ |
  *                             `--------------------'  `--------------------'
@@ -121,8 +131,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * | RGB  |Mode- | Spd- | Hue- | Sat- | Val- |                |      |      |      |      |      |      |
  * `------+------+------+------+------+------+------.  ,------+------+------+------+----+--------+------'
- *          |      |           |      |      |      |  |      |      |      |           |      |         
- *          `------'           `--------------------'  `--------------------'           `------'           
+ *          |      |           |      |      |      |  |      |      |      |           |      |
+ *          `------'           `--------------------'  `--------------------'           `------'
  *
  *                             |      |      |      |  |      |      |      |
  *                             `--------------------'  `--------------------'
@@ -142,8 +152,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      |      |      |      |      |      |                | Num1 | Num2 | Num3 |NumEnt|      |      |
  * `------+------+------+------+------+------+------.  ,------+------+------+------+----+--------+------'
- *          |      |           |      |      |      |  |      |  P0  | Num. |           |      |         
- *          `------'           `--------------------'  `--------------------'           `------'           
+ *          |      |           |      |      |      |  |      |  P0  | Num. |           |      |
+ *          `------'           `--------------------'  `--------------------'           `------'
  *
  *                             |      |      |      |  |      |      |      |
  *                             `--------------------'  `--------------------'
@@ -163,8 +173,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      |      |      |Accel | Zoom |Snipe |                |Mouse4|Mouse5|      |      |      |      |
  * `------+------+------+------+------+------+------.  ,------+------+------+------+----+--------+------'
- *          |      |           |Mouse3|Mouse2|Mouse1|  |Mouse1|Mouse2|Mouse3|           |      |         
- *          `------'           `--------------------'  `--------------------'           `------'           
+ *          |      |           |Mouse3|Mouse2|Mouse1|  |Mouse1|Mouse2|Mouse3|           |      |
+ *          `------'           `--------------------'  `--------------------'           `------'
  *
  *                             |      |      |      |  |      |      |      |
  *                             `--------------------'  `--------------------'
@@ -393,6 +403,20 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+#if defined(AP_KEYMAP_OVERLAY_ENABLE) && defined(RAW_ENABLE)
+  case KC_LSFT:
+  case KC_RSFT:
+    uint8_t shift_data[32];
+    shift_data[0] = 5;
+    if (record->event.pressed) {
+      shift_data[1] = 1;
+    } else {
+      shift_data[1] = 0;
+    }
+    raw_hid_send(shift_data, 32);
+    return true;
+    break;
+#endif // RAW_ENABLE
 #ifdef AUDIO_ENABLE
 #endif // AUDIO_ENABLE
 
