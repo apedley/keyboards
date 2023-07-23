@@ -3,6 +3,7 @@
 #include "leader.h"
 #include "apedley.h"
 #include "print.h"
+#include "raw_hid.h"
 leader_t leader = {.isLeading = false, .timedOut = false};
 
 #if defined(RGB_MATRIX_ENABLE) && defined(AP_RGB_INDICATORS_ENABLE)
@@ -12,6 +13,14 @@ static HSV old_hsv;
 __attribute__((weak)) bool process_leader_dictionary_secret() { return true; }
 
 void leader_start_user() {
+
+#if defined(AP_KEYMAP_OVERLAY_ENABLE) && defined(RAW_ENABLE)
+  uint8_t leader_data[32];
+  leader_data[0] = 6;
+  leader_data[1] = 1;
+  raw_hid_send(leader_data, 32);
+#endif
+
 #if defined(RGB_MATRIX_ENABLE) && defined(AP_RGB_INDICATORS_ENABLE)
   old_mode = rgb_matrix_get_mode();
   old_hsv = rgb_matrix_get_hsv();
@@ -29,6 +38,15 @@ void leader_start_user() {
 void leader_end_user() {
   leader.isLeading = false;
   process_leader_dictionary();
+
+
+#if defined(AP_KEYMAP_OVERLAY_ENABLE) && defined(RAW_ENABLE)
+  uint8_t leader_data[32];
+  leader_data[0] = 6;
+  leader_data[1] = 0;
+  raw_hid_send(leader_data, 32);
+#endif
+
 #ifdef COMBO_ENABLE
   combo_enable();
 #endif

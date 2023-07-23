@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 painter_device_t lcd;
 
 void lv_example_arc_2(void);
-
+void lv_example_label(void);
 #endif
 
 void keyboard_post_init_user(void) {
@@ -157,7 +157,8 @@ void keyboard_post_init_user(void) {
     qp_rect(lcd, 0, 0, 239, 319, 0, 255, 255, true);
 
     if (qp_lvgl_attach(lcd)) {
-        lv_example_arc_2();
+        // lv_example_arc_2();
+        lv_example_label();
     }
 #endif
 }
@@ -189,6 +190,13 @@ void lv_example_arc_2(void) {
     lv_anim_set_repeat_delay(&a, 500);
     lv_anim_set_values(&a, 0, 100);
     lv_anim_start(&a);
+}
+
+void lv_example_label(void) {
+    lv_obj_t* label = lv_label_create(lv_scr_act());
+    lv_label_set_text(label, "Hello world!");
+    // lv_obj_align(label, NULL, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_center(label);
 }
 #endif
 // #ifdef RAW_ENABLE
