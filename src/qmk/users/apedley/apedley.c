@@ -7,7 +7,7 @@
 #endif
 dynamic_macro_t dynamic_macro = {.recording = false};
 
-
+__attribute__((weak)) void matrix_scan_keymap(void) { return; }
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode,
                                                  keyrecord_t *record) {
@@ -164,6 +164,7 @@ void keyboard_post_init_user() {
 }
 
 void matrix_scan_user(void) {
+  matrix_scan_keymap();
   select_word_task();
 }
 

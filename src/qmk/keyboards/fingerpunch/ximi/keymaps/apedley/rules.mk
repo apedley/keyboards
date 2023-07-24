@@ -36,3 +36,5 @@ endif
 AP_KEYMAP_OVERLAY_ENABLE = yes
 AP_RGB_INDICATORS_ENABLE = yes
 RAW_ENABLE = yes
+
+SRC += achordion.c
