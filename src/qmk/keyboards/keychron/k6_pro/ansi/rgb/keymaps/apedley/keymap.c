@@ -87,14 +87,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,  KC_DEL,  _______,
      _______,  UPDIR, KC_UP,   SELWORD,   SELLINE,  _______,  _______,  _______,  DM_RSTP,  DM_REC1,  DM_PLY1,  DM_REC2,  DM_PLY2,  M_XXX1,  KC_END,
      RGB_TOG,  KC_LEFT, KC_DOWN, KC_RGHT, BRACES,  _______,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN1,  KC_BTN2,            _______,  KC_PGDN,
-     _______,  KC_VOLD, KC_VOLU,  KC_MUTE,  _______,  _______,  _______,  KC_WH_D,  KC_WH_U,  KC_INSERT,  KC_DELETE,  _______,  _______,  _______,
+     _______,  KC_VOLD, KC_VOLU,  KC_MUTE,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_WH_D,  KC_WH_U,  KC_INSERT,  KC_DELETE,  _______,  _______,  _______,
      _______,  _______,  _______,                                _______,                      _______,  _______,  _______,  _______,  _______,  _______),
 
 [WIN_FN1] = LAYOUT_ansi_68(
      KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,  KC_DEL,  _______,
      KC_MAKE,  UPDIR, KC_UP,   SELWORD,   SELLINE,  _______,  _______,  _______,  DM_RSTP,  DM_REC1,  DM_PLY1,  DM_REC2,  DM_PLY2,  M_XXX1,  KC_END,
      RGB_TOG,  KC_LEFT, KC_DOWN, KC_RGHT, BRACES,  _______,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN1,  KC_BTN2,  _______,            KC_PGDN,
-     _______,  KC_VOLD, KC_VOLU,  KC_MUTE,  _______,  _______,  _______,  KC_WH_D,  KC_WH_U,  KC_INSERT,  KC_DELETE,  _______,  _______,  _______,
+     _______,  KC_VOLD, KC_VOLU,  KC_MUTE,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_WH_D,  KC_WH_U,  KC_INSERT,  KC_DELETE,  _______,  _______,  _______,
      _______,  _______,  _______,                                _______,                      _______,  _______,  _______,  _______,  _______,  _______),
 
 

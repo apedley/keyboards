@@ -1,6 +1,9 @@
 
 #pragma once
 
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6
+
+
 #ifdef RGBLIGHT_ENABLE
 
   #define WS2812_PIO_USE_PIO1

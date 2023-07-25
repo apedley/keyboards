@@ -32,18 +32,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_BASE] = LAYOUT(
-              KC_NUM,   KC_PSLS,  KC_PAST,  KC_PMNS,  QK_REP,  QK_AREP,
-              KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_VOLU, KC_MNXT,
-              KC_P4,    KC_P5,    KC_P6,    KC_PENT,  KC_MUTE, KC_MPLY,
-    FN2,      KC_P1,    KC_P2,    KC_P3,    KC_RSFT,  KC_VOLD, KC_MPRV,
-    FN1,      KC_RCTL, KC_P0,     KC_PDOT,  KC_RALT,  FN1,     FN2
+              KC_NUM,   KC_PSLS,  KC_PAST,  KC_PMNS,  KC_VOLU,  KC_MNXT,
+              KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_MUTE,  KC_MPLY,
+              KC_P4,    KC_P5,    KC_P6,    KC_PENT,  KC_VOLD,  KC_MPRV,
+    KC_NO,    KC_P1,    KC_P2,    KC_P3,    KC_RSFT,  KC_PGUP,  FN2,
+    FN1,      FN2,      KC_P0,    KC_PDOT,  KC_RCTL,  KC_PGDN,  FN1
   ),
   [_FN] = LAYOUT(
-              KC_CAPS, _______, _______, _______, _______, KC_HOME,
-              KC_BTN2, KC_MS_U, KC_BTN3, KC_WH_U, KC_WFWD, KC_PGUP,
-              KC_MS_L, KC_BTN1, KC_MS_R, KC_WH_D, KC_WREF, KC_PGDN,
-    _______,  KC_BTN4, KC_MS_D, KC_BTN5, _______, KC_WBAK, KC_END,
-    _______,  _______, _______, _______, _______, _______, _______
+              KC_CAPS, _______, _______, _______, _______, _______,
+              KC_BTN2, KC_MS_U, KC_BTN3, KC_WH_U, _______, _______,
+              KC_MS_L, KC_BTN1, KC_MS_R, KC_WH_D, _______, _______,
+    _______,  KC_BTN4, KC_MS_D, KC_BTN5, KC_WFWD, KC_HOME, _______,
+    _______,  _______, _______, _______, KC_WREF, KC_END,  _______
   ),
   [_FN2] = LAYOUT(
               RGB_MOD, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,
