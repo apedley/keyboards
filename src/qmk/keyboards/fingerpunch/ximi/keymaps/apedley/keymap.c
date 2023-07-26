@@ -1,4 +1,3 @@
-#include "achordion.h"
 #include "apedley.h"
 #include "qmk_rc.h"
 #include "print.h"
@@ -45,17 +44,7 @@ enum custom_keycodes {
 #define HOME_K RSFT_T(KC_K)
 #define HOME_L LALT_T(KC_L)
 #define HOME_SCLN RGUI_T(KC_SCLN)
-// Left-hand bottom row mods
-#define HOME_Z LGUI_T(KC_Z)
-#define HOME_X LALT_T(KC_X)
-#define HOME_C LSFT_T(KC_C)
-#define HOME_V LCTL_T(KC_V)
 
-// Right-hand bottom row mods
-#define HOME_M RCTL_T(KC_M)
-#define HOME_CM RSFT_T(KC_COMM)
-#define HOME_DOT LALT_T(KC_DOT)
-#define HOME_SLSH RGUI_T(KC_SLSH)
 // clang-format off
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -66,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * | LSFT |  Z   |  X   |  C   |  V   |  B   |                |  N   |  M   | , <  | . >  | / ?  | RSFT |
  * `------+------+------+------+------+------+------.  ,------+------+------+------+----+--------+------'
- *          | Mute |           |LOWER |Space | LCTL |  | RALT | ENT  |RAISE |           | Mute |
+ *          | Mute |           |LOWER | LCTL |Space |  | ENT  | RALT |RAISE |           | Mute |
  *          `------'           `--------------------'  `--------------------'           `------'
  *
  *                             | Prev | Play | Next |  |Mouse1|Mouse3|Mouse2|
@@ -84,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 /* ,-----------------------------------------.                ,-----------------------------------------.
- * | ` ~  |  1   |  2   |  3   |  4   |  5   |                |  6   |  7   |  8   |  9   |  0   | DEL  |
+ * | ` ~  |  !   |  @   |  #   |  $   |  %   |                |  ^   |  &   |  *   |  (   |  )   | - _  |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |UPDIR | LEFT | DOWN |  UP  |RIGHT |SELWOR|                |      | - _  | = +  |  [   |  ]   | = +  |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -105,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 RGB_RMOD, RGB_TOG,RGB_MOD,         FP_POINT_DPI_DN, FP_POINT_DPI_RESET,FP_POINT_DPI_UP
     ),
 /* ,-----------------------------------------.                ,-----------------------------------------.
- * | F11  |  F1  |  F2  |  F3  |  F4  |  F5  |                |  F6  |  F7  |  F8  |  F9  | F10  | F12  |
+ * | ` ~  |  1   |  2   |  3   |  4   |  5   |                |  6   |  7   |  8   |  9   |  0   | DEL  |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      |      |      |      |      |      |                |      |      |      |  (   |  )   |Sec 1 |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -132,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * | RGB  |Mode- | Spd- | Hue- | Sat- | Val- |                |      |      |      |      |      |      |
  * `------+------+------+------+------+------+------.  ,------+------+------+------+----+--------+------'
- *          |      |           |      |      |      |  |      |      |      |           |      |
+ *          | BOOT |           |      |      |      |  |      |      |      |           |      |
  *          `------'           `--------------------'  `--------------------'           `------'
  *
  *                             |      |      |      |  |      |      |      |
@@ -143,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,       KC_F8,   KC_F9,   KC_F10,   KC_F12,
     _______, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI,    FP_ACCEL_TOG, EE_CLR, _______, _______, _______, _______,
     RGB_TOG, RGB_RMOD,RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD,    _______,  _______,    _______, _______, _______, _______,
-                  _______,     _______, _______, _______,   _______, _______, _______,        _______,
+                  QK_BOOT,     _______, _______, _______,   _______, _______, _______,        _______,
                                _______, _______, _______,   _______, _______, _______
     ),
 /* ,-----------------------------------------.                ,-----------------------------------------.
@@ -185,13 +174,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, _______, _______, _______, _______,       _______, _______, _______, _______,  _______,  _______,
     _______,  _______, _______, _______, _______, _______,       _______, _______, _______, _______,  _______,  _______,
     _______,  _______, _______, FP_ACCEL_TOG, FP_ZOOM_TOG, FP_SNIPE_TOG,       KC_BTN4, KC_BTN5, _______, _______,  _______,  _______,
-                _______,        _______, _______, _______,       KC_BTN1, KC_BTN2, KC_BTN3,       _______,
+                _______,        KC_BTN3, KC_BTN2, KC_BTN1,       KC_BTN1, KC_BTN2, KC_BTN3,       _______,
                                 _______, _______, _______,       _______, _______, _______
     )
 };
 // clang-format on
 
+#ifdef QUANTUM_PAINTER_ENABLE
 
+painter_device_t lcd;
+
+void lv_example_arc_2(void);
+
+#endif
 
 void keyboard_post_init_keymap(void) {
   // Customise these values to desired behaviour
@@ -200,9 +195,49 @@ void keyboard_post_init_keymap(void) {
   // debug_keyboard=true;
   // debug_mouse = true;
 
+#ifdef QUANTUM_PAINTER_ENABLE
 
+  // pimoroni_trackball_set_rgbw(0, 0, 254, 0);
+  lcd = qp_gc9a01_make_spi_device(240, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN,
+                                  4, 0);
+  qp_init(lcd, QP_ROTATION_0);
+  qp_rect(lcd, 0, 0, 239, 319, 0, 255, 255, true);
+
+  if (qp_lvgl_attach(lcd)) {
+    lv_example_arc_2();
+  }
+#endif
 }
 
+#ifdef QUANTUM_PAINTER_ENABLE
+
+static void set_angle(void *obj, int32_t v) { lv_arc_set_value(obj, v); }
+
+/**
+ * Create an arc which acts as a loader.
+ */
+void lv_example_arc_2(void) {
+  /*Create an Arc*/
+  lv_obj_t *arc = lv_arc_create(lv_scr_act());
+  lv_arc_set_rotation(arc, 270);
+  lv_arc_set_bg_angles(arc, 0, 360);
+  lv_obj_remove_style(arc, NULL,
+                      LV_PART_KNOB); /*Be sure the knob is not displayed*/
+  lv_obj_clear_flag(arc,
+                    LV_OBJ_FLAG_CLICKABLE); /*To not allow adjusting by click*/
+  lv_obj_center(arc);
+
+  static lv_anim_t a;
+  lv_anim_init(&a);
+  lv_anim_set_var(&a, arc);
+  lv_anim_set_exec_cb(&a, set_angle);
+  lv_anim_set_time(&a, 1000);
+  lv_anim_set_repeat_count(&a, LV_ANIM_REPEAT_INFINITE); /*Just for the demo*/
+  lv_anim_set_repeat_delay(&a, 500);
+  lv_anim_set_values(&a, 0, 100);
+  lv_anim_start(&a);
+}
+#endif
 #ifdef RAW_ENABLE
 
 #define QMK_RC_BUFFER_MAX 64
@@ -303,7 +338,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 //     }
 //     oled_advance_page(true);
 // }
-// static void render_logo(void) {{}
+// static void render_logo(void) {
 //     static const char PROGMEM raw_logo[] = {
 //         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 //         0x00, 0x00, 0x00, 0xe0, 0x1c, 0x02, 0x05, 0x02, 0x24, 0x04, 0x04,
@@ -328,17 +363,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 
 #endif // OLED_ENABLE
 
-// void matrix_scan_user(void) {
-//   achordion_task();
-// }
-
-// void matrix_scan_keymap(void) {
-//   achordion_task();
-// }
-
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  // if (!process_achordion(keycode, record)) { return false; }
-
   switch (keycode) {
   case LOWER:
     if (record->event.pressed) {
@@ -368,40 +393,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-#if defined(AP_KEYMAP_OVERLAY_ENABLE) && defined(RAW_ENABLE)
-  case KC_LSFT:
-  case KC_RSFT:
-    uint8_t shift_data[32];
-    shift_data[0] = 5;
-    if (record->event.pressed) {
-      shift_data[1] = 1;
-    } else {
-      shift_data[1] = 0;
-    }
-    raw_hid_send(shift_data, 32);
-    return true;
-    break;
-#endif // RAW_ENABLE
 #ifdef AUDIO_ENABLE
 #endif // AUDIO_ENABLE
 
   }
   return true;
-}
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t* record) {
-  // If you quickly hold a tap-hold key after tapping it, the tap action is
-  // repeated. Key repeating is useful e.g. for Vim navigation keys, but can
-  // lead to missed triggers in fast typing. Here, returning true means we
-  // instead want to "force hold" and disable key repeating.
-  switch (keycode) {
-    // Repeating is useful for Vim navigation keys.
-    case HOME_J:
-    case HOME_K:
-    case HOME_L:
-    // Repeating Z is useful for spamming undo.
-    case HOME_Z:
-      return false;  // Enable key repeating.
-    default:
-      return true;  // Otherwise, force hold and disable key repeating.
-  }
 }
