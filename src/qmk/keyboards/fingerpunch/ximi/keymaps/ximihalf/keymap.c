@@ -1,5 +1,6 @@
 // #include "apedley.h"
 // #include "qmk_rc.h"
+// #include "rgb.h"
 #include <qp.h>
 #include "print.h"
 
@@ -107,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_RAISE] = LAYOUT_ximi(
     _______,  _______, _______,  _______,  _______, _______,    _______, _______, _______, _______, _______, _______,
     _______,  _______, _______,  _______,  _______, _______,    _______, _______, _______, _______, _______, _______,
-    _______,  _______, _______,  QK_RBT,  KC_1, _______,    _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______,  RGB_VAD,  KC_1, RGB_VAI,    _______, _______, _______, _______, _______, _______,
                  _______,       _______,  _______, _______,       _______, _______, _______,        _______,
                                 _______, _______, _______,         _______, _______, _______
     ),
@@ -143,6 +144,30 @@ void lv_example_arc_2(void);
 void lv_example_label(void);
 #endif
 
+
+// void rgb_matrix_underglow_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_min, uint8_t led_max) {
+//   dprintf("setting under glow\n");
+//     HSV hsv = {hue, sat, val};
+//   if (hsv.v > rgb_matrix_get_val()) {
+//     hsv.v = rgb_matrix_get_val();
+//   }
+
+//   RGB rgb = hsv_to_rgb(hsv);
+
+//   for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+//       if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW) &&
+//                       i >= led_min &&
+//                       i < led_max &&
+//                       i != NO_LED) {
+//           RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
+//       }
+//   }
+// }
+
+// void rgb_matrix_underglow_all(uint8_t hue, uint8_t sat, uint8_t val) {
+//     rgb_matrix_underglow_helper(hue, sat, val, 0, RGB_MATRIX_LED_COUNT);
+// }
+
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
     debug_enable = true;
@@ -161,6 +186,8 @@ void keyboard_post_init_user(void) {
         lv_example_label();
     }
 #endif
+
+// rgb_matrix_underglow_all(80, 200, 100);
 }
 
 #ifdef QUANTUM_PAINTER_ENABLE
@@ -358,3 +385,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     }
     return true;
 }
+
+// layer_state_t layer_state_set_user(layer_state_t state) {
+//   switch (get_highest_layer(state)) {
+//   case _BASE:
+//     rgb_matrix_underglow_all(80, 200, 100);
+//     break;
+//   case _RAISE:
+//     rgb_matrix_underglow_all(140, 200, 100);
+//     break;
+//   }
+
+//   return state;
+
+// }
