@@ -234,6 +234,18 @@ void process_leader_dictionary(void) {
   } else if (leader_sequence_two_keys(KC_K, KC_SLSH)) {
     // Leader, K, / => QMK keycodes
     SEND_STRING("https://docs.qmk.fm/#/keycodes");
+
+    /*
+       Keyboard Functions
+    */
+
+  } else if (leader_sequence_two_keys(KC_R, KC_B)) {
+    // Leader, r, b => reboot keyboard
+    soft_reset_keyboard();
+  } else if (leader_sequence_two_keys(KC_B, KC_L)) {
+    // Leader, b, l => bootloader
+    reset_keyboard();
+
   } else if (process_leader_dictionary_secret() &&
              leader_sequence_timed_out()) {
 

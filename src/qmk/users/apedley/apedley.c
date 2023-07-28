@@ -120,6 +120,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     #endif
     return false;
+
+    case AP_TNXT:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_TAP(X_TAB)));
+      }
+      return false;
+    case AP_TPRV:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_TAB))));
+      }
+      return false;
+    case AP_TCLS:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_TAP(X_W)));
+      }
+      return false;
   }
   return process_record_keymap(keycode, record) &&
          process_record_secrets(keycode, record);

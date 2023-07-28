@@ -53,6 +53,9 @@ enum user_custom_keycodes {
   M_XXX2,
   M_XXX3,
   SEND_RAW_TEST,
+  AP_TNXT,
+  AP_TPRV,
+  AP_TCLS,
   NEW_SAFE_RANGE,
 };
 

@@ -72,7 +72,14 @@ The leader key is set to the upper right button and also as a combo on `,` and `
 | `LDR LDR LDR` | Printscreen | n/a |
 | `LDR SPACE` | Shift+Space | n/a |
 | `LDR W` | OS: Close current file/tab | n/a |
-| `LDR Q` | OS: Close current application | n/a |
+
+
+### Keyboard Functions
+
+| Sequence | Output | Notes
+| :--- | :--- | :--- |
+| `LDR R B` | Reboot Keyboard | n/a |
+| `LDR B L` | Bootloader | n/a |
 
 ## Caps Word
 
