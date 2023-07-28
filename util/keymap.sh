@@ -13,7 +13,7 @@ VIZ_CONFIG=$XDG_CONFIG_HOME/keymapviz.conf
 # keymapviz -k $KEYBOARD $KEYMAP_DIR/$KEYMAP_FILE -c $VIZ_CONFIG -r
 
 keymapviz -k $KEYBOARD $KEYMAP_DIR/$KEYMAP_FILE -c $VIZ_CONFIG -t fancy -o $KEYMAP_DIR/$KEYMAP_TXT
-paps -o $KEYMAP_DIR/km.pdf --landscape $KEYMAP_DIR/$KEYMAP_TXT
+# paps -o $KEYMAP_DIR/km.pdf --landscape $KEYMAP_DIR/$KEYMAP_TXT
 
 echo To replace the keymap in the comments, run:
 echo "keymapviz -k ximi $KEYMAP_DIR/$KEYMAP_FILE -c $VIZ_CONFIG -r"
