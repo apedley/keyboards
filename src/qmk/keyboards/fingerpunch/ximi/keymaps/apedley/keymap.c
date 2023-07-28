@@ -399,3 +399,40 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_UNDERGLOW_SOLID_COLOR)
+
+bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
+  HSV hsv = {
+    #ifdef RGB_MATRIX_UNDERGLOW_HUE
+      .h = RGB_MATRIX_UNDERGLOW_HUE,
+    #else
+      .h = 191,
+    #endif
+      .s = 255,
+    #ifdef RGB_MATRIX_UNDERGLOW_VAL
+      .v = RGB_MATRIX_UNDERGLOW_VAL,
+    #else
+      .v = 255,
+    #endif
+  };
+
+//   #ifdef RGB_MATRIX_UNDERGLOW_MAXIMUM_BRIGHTNESS
+//     hsv.v = RGB_MATRIX_UNDERGLOW_MAXIMUM_BRIGHTNESS;
+//   #else
+
+    if (hsv.v > rgb_matrix_get_val()) {
+        hsv.v = rgb_matrix_get_val();
+    }
+//   #endif
+
+  RGB rgb = hsv_to_rgb(hsv);
+
+  for (uint8_t i = led_min; i < led_max; i++) {
+            if (g_led_config.flags[i] & LED_FLAG_UNDERGLOW) {
+                rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+            }
+        }
+  return false;
+}
+#endif // RGB_MATRIX_ENABLE && RGB_MATRIX_UNDERGLOW_SOLID_COLOR
