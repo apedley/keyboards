@@ -14,6 +14,7 @@ enum combos {
     // XC_LDR,
     // ZX_UNDO,
     // XZ_REDO,
+    TGB_BOOT,
     COMBO_LENGTH
 };
 
@@ -29,6 +30,7 @@ const uint16_t PROGMEM comma_dot_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
 // const uint16_t PROGMEM x_c_combo[] = {KC_X, KC_C, COMBO_END};
 // const uint16_t PROGMEM z_x_combo[] = {KC_Z, KC_X, COMBO_END};
 // const uint16_t PROGMEM x_z_combo[] = {KC_X, KC_Z, COMBO_END};
+const uint16_t PROGMEM tgb_combo[] = {KC_T, KC_G, KC_B, COMBO_END};
 
 combo_t key_combos[] = {
     // [QW_ESC] = COMBO(qw_combo, KC_ESC),
@@ -41,6 +43,7 @@ combo_t key_combos[] = {
     // [XC_LDR] = COMBO_ACTION(x_c_combo),
     // [ZX_UNDO] = COMBO_ACTION(z_x_combo),
     // [XZ_REDO] = COMBO_ACTION(x_z_combo)
+    [TGB_BOOT] = COMBO_ACTION(tgb_combo)
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -69,5 +72,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     //     tap_code16(KC_BSPC);
     //   }
     //   break;
+    case TGB_BOOT:
+      if (pressed) {
+        // tap_code16(LCTL(KC_B));
+        reset_keyboard();
+      }
+      break;
   }
 }
