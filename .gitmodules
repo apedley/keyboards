@@ -11,3 +11,4 @@
 	path = vial
 	url = git@github.com:apedley/vial-qmk.git
 	branch = vial-original
+  ignore = dirty
