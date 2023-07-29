@@ -52,13 +52,14 @@
 #endif /// RGB_MATRIX_ENABLE
 
 #ifdef ENCODER_ENABLE
-  #undef ENCODERS_PAD_A
-  #undef ENCODERS_PAD_B
+  // #undef ENCODERS_PAD_A
+  // #undef ENCODERS_PAD_B
 
-  #define ENCODERS_PAD_A { GP8 }
-  #define ENCODERS_PAD_B { GP7 }
+  // #define ENCODERS_PAD_A { GP8 }
+  // #define ENCODERS_PAD_B { GP7 }
   #define FP_ENC_0_LAYER_SCROLL_WHEEL 1
-  #define FP_ENC_0_LAYER_DPI_POINTING 2
+  #define FP_ENC_0_LAYER_SUPER_CTRL_TAB 2
+  #define FP_ENC_0_LAYER_DPI_POINTING 5
   #define FP_ENC_0_LAYER_ZOOM 3
   #define FP_ENC_0_LAYER_PGUP_PGDN 6
   // #undef FP_ENC_1_LAYER_SUPER_TAB
