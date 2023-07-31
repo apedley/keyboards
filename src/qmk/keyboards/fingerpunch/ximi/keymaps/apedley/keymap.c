@@ -32,6 +32,7 @@ enum custom_keycodes {
 // #define LOWER LT(_LOWER, KC_TAB)
 // #define RAISE LT(_RAISE, KC_BSLS)
 #define RAISEZ LT(_RAISE, KC_Z)
+#define LOWRQT LT(_LOWER, KC_QUOT)
 #define NUMPAD MO(_NUMPAD)
 
 // Left-hand home row mods
@@ -47,6 +48,7 @@ enum custom_keycodes {
 #define SFT_J RSFT_T(KC_J)
 #define HOME_K RSFT_T(KC_K)
 #define ALT_K RALT_T(KC_K)
+#define CTL_K RCTL_T(KC_K)
 #define HOME_L LALT_T(KC_L)
 #define HOME_SCLN RGUI_T(KC_SCLN)
 
@@ -70,9 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT_ximi(
     QK_GESC,   KC_Q,     KC_W,   KC_E,     KC_R,   KC_T,            KC_Y,    KC_U,    KC_I,   KC_O,   KC_P,      KC_BSPC,
-    KC_TAB,    HOME_A,    KC_S,   CTL_D,   SFT_F, KC_G,            KC_H,    SFT_J,  ALT_K,    KC_L,   HOME_SCLN, KC_QUOT,
+    KC_TAB,    HOME_A,    HOME_S,   CTL_D,   SFT_F, KC_G,            KC_H,    SFT_J,  CTL_K,    HOME_L,   HOME_SCLN, LOWRQT,
     KC_LSFT,  RAISEZ,     KC_X,   KC_C,     KC_V,   KC_B,            KC_N,    KC_M,    KC_COMM,  KC_DOT, KC_SLSH,   KC_RSFT,
-                KC_MUTE,        LOWER,   KC_SPC, KC_LALT,          KC_RCTL,  KC_ENT, RAISE,          KC_MUTE,
+                KC_MUTE,        LOWER,   KC_SPC, KC_RCTL,          KC_LALT,  KC_ENT, RAISE,          KC_MUTE,
                                 KC_MPRV, KC_MPLY, KC_MNXT,        KC_BTN5, KC_BTN3, KC_BTN4
     ),
 
