@@ -7,6 +7,11 @@
 #endif
 
 #include QMK_KEYBOARD_H
+#ifdef AUDIO_ENABLE
+  float sonic_ring_song[][2] = SONG(SONIC_RING);
+  float sonic_ring_reverse_song[][2] = SONG(SONIC_RING_REVERSE);
+#endif
+
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -24,6 +29,9 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   MOUSE,
+  THUMBUNDO,
+  THUMBREDO,
+  THUMBREDOY
 };
 
 // #define LOWER LT(_LOWER, KC_TAB)
@@ -72,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,    HOME_A,    HOME_S,   CTL_D,   SFT_F, KC_G,            KC_H,    SFT_J,  CTL_K,    HOME_L,   HOME_SCLN, LOWRQT,
     KC_LSFT,  RAISEZ,     KC_X,   KC_C,     KC_V,   KC_B,            KC_N,    KC_M,    KC_COMM,  KC_DOT, KC_SLSH,   KC_RSFT,
                 KC_MUTE,        LOWER,   KC_SPC, KC_RCTL,          KC_LALT,  KC_ENT, RAISE,          KC_MUTE,
-                                KC_MPRV, KC_MPLY, KC_MNXT,        KC_BTN5, KC_BTN3, KC_BTN4
+                                KC_MPRV, KC_MPLY, KC_MNXT,        THUMBREDO, THUMBREDOY, THUMBUNDO
     ),
 
 
@@ -253,12 +261,44 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+  case THUMBUNDO:
+    if (record->event.pressed) {
+      tap_code16(LCTL(KC_Z));
+    }
+    return false;
+    break;
+  case THUMBREDO:
+    if (record->event.pressed) {
+      tap_code16(LCTL(LSFT(KC_Z)));
+    }
+    return false;
+    break;
+  case THUMBREDOY:
+    if (record->event.pressed) {
+      tap_code16(LCTL(KC_Y));
+    }
+    return false;
+    break;
 #ifdef AUDIO_ENABLE
 #endif // AUDIO_ENABLE
 
   }
   return true;
 }
+
+#ifdef AUDIO_ENABLE
+void caps_word_set_user(bool active) {
+    if (active) {
+        PLAY_SONG(sonic_ring_song);
+        // Do something when Caps Word activates.
+    } else {
+        // Do something when Caps Word deactivates.
+        PLAY_SONG(sonic_ring_reverse_song);
+    }
+}
+
+#endif // AUDIO_ENABLE
+
 
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_UNDERGLOW_SOLID_COLOR)
 
