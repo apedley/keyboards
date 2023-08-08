@@ -81,12 +81,12 @@
 #define SONIC_RING \
     E__NOTE(_E6),  \
     E__NOTE(_G6),  \
-    HD_NOTE(_C7),
+    H__NOTE(_C7),
 
 #define SONIC_RING_REVERSE \
     E__NOTE(_C7),  \
     E__NOTE(_G6),  \
-    HD_NOTE(_E6),
+    H__NOTE(_E6),
 
 #define ZELDA_PUZZLE \
     Q__NOTE(_G5),     \
