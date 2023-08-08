@@ -277,14 +277,14 @@ bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     #endif
   };
 
-//   #ifdef RGB_MATRIX_UNDERGLOW_MAXIMUM_BRIGHTNESS
-//     hsv.v = RGB_MATRIX_UNDERGLOW_MAXIMUM_BRIGHTNESS;
-//   #else
+  #ifdef RGB_MATRIX_UNDERGLOW_MAXIMUM_BRIGHTNESS
+    hsv.v = 255;
+  #else
 
     if (hsv.v > rgb_matrix_get_val()) {
         hsv.v = rgb_matrix_get_val();
     }
-//   #endif
+  #endif
 
   RGB rgb = hsv_to_rgb(hsv);
 
