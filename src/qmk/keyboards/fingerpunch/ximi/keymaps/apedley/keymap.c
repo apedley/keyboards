@@ -8,9 +8,6 @@
 
 #include QMK_KEYBOARD_H
 
-// float sonic_ring_song[][2] = SONG(SONIC_RING);
-
-
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
@@ -181,7 +178,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MOUSE] =  LAYOUT_ximi(
     _______,  _______, _______, _______, _______, _______,        KC_BTN1, KC_BTN2,      KC_WH_D, KC_WH_U, FP_SCROLL_DPI_UP, FP_SNIPE_DPI_UP,
     _______,  _______, _______, _______, _______, FP_ZOOM_TOG,    _______, _______, _______, _______, FP_SCROLL_DPI_DN, FP_SNIPE_DPI_DN,
-    // _______,  _______, _______, _______, _______, FP_ZOOM_TOG,    FP_SNIPE_TOG, _______, _______, FP_SCROLL_DPI_DN, FP_SNIPE_DPI_DN, FP_POINT_DPI_DN,
     _______,  _______, _______, AP_TCLS, AP_TPRV, AP_TNXT,        KC_BTN4, KC_BTN5,      _______, _______,  FP_POINT_DPI_DN, FP_POINT_DPI_UP,
                 _______,        _______, _______, _______,        _______, FP_SNIPE_TOG, _______,      _______,
                                 _______, _______, _______,        _______, _______, _______
