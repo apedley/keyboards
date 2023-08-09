@@ -27,8 +27,8 @@ __attribute__((weak)) void keyboard_post_init_keymap(void) {
   return;
 }
 
-void dynamic_macro_record_start_user(void) { dynamic_macro.recording = true; }
-// void dynamic_macro_record_start_user(int8_t direction) { dynamic_macro.recording = true; }
+// void dynamic_macro_record_start_user(void) { dynamic_macro.recording = true; }
+void dynamic_macro_record_start_user(int8_t direction) { dynamic_macro.recording = true; }
 
 void dynamic_macro_record_end_user(int8_t direction) {
   dynamic_macro.recording = false;
