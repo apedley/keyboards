@@ -244,6 +244,35 @@ int RGB_current_mode;
 
   // #endif
 
+// #ifdef RAW_ENABLE
+
+// #define QMK_RC_BUFFER_MAX 64
+// uint8_t qmk_rc_buffer[QMK_RC_BUFFER_MAX] = {};
+
+// void raw_hid_receive(uint8_t *data, uint8_t length) {
+//   qmk_rc_receive(qmk_rc_buffer, QMK_RC_BUFFER_MAX, data, length);
+// }
+// #endif
+
+
+// layer_state_t layer_state_set_keymap(layer_state_t state) {
+//   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+
+//   #ifdef RAW_ENABLE
+//   uint8_t layer_data[32];
+//   layer_data[0] = 1;
+//   layer_data[1] = get_highest_layer(state|default_layer_state);
+//   raw_hid_send(layer_data, 32);
+
+//   #endif // RAW_ENABLE
+
+//   #ifdef POINTING_DEVICE_ENABLE
+
+//   #endif
+// //   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+//   return state;
+// }
+
 layer_state_t layer_state_set_keymap(layer_state_t state) {
   #ifdef POINTING_DEVICE_ENABLE
 
@@ -258,11 +287,13 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
       break;
   }
   #endif
+
+
   #ifdef RAW_ENABLE
-  // uint8_t layer_data[32];
-  // layer_data[0] = 1;
-  // layer_data[1] = get_highest_layer(state|default_layer_state);
-  // raw_hid_send(layer_data, 32);
+  uint8_t layer_data[32];
+  layer_data[0] = 1;
+  layer_data[1] = get_highest_layer(state|default_layer_state);
+  raw_hid_send(layer_data, 32);
 
   #endif // RAW_ENABLE
 
